@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Detail Laporan - Iqbal Miftahul Fikri</title>
+
+    <!-- Icon -->
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        body{
+            background-color: #121212;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* HEADER */
+        .report-header{
+            background:
+            linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+            url('images/BgUnand.jpg');
+
+            background-size: cover;
+            background-position: center;
+
+            padding: 120px 0 60px 0;
+            margin-top: -76px;
+        }
+
+        /* CONTENT BOX */
+        .content-box{
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-top: 5px solid #ffc107;
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        /* PENDAHULUAN */
+        .pendahuluan-text{
+            line-height: 1.8;
+            text-align: justify;
+            color: white;
+            font-size: 16px;
+        }
+
+        .pendahuluan-text p{
+            margin-bottom: 30px;
+        }
+
+        /* TUJUAN */
+        .tujuan-list{
+            line-height: 1.8;
+            text-align: justify;
+            padding-left: 22px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .tujuan-list li{
+            margin-bottom: 14px;
+        }
+
+        /* ALAT */
+        .alat-section{
+            line-height: 1.8;
+            text-align: justify;
+            font-size: 16px;
+            color: white;
+        }
+
+        .alat-list{
+            padding-left: 40px;
+        }
+
+        .alat-list li{
+            margin-bottom: 2px;
+        }
+
+        /* LANGKAH */
+        .langkah-section{
+            line-height: 1.8;
+            text-align: justify;
+            font-size: 16px;
+            color: white;
+        }
+
+        .langkah-list{
+            padding-left: 20px;
+        }
+
+        .langkah-list li{
+            margin-bottom: 30px;
+        }
+
+        .syarat-list{
+            list-style-type: "- ";
+            padding-left: 20px;
+            margin-top: 20px;
+        }
+
+        /* DETAIL SUBBAB LAPORAN */
+        .detail-subsection{
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-left: 4px solid #ffc107;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .detail-subsection h4{
+            color: #ffc107;
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .detail-subsection h5{
+            color: #ffc107;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 28px 0 14px;
+        }
+
+        .detail-subsection p{
+            color: #ffffff;
+            font-size: 19px;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .detail-subsection ul{
+            color: #ffffff;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        .detail-subsection .dash-list{
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .detail-subsection .dash-list li{
+            position: relative;
+            padding-left: 22px;
+        }
+
+        .detail-subsection .dash-list li::before{
+            content: "-";
+            position: absolute;
+            left: 0;
+        }
+
+        .detail-subsection li{
+            margin-bottom: 8px;
+        }
+
+        .image-placeholder{
+            min-height: 320px;
+            background-color: #121212;
+            border: 2px dashed #555;
+            color: #bdbdbd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            font-size: 18px;
+            margin: 18px 0 26px;
+        }
+
+        .report-image{
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 18px 0 26px;
+            border: 1px solid #333;
+            background-color: #121212;
+        }
+
+        .report-image.small{
+            width: auto;
+            max-width: 260px;
+        }
+
+        .report-image.medium{
+            width: auto;
+            max-width: 560px;
+        }
+
+        .report-image.wide{
+            width: 100%;
+        }
+
+        .image-placeholder.small{
+            min-height: 92px;
+            max-width: 260px;
+        }
+
+        .image-placeholder.medium{
+            min-height: 210px;
+            max-width: 520px;
+        }
+
+        .image-placeholder.wide{
+            min-height: 260px;
+            width: 100%;
+        }
+
+        .command-text{
+            color: #ffc107;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 16px;
+            margin-bottom: 18px;
+            background-color: #121212;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 12px 14px;
+        }
+
+        .conclusion-text p{
+            line-height: 1.8;
+            text-align: justify;
+            color: #ffffff;
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 576px){
+            .content-box{
+                padding: 20px;
+            }
+
+            .detail-subsection{
+                padding: 18px;
+            }
+
+            .detail-subsection h4{
+                font-size: 20px;
+            }
+
+            .detail-subsection p{
+                font-size: 16px;
+            }
+
+            .image-placeholder{
+                min-height: 220px;
+                font-size: 15px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="index.html">
+
+                <img src="images/LogoBallFord.png"
+                     alt="Logo"
+                     width="40"
+                     height="40"
+                     class="rounded-circle border border-warning">
+
+                Iqbal M.F.
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            About
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="portofolio.html">
+                            Portfolio
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="report.html">
+                            Report
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="kontak.html">
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- HEADER -->
+    <header class="report-header text-center">
+
+        <div class="container">
+
+            <span class="badge bg-primary mb-3 px-3 py-2 fs-6">
+                Pemrograman Web
+            </span>
+
+            <h1 class="text-white fw-bold">
+                Instalasi dan Konfigurasi Laravel
+            </h1>
+
+            <p class="text-white-50 mt-3">
+                Dokumentasi Praktikum Pengembangan Aplikasi Web
+            </p>
+
+        </div>
+
+    </header>
+
+    <!-- CONTENT -->
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-10">
+
+                <!-- BUTTON BACK -->
+                <a href="report.html"
+                   class="btn btn-outline-light mb-4">
+
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Kembali ke Halaman Report
+                </a>
+
+                <!-- CONTENT BOX -->
+                <div class="content-box shadow-lg">
+
+                    <!-- PENDAHULUAN -->
+                    <h3 class="text-warning mb-3">
+                        A. Pendahuluan
+                    </h3>
+
+                    <div class="pendahuluan-text">
+
+                        <p>
+                            Laravel merupakan salah satu framework PHP yang paling populer
+                            saat ini dan dikembangkan oleh Taylor Otwell dengan tujuan untuk
+                            menyederhanakan proses pengembangan aplikasi web.
+                        </p>
+
+                        <p>
+                            Dalam ekosistem pengembangan modern, penggunaan Laravel tidak
+                            dapat dilepaskan dari berbagai alat pendukung yang harus
+                            dikonfigurasi dengan tepat sebelum memulai sebuah proyek.
+                        </p>
+
+                    </div>
+
+                    <!-- TUJUAN -->
+                    <h3 class="text-warning mb-3 mt-4">
+                        B. Tujuan
+                    </h3>
+
+                    <p class="text-white">
+                        Tujuan dari praktikum ini adalah:
+                    </p>
+
+                    <ol class="tujuan-list">
+
+                        <li>
+                            Mahasiswa mampu melakukan proses instalasi framework Laravel.
+                        </li>
+
+                        <li>
+                            Mahasiswa dapat membuat project Laravel baru.
+                        </li>
+
+                        <li>
+                            Mahasiswa memahami struktur dasar Laravel.
+                        </li>
+
+                        <li>
+                            Mahasiswa memahami konsep MVC pada Laravel.
+                        </li>
+
+                    </ol>
+
+                    <!-- ALAT -->
+                    <h3 class="text-warning mb-4 mt-4">
+                        C. Alat
+                    </h3>
+
+                    <div class="alat-section">
+
+                        <ol class="alat-list">
+
+                            <li>Computer atau laptop</li>
+
+                            <li>XAMPP</li>
+
+                            <li>Visual Studio Code</li>
+
+                            <li>Composer, GIT, Node JS, NPM</li>
+
+                        </ol>
+
+                    </div>
+
+                    <!-- LANGKAH -->
+                    <h3 class="text-warning mb-4 mt-4">
+                        D. Langkah-Langkah
+                    </h3>
+
+                    <div class="langkah-section">
+                        <div class="detail-subsection">
+
+                            <h4>
+                                Instalasi dan Konfigurasi
+                            </h4>
+
+                            <h5>
+                                1. Persyaratan Sistem
+                            </h5>
+
+                            <p>
+                                Laravel memiliki persyaratan minimal system. Adapun
+                                persyaratan Laravel 12 seperti berikut:
+                            </p>
+
+                            <ul class="dash-list">
+
+                                <li>PHP &gt;= 8.2</li>
+                                <li>Ctype PHP Extension</li>
+                                <li>cURL PHP Extension</li>
+                                <li>DOM PHP Extension</li>
+                                <li>Fileinfo PHP Extension</li>
+                                <li>Filter PHP Extension</li>
+                                <li>Hash PHP Extension</li>
+                                <li>Mbstring PHP Extension</li>
+                                <li>OpenSSL PHP Extension</li>
+                                <li>PCRE PHP Extension</li>
+                                <li>PDO PHP Extension</li>
+                                <li>Session PHP Extension</li>
+                                <li>Tokenizer PHP Extension</li>
+                                <li>XML PHP Extension</li>
+
+                            </ul>
+
+                            <p>
+                                Selain itu, juga perlu diinstal Git, Composer dan Cmder
+                                khusus windows, lalu juga dibutuhkan Web Server, MySQL,
+                                dan PhpMyAdmin.
+                            </p>
+
+                            <h5>
+                                2. Install Laragon
+                            </h5>
+
+                            <p>
+                                Laragon digunakan sebagai web server lokal untuk menjalankan
+                                project Laravel. Setelah Laragon terinstal, project Laravel
+                                dapat dibuat dan disimpan di dalam direktori C:\laragon\www.
+                            </p>
+
+                            <h5>
+                                3. Mengecek kebutuhan yang diperlukan pada Sistem Laravel
+                            </h5>
+
+                            <p>
+                                Verifikasi Instalasi Perangkat Lunak Prasyarat. Sebelum
+                                memulai proyek Laravel di lingkungan Laragon direktori
+                                C:\laragon\www, verifikasi instalasi perangkat lunak
+                                prasyarat melalui terminal.
+                            </p>
+
+                            <p>
+                                Langkah ini memastikan semua tools memenuhi persyaratan
+                                minimal Laravel, sehingga menghindari masalah teknis sejak
+                                awal.
+                            </p>
+
+                            <p>
+                                Jalankan perintah berikut untuk pengecekan:
+                            </p>
+
+                            <ul class="dash-list">
+
+                                <li>
+                                    php -v: Menampilkan PHP versi 8.3.30
+                                    yang memenuhi syarat minimal PHP 8.2.
+                                </li>
+
+                                <li>
+                                    composer -V: Menampilkan Composer versi 2.9.4,
+                                    siap mengelola dependensi.
+                                </li>
+
+                                <li>
+                                    git --version: Menampilkan Git versi 2.47.1.windows.1
+                                    untuk kontrol versi.
+                                </li>
+
+                                <li>
+                                    node -v: Menampilkan Node.js versi 22.22.0.
+                                </li>
+
+                                <li>
+                                    npm -v: Menampilkan NPM versi 10.9.4
+                                    untuk aset frontend.
+                                </li>
+
+                            </ul>
+
+                            <p>
+                                Keberhasilan semua perintah ini menandakan lingkungan
+                                sudah optimal untuk instalasi Laravel.
+                            </p>
+
+                            <p>
+                                Bisa dilihat pada gambar untuk bagaimana cara mengecek
+                                kebutuhan system dari Laravel.
+                            </p>
+
+                        </div>
+
+                        <div class="detail-subsection">
+
+                            <h4>
+                                Membuat Project Laravel
+                            </h4>
+
+                            <h5>
+                                4. Buat folder baru bernama PraktikumPWeb6
+                            </h5>
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-06 150307.png"
+                                 alt="Perintah membuat folder PraktikumPWeb6"
+                                 class="report-image small">
+
+                            <h5>
+                                5. Buka atau akses folder PraktikumPWeb6
+                            </h5>
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-06 150311.png"
+                                 alt="Perintah membuka folder PraktikumPWeb6"
+                                 class="report-image small">
+
+                            <h5>
+                                6. Buat proyek Laravel baru menggunakan Composer
+                            </h5>
+
+                            <p>
+                                Di direktori C:\laragon\www\PraktikumPWeb6, jalankan
+                                perintah:
+                            </p>
+
+                            <div class="command-text">
+                                composer create-project laravel/laravel=^12 PrakPWeb6 --prefer-dist
+                            </div>
+
+                            <p>
+                                Perintah ini mengunduh dan membangun proyek Laravel versi 12
+                                di folder PrakPWeb6. Opsi --prefer-dist mempercepat proses
+                                dengan mengunduh arsip distribusi stabil.
+                            </p>
+
+                            <p>
+                                Proses instalasi mencakup:
+                            </p>
+
+                            <ul class="dash-list">
+
+                                <li>Pengunduhan dan ekstraksi Laravel 12.0.0.</li>
+                                <li>
+                                    Penyalinan .env.example menjadi .env untuk konfigurasi
+                                    lokal seperti koneksi database.
+                                </li>
+                                <li>Instalasi 111 dependensi otomatis melalui composer install.</li>
+
+                            </ul>
+
+                            <p>
+                                Proyek siap digunakan setelah proses selesai.
+                            </p>
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-06 150328.png"
+                                 alt="Proses create project Laravel menggunakan Composer"
+                                 class="report-image medium">
+
+                            <p>
+                                Jika berhasil akan keluar output seperti ini:
+                            </p>
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-06 150345.png"
+                                 alt="Output instalasi Laravel berhasil"
+                                 class="report-image wide">
+
+                            <h5>
+                                7. Mengetes project berhasil dibuat
+                            </h5>
+
+                            <p>
+                                Untuk mengetest project berhasil dibuat, buka terminal pada
+                                project lalu ketik perintah php artisan serve.
+                            </p>
+
+                            <div class="command-text">
+                                php artisan serve
+                            </div>
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-12 001513.png"
+                                 alt="Tampilan awal Laravel"
+                                 class="report-image wide">
+
+                            <h5>
+                                8. Menampilkan Hello World
+                            </h5>
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-11 235513.png"
+                                 alt="Konfigurasi route Hello World pada web.php"
+                                 class="report-image medium">
+
+                            <p>
+                                File web.php adalah konfigurasi rute utama Laravel yang
+                                menentukan respons aplikasi terhadap URL pengguna. Kodingan
+                                tersebut mendefinisikan dua rute GET:
+                            </p>
+
+                            <ul class="dash-list">
+
+                                <li>Rute /: Menampilkan halaman welcome dari file view.</li>
+                                <li>
+                                    Rute /helo: Mengembalikan teks sederhana
+                                    "Hello World" langsung.
+                                </li>
+
+                            </ul>
+
+                            <h4>
+                                Challenge
+                            </h4>
+
+                            <h5>
+                                9. Membuat tugas sederhana dengan langkah:
+                            </h5>
+
+                            <ul class="dash-list">
+
+                                <li>Buat controller dengan nama UserController.</li>
+                                <li>Di dalam controller, buat sebuah function dengan nama index.</li>
+                                <li>Buat view di dalam folder resources.</li>
+                                <li>Buat tampilan html sederhana di dalam index.</li>
+                                <li>Buat routing atau user untuk menampilkan view tersebut.</li>
+
+                            </ul>
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-06 153141.png"
+                                 alt="Kode UserController.php"
+                                 class="report-image medium">
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-06 153130.png"
+                                 alt="Kode index.blade.php"
+                                 class="report-image medium">
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-06 153125.png"
+                                 alt="Routing user pada web.php"
+                                 class="report-image medium">
+
+                            <img src="images/laprak6pweb/laprak6pweb/Screenshot 2026-05-12 001528.png"
+                                 alt="Hasil tampilan halaman user"
+                                 class="report-image medium">
+
+                        </div>
+
+                    </div>
+
+                    <!-- KESIMPULAN -->
+                    <h3 class="text-warning mb-3 mt-4">
+                        E. Kesimpulan
+                    </h3>
+
+                    <div class="conclusion-text">
+
+                        <p>
+                            Berdasarkan pelaksanaan praktikum mengenai konfigurasi Laravel
+                            ini, dapat disimpulkan bahwa persiapan lingkungan pengembangan
+                            yang matang merupakan kunci utama dalam membangun aplikasi yang
+                            stabil. Keberhasilan tahap awal sangat bergantung pada
+                            terpenuhinya persyaratan teknis sistem, khususnya penggunaan
+                            versi PHP yang tepat beserta ekstensi pendukungnya seperti
+                            OpenSSL, PDO, dan Mbstring. Penggunaan alat bantu seperti
+                            Composer terbukti sangat memudahkan manajemen ketergantungan
+                            library, sementara keberadaan Artisan Console memberikan
+                            efisiensi tinggi melalui otomatisasi berbagai tugas
+                            pengembangan seperti pembuatan model dan controller.
+                        </p>
+
+                        <p>
+                            Selain aspek teknis instalasi, pemahaman mengenai pola desain
+                            MVC memberikan fondasi yang kuat bagi pengembang dalam membangun
+                            aplikasi yang terstruktur dan mudah dipelihara. Model
+                            bertanggung jawab penuh atas pengelolaan data dan interaksi
+                            dengan basis data, View menangani presentasi atau tampilan yang
+                            akan dilihat oleh pengguna, sedangkan Controller bertindak
+                            sebagai penghubung yang memproses permintaan serta mengembalikan
+                            respons yang sesuai. Dengan menguasai dasar-dasar konfigurasi
+                            dan struktur ini, mahasiswa memiliki landasan yang tepat untuk
+                            melanjutkan ke tahap pengembangan fitur aplikasi yang lebih
+                            kompleks dan sistematis.
+                        </p>
+
+                        <a href="https://github.com/BallFord/2411531004_Iqbal-Miftahul-Fikri_Pemrograman-Web"
+                           target="_blank"
+                           class="btn btn-outline-warning fw-bold mt-3">
+
+                            <i class="fab fa-github me-2"></i>
+                            Lihat Repository GitHub
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-white mt-5 border-top border-secondary pt-4 pb-4"
+            style="background-color: #000;">
+
+        <div class="container">
+
+            <p class="mb-3">
+                &copy; 2025 Iqbal Miftahul Fikri - UAS Desain Web
+            </p>
+
+            <div>
+
+                <a href="https://wa.me/6281371832190"
+                   target="_blank"
+                   class="text-white me-3 text-decoration-none">
+
+                    <i class="fab fa-whatsapp fa-lg text-success"></i>
+                </a>
+
+                <a href="https://instagram.com/qbalfkr"
+                   target="_blank"
+                   class="text-white me-3 text-decoration-none">
+
+                    <i class="fab fa-instagram fa-lg text-danger"></i>
+                </a>
+
+                <a href="mailto:iqbalmiftahulfikri@gmail.com"
+                   class="text-white text-decoration-none">
+
+                    <i class="fas fa-envelope fa-lg text-warning"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

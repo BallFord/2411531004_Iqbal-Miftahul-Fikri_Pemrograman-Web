@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Iqbal Miftahul Fikri</title>
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('images/BgUnand.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LogoBallFord.png" alt="Logo" width="40" height="40" class="rounded-circle border border-warning">
+                Iqbal M.F.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="portofolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="report.html">Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontak.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 mt-4">
+        <h2 class="text-center text-warning mb-4">Galeri Portfolio</h2>
+
+        <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active bg-dark text-white border border-secondary mx-1" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button">All</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link bg-dark text-white border border-secondary mx-1" id="pills-music-tab" data-bs-toggle="pill" data-bs-target="#pills-music" type="button">Music</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link bg-dark text-white border border-secondary mx-1" id="pills-game-tab" data-bs-toggle="pill" data-bs-target="#pills-game" type="button">E-Sport</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link bg-dark text-white border border-secondary mx-1" id="pills-auto-tab" data-bs-toggle="pill" data-bs-target="#pills-auto" type="button">Automotive</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link bg-dark text-white border border-secondary mx-1" id="pills-campus-tab" data-bs-toggle="pill" data-bs-target="#pills-campus" type="button">Campus</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            
+            <div class="tab-pane fade show active" id="pills-all">
+                <div class="row g-4">
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Band1.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Live Drumming</h5><span class="badge bg-warning text-dark">Music</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalBand1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Band2.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Farewell Party</h5><span class="badge bg-warning text-dark">Music</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalBand2">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Band3.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Happy Lemon</h5><span class="badge bg-warning text-dark">Music</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalBand3">Lihat Detail</button></div></div></div>
+                    
+                    <div class="col-md-4"><div class="card h-100"><img src="images/MobileLegend1.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">IM3 Tournament</h5><span class="badge bg-primary">E-Sport</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalML1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/MobileLegend2.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Walikota Cup</h5><span class="badge bg-primary">E-Sport</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalML2">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/MobileLegend3.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Region League</h5><span class="badge bg-primary">E-Sport</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalML3">Lihat Detail</button></div></div></div>
+                    
+                    <div class="col-md-4"><div class="card h-100"><img src="images/VarBal1.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Vario Side View</h5><span class="badge bg-danger">Automotive</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalVar1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/VarBal2.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Vario Back View</h5><span class="badge bg-danger">Automotive</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalVar2">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/VarBal3.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Vario on Campus</h5><span class="badge bg-danger">Automotive</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalVar3">Lihat Detail</button></div></div></div>
+
+                    <div class="col-md-4"><div class="card h-100"><img src="images/HIMA.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Keluarga HIMA</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalCampus1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Festika.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Kepanitiaan Festika</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalCampus2">Lihat Detail</button></div></div></div>
+                    
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Project1.png" class="card-img-top"><div class="card-body"><h5 class="card-title">Project LaundryApps</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalProject1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Project2.png" class="card-img-top"><div class="card-body"><h5 class="card-title">Project AppReservasiHotel</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalProject2">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Project3.png" class="card-img-top"><div class="card-body"><h5 class="card-title">Data Science</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalProject3">Lihat Detail</button></div></div></div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-music">
+                <div class="row g-4">
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Band1.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Live Drumming</h5><span class="badge bg-warning text-dark">Music</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalBand1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Band2.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Farewell Party</h5><span class="badge bg-warning text-dark">Music</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalBand2">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Band3.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Happy Lemon</h5><span class="badge bg-warning text-dark">Music</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalBand3">Lihat Detail</button></div></div></div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-game">
+                <div class="row g-4">
+                    <div class="col-md-4"><div class="card h-100"><img src="images/MobileLegend1.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">IM3 Tournament</h5><span class="badge bg-primary">E-Sport</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalML1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/MobileLegend2.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Walikota Cup</h5><span class="badge bg-primary">E-Sport</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalML2">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/MobileLegend3.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Region League</h5><span class="badge bg-primary">E-Sport</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalML3">Lihat Detail</button></div></div></div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-auto">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4"><div class="card h-100"><img src="images/VarBal1.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Vario Side View</h5><span class="badge bg-danger">Automotive</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalVar1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Varbal2.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Vario Back View</h5><span class="badge bg-danger">Automotive</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalVar2">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/VarBal3.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Vario on Campus</h5><span class="badge bg-danger">Automotive</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalVar3">Lihat Detail</button></div></div></div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-campus">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4"><div class="card h-100"><img src="images/HIMA.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Keluarga HIMA</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalCampus1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Festika.jpeg" class="card-img-top"><div class="card-body"><h5 class="card-title">Kepanitiaan Festika</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalCampus2">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Project1.png" class="card-img-top"><div class="card-body"><h5 class="card-title">Project LaundryApps</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalProject1">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Project2.png" class="card-img-top"><div class="card-body"><h5 class="card-title">Project AppReservasiHotel</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalProject2">Lihat Detail</button></div></div></div>
+                    <div class="col-md-4"><div class="card h-100"><img src="images/Project3.png" class="card-img-top"><div class="card-body"><h5 class="card-title">Data Science</h5><span class="badge bg-info text-dark">Campus</span><button class="btn btn-outline-warning btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#modalProject3">Lihat Detail</button></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalBand1" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">Band Detail</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/Band1.jpeg" class="img-fluid mb-3 rounded"><p>Penampilan saat mengisi acara AIA 2024.</p></div></div></div></div>
+    <div class="modal fade" id="modalBand2" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">Band Detail</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/Band2.jpeg" class="img-fluid mb-3 rounded"><p>Penampilan formal saat Farewell Party.</p></div></div></div></div>
+    <div class="modal fade" id="modalBand3" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">Band Detail</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/Band3.jpeg" class="img-fluid mb-3 rounded"><p>Band Happy Lemon full member.</p></div></div></div></div>
+
+    <div class="modal fade" id="modalML1" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">E-Sport Achievement</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/MobileLegend1.jpeg" class="img-fluid mb-3 rounded"><p>Penyerahan hadiah Juara 1 & 2 Tournament yang diselenggarakan IM3.</p></div></div></div></div>
+    <div class="modal fade" id="modalML2" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">E-Sport Achievement</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/MobileLegend2.jpeg" class="img-fluid mb-3 rounded"><p>Foto full team bersama manager dan rekan-rekan lainnya saat menjuarai Turnamen.</p></div></div></div></div>
+    <div class="modal fade" id="modalML3" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">E-Sport Achievement</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/MobileLegend3.jpeg" class="img-fluid mb-3 rounded"><p>Foto tim inti Artex E-Sport pada saat menjuarai Region League.</p></div></div></div></div>
+
+    <div class="modal fade" id="modalVar1" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">Automotive Project</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/VarBal1.jpeg" class="img-fluid mb-3 rounded"><p>Tampilan samping motor Vario.</p></div></div></div></div>
+    <div class="modal fade" id="modalVar2" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">Automotive Project</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/Varbal2.jpeg" class="img-fluid mb-3 rounded"><p>Tampilan belakang motor Vario.</p></div></div></div></div>
+    <div class="modal fade" id="modalVar3" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">Automotive Project</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/VarBal3.jpeg" class="img-fluid mb-3 rounded"><p>Tampilan depan motor Vario di kampus.</p></div></div></div></div>
+
+    <div class="modal fade" id="modalCampus1" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">HIMA Informatika</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/HIMA.jpeg" class="img-fluid mb-3 rounded"><p>Foto bersama anggota HIMA Informatika.</p></div></div></div></div>
+    <div class="modal fade" id="modalCampus2" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">FESTIKA</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/Festika.jpeg" class="img-fluid mb-3 rounded"><p>Dokumentasi kepanitiaan FESTIKA.</p></div></div></div></div>
+
+    <div class="modal fade" id="modalProject1" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">Project LaundryApps</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/Project1.png" class="img-fluid mb-3 rounded"><p>Pembuatan aplikasi sederhana untuk sistem laundry menggunakan bahasa pemrograman Java.</p></div></div></div></div>
+    <div class="modal fade" id="modalProject2" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">Project AppReservasiHotel</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/Project2.png" class="img-fluid mb-3 rounded"><p>Pembuatan aplikasi sederhana untuk sistem reservasi hotel menggunakan bahasa pemrograman Java.</p></div></div></div></div>
+    <div class="modal fade" id="modalProject3" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title text-warning">Data Science</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><img src="images/Project3.png" class="img-fluid mb-3 rounded"><p>Analisis Data Eksploratif pada Dataset Sensor Kualitas Udara menggunakan bahasa pemrograman Phyton.</p></div></div></div></div>
+
+    <footer class="text-center text-white mt-5">
+        <div class="container">
+            <p class="mb-3">&copy; 2025 Iqbal Miftahul Fikri - UAS Desain Web</p>
+            <div>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none"><i class="fab fa-whatsapp fa-lg text-success"></i></a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none"><i class="fab fa-instagram fa-lg text-danger"></i></a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none"><i class="fas fa-envelope fa-lg text-warning"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report - Iqbal Miftahul Fikri</title>
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('images/BgUnand.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LogoBallFord.png" alt="Logo" width="40" height="40" class="rounded-circle border border-warning">
+                Iqbal M.F.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portofolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="report.html">Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontak.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 mt-4">
+        <h2 class="text-center text-warning mb-4">Laporan Praktikum</h2>
+
+        <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active bg-dark text-white border border-secondary mx-1" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button">All</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link bg-dark text-white border border-secondary mx-1" id="pills-web-tab" data-bs-toggle="pill" data-bs-target="#pills-web" type="button">Pemrograman Web</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link bg-dark text-white border border-secondary mx-1" id="pills-rpl-tab" data-bs-toggle="pill" data-bs-target="#pills-rpl" type="button">Rekayasa Perangkat Lunak</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link bg-dark text-white border border-secondary mx-1" id="pills-ml-tab" data-bs-toggle="pill" data-bs-target="#pills-ml" type="button">Machine Learning</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            
+            <div class="tab-pane fade show active" id="pills-all">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card h-100 p-3 bg-dark border-secondary">
+                            <div class="card-body text-center d-flex flex-column">
+                                <span class="badge bg-primary mb-3 align-self-center px-3 py-2">Pemrograman Web</span>
+                                <h5 class="card-title text-warning mt-2 mb-3">Konvigurasi Laravel</h5>
+                                <p class="card-text text-white-50 mb-4">Instalasi dan konfigurasi Laravel, mulai dari pengecekan kebutuhan sistem hingga pembuatan route, controller, dan view sederhana.</p>
+                                <a href="detaillaporan.html" class="btn btn-outline-warning w-100 mt-auto fw-bold">Baca Laporan</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 p-3 bg-dark border-secondary">
+                            <div class="card-body text-center d-flex flex-column">
+                                <span class="badge bg-success mb-3 align-self-center px-3 py-2">Rekayasa Perangkat Lunak</span>
+                                <h5 class="card-title text-warning mt-2 mb-3">Analisis Modul Shopee</h5>
+                                <p class="card-text text-white-50 mb-4">Penyusunan Mini-SRS dan Use Case diagram untuk modul pembelian pada Shopee.</p>
+                                <a href="detaillaporan.html" class="btn btn-outline-warning w-100 mt-auto fw-bold">Baca Laporan</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 p-3 bg-dark border-secondary">
+                            <div class="card-body text-center d-flex flex-column">
+                                <span class="badge bg-danger mb-3 align-self-center px-3 py-2">Machine Learning</span>
+                                <h5 class="card-title text-warning mt-2 mb-3">Implementasi MLP</h5>
+                                <p class="card-text text-white-50 mb-4">Perhitungan bobot dan implementasi jaringan saraf tiruan Multi-Layer Perceptron.</p>
+                                <a href="detaillaporan.html" class="btn btn-outline-warning w-100 mt-auto fw-bold">Baca Laporan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-web">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card h-100 p-3 bg-dark border-secondary">
+                            <div class="card-body text-center d-flex flex-column">
+                                <span class="badge bg-primary mb-3 align-self-center px-3 py-2">Pemrograman Web</span>
+                                <h5 class="card-title text-warning mt-2 mb-3">Konvigurasi Laravel</h5>
+                                <p class="card-text text-white-50 mb-4">Instalasi dan konfigurasi Laravel, mulai dari pengecekan kebutuhan sistem hingga pembuatan route, controller, dan view sederhana.</p>
+                                <a href="detaillaporan.html" class="btn btn-outline-warning w-100 mt-auto fw-bold">Baca Laporan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-rpl">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card h-100 p-3 bg-dark border-secondary">
+                            <div class="card-body text-center d-flex flex-column">
+                                <span class="badge bg-success mb-3 align-self-center px-3 py-2">Rekayasa Perangkat Lunak</span>
+                                <h5 class="card-title text-warning mt-2 mb-3">Analisis Modul Shopee</h5>
+                                <p class="card-text text-white-50 mb-4">Penyusunan Mini-SRS dan Use Case diagram untuk modul pembelian pada Shopee.</p>
+                                <a href="detaillaporan.html" class="btn btn-outline-warning w-100 mt-auto fw-bold">Baca Laporan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-ml">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card h-100 p-3 bg-dark border-secondary">
+                            <div class="card-body text-center d-flex flex-column">
+                                <span class="badge bg-danger mb-3 align-self-center px-3 py-2">Machine Learning</span>
+                                <h5 class="card-title text-warning mt-2 mb-3">Implementasi MLP</h5>
+                                <p class="card-text text-white-50 mb-4">Perhitungan bobot dan implementasi jaringan saraf tiruan Multi-Layer Perceptron.</p>
+                                <a href="detaillaporan.html" class="btn btn-outline-warning w-100 mt-auto fw-bold">Baca Laporan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="text-center text-white mt-5">
+        <div class="container">
+            <p class="mb-3">&copy; 2025 Iqbal Miftahul Fikri - UAS Desain Web</p>
+            <div>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none"><i class="fab fa-whatsapp fa-lg text-success"></i></a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none"><i class="fab fa-instagram fa-lg text-danger"></i></a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none"><i class="fas fa-envelope fa-lg text-warning"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

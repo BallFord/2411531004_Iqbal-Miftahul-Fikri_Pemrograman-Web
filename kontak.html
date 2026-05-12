@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Iqbal Miftahul Fikri</title>
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        .form-control::placeholder, .form-select::placeholder {
+            color: #bbbbbb !important; 
+            opacity: 1; 
+        }
+        
+        .form-control:focus::placeholder {
+            color: #dddddd !important;
+        }
+
+        body {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('images/BgUnand.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LogoBallFord.png" alt="Logo" width="40" height="40" class="rounded-circle border border-warning">
+                Iqbal M.F.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portofolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="report.html">Report</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="kontak.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 mt-4">
+        <h2 class="text-center text-warning mb-5">Hubungi Saya</h2>
+        
+        <div id="successAlert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+            <strong>Terima Kasih!</strong> Pesan anda telah berhasil dikirim.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5 mb-4">
+                <div class="card p-4 h-100">
+                    <h4 class="text-warning mb-4">Kontak Info</h4>
+                    
+                    <p>
+                        <a href="https://wa.me/6281371832190" target="_blank" class="text-white text-decoration-none">
+                            <i class="fab fa-whatsapp me-3 text-warning"></i> 0813-7183-2190
+                        </a>
+                    </p>
+                    
+                    <p>
+                        <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white text-decoration-none">
+                            <i class="fab fa-instagram me-3 text-warning"></i> @qbalfkr
+                        </a>
+                    </p>
+                    
+                    <p>
+                        <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none">
+                            <i class="fas fa-envelope me-3 text-warning"></i> iqbalmiftahulfikri@gmail.com
+                        </a>
+                    </p>
+                    
+                    <p><i class="fas fa-map-marker-alt me-3 text-warning"></i> Universitas Andalas, Padang</p>
+                    
+                    <div class="ratio ratio-16x9 mt-4 border border-secondary rounded">
+                         <iframe src="https://maps.google.com/maps?q=Jl.+Dr.+Moh.+Hatta+Kapalo+Koto+No.108,+RT.03%2FRW.02,+Limau+Manis,+Kec.+Pauh,+Kota+Padang,+Sumatera+Barat+25176&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div class="card p-4 h-100">
+                    <h4 class="text-warning mb-4">Kirim Pesan</h4>
+                    <form id="contactForm" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="nama" required placeholder="Masukkan nama...">
+                            <div class="invalid-feedback">Nama wajib diisi!</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required placeholder="nama@email.com">
+                            <div class="invalid-feedback">Email tidak valid!</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">No. Handphone</label>
+                            <input type="tel" class="form-control" id="phone" required placeholder="08xxxxxxxxxx" pattern="[0-9]+">
+                            <div class="invalid-feedback">No. Handphone wajib diisi (angka saja)!</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subjek" class="form-label">Subjek</label>
+                            <select class="form-select" id="subjek" required>
+                                <option value="" selected disabled>Pilih Subjek...</option>
+                                <option value="kritik">Kritik & Saran</option>
+                                <option value="kerjasama">Kerjasama</option>
+                                <option value="lainnya">Lainnya</option>
+                            </select>
+                            <div class="invalid-feedback">Pilih salah satu subjek!</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="pesan" class="form-label">Pesan</label>
+                            <textarea class="form-control" id="pesan" rows="4" required placeholder="Tulis pesan anda..."></textarea>
+                            <div class="invalid-feedback">Pesan tidak boleh kosong!</div>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="checkAgree" required>
+                            <label class="form-check-label" for="checkAgree">Saya menyetujui syarat & ketentuan.</label>
+                            <div class="invalid-feedback">Anda harus mencentang persetujuan ini.</div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-warning w-100 fw-bold">Kirim Sekarang</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-white mt-5">
+        <div class="container">
+            <p class="mb-3">© 2025 Iqbal Miftahul Fikri - UAS Desain Web</p>
+            <div>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-whatsapp fa-lg text-success"></i>
+                </a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-instagram fa-lg text-danger"></i>
+                </a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none">
+                    <i class="fas fa-envelope fa-lg text-warning"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    } else {
+                        event.preventDefault()
+                        document.getElementById('successAlert').classList.remove('d-none');
+                        form.reset();
+                        form.classList.remove('was-validated');
+                        return;
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
