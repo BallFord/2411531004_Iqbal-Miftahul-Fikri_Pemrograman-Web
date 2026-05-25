@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel Relationship - Iqbal Miftahul Fikri</title>
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #121212;
+            min-height: 100vh;
+        }
+
+        .report-header {
+            background:
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                url('images/BgUnand.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 60px;
+            margin-top: -76px;
+        }
+
+        .content-box {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-top: 5px solid #ffc107;
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        .report-text,
+        .report-list,
+        .conclusion-text p,
+        .detail-subsection p,
+        .detail-subsection li {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .report-text p,
+        .conclusion-text p,
+        .detail-subsection p {
+            margin-bottom: 20px;
+        }
+
+        .report-list li {
+            margin-bottom: 10px;
+        }
+
+        .detail-subsection {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-left: 4px solid #ffc107;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .detail-subsection h4 {
+            color: #ffc107;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .detail-subsection h5 {
+            color: #ffc107;
+            font-size: 19px;
+            font-weight: 600;
+            margin: 28px 0 14px;
+        }
+
+        .dash-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dash-list li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 8px;
+        }
+
+        .dash-list li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+        }
+
+        .command-text {
+            color: #ffc107;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 16px;
+            background-color: #121212;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin: 14px 0 20px;
+            overflow-x: auto;
+        }
+
+        .image-placeholder {
+            min-height: 230px;
+            background-color: #121212;
+            border: 2px dashed #555;
+            border-radius: 8px;
+            color: #bdbdbd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            font-size: 16px;
+            margin: 18px 0 26px;
+        }
+
+        .image-placeholder.small {
+            min-height: 110px;
+            max-width: 420px;
+        }
+
+        .image-placeholder.medium {
+            min-height: 220px;
+            max-width: 640px;
+        }
+
+        .image-placeholder.wide {
+            min-height: 280px;
+            width: 100%;
+        }
+
+        .report-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 18px 0 26px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background-color: #121212;
+        }
+
+        .report-image.small {
+            width: auto;
+            max-width: 420px;
+        }
+
+        .report-image.medium {
+            width: auto;
+            max-width: 640px;
+        }
+
+        .report-image.wide {
+            width: 100%;
+        }
+
+        @media (max-width: 576px) {
+            .content-box {
+                padding: 20px;
+            }
+
+            .detail-subsection {
+                padding: 18px;
+            }
+
+            .detail-subsection h4 {
+                font-size: 20px;
+            }
+
+            .image-placeholder {
+                min-height: 190px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LogoBallFord.png" alt="Logo" width="40" height="40" class="rounded-circle border border-warning">
+                Iqbal M.F.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portofolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="report.html">Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontak.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="report-header text-center">
+        <div class="container">
+            <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Pemrograman Web</span>
+            <h1 class="text-white fw-bold">Laravel Relationship</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum Relationship pada Framework Laravel</p>
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <a href="report.html" class="btn btn-outline-light mb-4">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Kembali ke Halaman Report
+                </a>
+
+                <div class="content-box shadow-lg">
+                    <h3 class="text-warning mb-3">A. Pendahuluan</h3>
+                    <div class="report-text">
+                        <p>
+                            Modul praktikum ini membahas implementasi relationship dalam framework Laravel, yang merupakan konsep fundamental dalam pengembangan aplikasi web berbasis database. Pemahaman yang baik mengenai relasi antar entitas sangat penting untuk membangun sebuah sistem akademik yang efisien dan mudah untuk dikembangkan atau dipelihara pada masa depan. Pada praktikum ini, studi kasus yang digunakan berfokus pada sistem akademik sederhana yang melibatkan tiga entitas utama untuk saling dihubungkan, yaitu Student, Major, dan Subject.
+                        </p>
+
+                        <p>
+                            Dalam memodelkan sistem akademik tersebut, terdapat beberapa jenis relasi yang diimplementasikan ke dalam struktur database. Entitas mahasiswa memiliki relasi Many-to-One terhadap entitas jurusan, yang berarti setiap mahasiswa tergabung dalam satu jurusan, sementara satu jurusan dapat menampung banyak mahasiswa dalam konsep One-to-Many. Selain itu, terdapat pula relasi Many-to-Many antara entitas mahasiswa dan mata kuliah, di mana seorang mahasiswa dapat mengambil banyak mata kuliah dan satu mata kuliah dapat diambil oleh banyak mahasiswa. Secara teknis, relasi tersebut dihubungkan melalui sebuah tabel pivot di dalam database.
+                        </p>
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
+                    <p class="text-white">Tujuan dari praktikum ini adalah:</p>
+                    <ol class="report-list">
+                        <li>Mahasiswa diharapkan mampu memahami secara mendalam mengenai konsep relationship antar entitas di dalam framework Laravel.</li>
+                        <li>Mampu menerapkan relasi One-to-Many dan Many-to-Many secara langsung pada basis data sistem akademik.</li>
+                        <li>Menguasai langkah teknis pembuatan file migration yang melibatkan pengaturan foreign key pada tabel secara tepat.</li>
+                        <li>Mampu menggunakan fitur Eloquent relationship secara efektif dan efisien untuk mengeksekusi proses query data.</li>
+                        <li>Dapat menampilkan hasil data yang saling berelasi tersebut secara terstruktur pada antarmuka pengguna atau view.</li>
+                    </ol>
+
+                    <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
+
+                    <div class="detail-subsection">
+                        <h4>Persiapan Awal</h4>
+
+                        <h5>1. Struktur Database dan Relationship</h5>
+                        <p>
+                            Sebelum membuat migration, model, controller, dan view, terlebih dahulu ditentukan struktur relasi yang akan digunakan pada sistem akademik sederhana. Relasi yang digunakan adalah sebagai berikut:
+                        </p>
+                        <ul class="dash-list">
+                            <li>Student belongs to Major, yaitu setiap mahasiswa terhubung ke satu jurusan dalam bentuk relasi Many-to-One.</li>
+                            <li>Student belongs to many Subject through pivot table, yaitu setiap mahasiswa dapat mengambil banyak mata kuliah melalui tabel penghubung.</li>
+                            <li>Major has many Student, yaitu satu jurusan dapat memiliki banyak mahasiswa dalam bentuk relasi One-to-Many.</li>
+                            <li>Subject belongs to many Student through pivot table, yaitu satu mata kuliah dapat diambil oleh banyak mahasiswa melalui tabel penghubung.</li>
+                        </ul>
+
+                        <h5>2. ERD (Entity Relationship Diagram)</h5>
+                        <p>
+                            ERD digunakan untuk menggambarkan hubungan antar tabel sebelum sistem dibuat. Pada sistem ini, ERD menunjukkan hubungan antara tabel majors dan students, serta hubungan many-to-many antara students dan subjects melalui tabel pivot student_subject.
+                        </p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 141122.png" alt="ERD Major dan Student" class="report-image medium">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 141219.png" alt="ERD Student dan Subject" class="report-image medium">
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>1. Membuat Migration</h4>
+
+                        <h5>A. Migration untuk tabel majors</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat migration tabel majors.</p>
+                        <div class="command-text">php artisan make:migration create_majors_table</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 142017.png" alt="Output perintah create_majors_table" class="report-image medium">
+                        <p>Lalu isi file migration tersebut dengan struktur tabel majors.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 142158.png" alt="Kode migration tabel majors" class="report-image medium">
+                        <p>
+                            Kodingan tersebut berfungsi untuk membuat dan mengelola tabel bernama majors atau jurusan di dalam database secara otomatis. Di dalamnya terdapat dua fungsi utama, yaitu fungsi up() yang bertugas membuat struktur tabel baru yang terdiri dari tiga kolom, yaitu id, name, serta timestamps. Sementara itu, fungsi down() bertugas sebagai pembatal atau rollback yang akan menghapus tabel majors dari database apabila proses migrasi ingin dibatalkan.
+                        </p>
+
+                        <h5>B. Migration untuk tabel students</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat migration tabel students.</p>
+                        <div class="command-text">php artisan make:migration create_students_table</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 142419.png" alt="Output perintah create_students_table" class="report-image medium">
+                        <p>Lalu isi file migration tersebut dengan struktur tabel students.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 142500.png" alt="Kode migration tabel students" class="report-image medium">
+                        <p>
+                            Kodingan ini berfungsi untuk membuat tabel students di dalam database, lengkap dengan pengaturan relasi antar tabel. Melalui fungsi up(), tabel ini dikonfigurasi untuk memiliki kolom id sebagai kunci utama, kolom nim bertipe teks unik yang tidak boleh kembar, kolom name untuk nama, kolom address untuk alamat, serta kolom timestamps untuk mencatat waktu otomatis. Bagian paling penting adalah kolom major_id yang bertindak sebagai foreign key untuk menghubungkan tabel mahasiswa dengan tabel jurusan. Jika data jurusan dihapus, maka data mahasiswa yang terikat pada jurusan tersebut juga otomatis ikut terhapus melalui pengaturan cascade.
+                        </p>
+
+                        <h5>C. Migration untuk tabel subjects</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat migration tabel subjects.</p>
+                        <div class="command-text">php artisan make:migration create_subjects_table</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 142712.png" alt="Output perintah create_subjects_table" class="report-image medium">
+                        <p>Lalu isi file migration tersebut dengan struktur tabel subjects.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 142750.png" alt="Kode migration tabel subjects" class="report-image medium">
+                        <p>
+                            Kodingan ini berfungsi untuk membuat tabel baru bernama subjects di dalam database. Melalui fungsi up(), tabel ini dikonfigurasi untuk memiliki empat kolom utama, yaitu id sebagai primary key, name sebagai nama mata kuliah, sks bertipe integer untuk menyimpan bobot SKS, dan timestamps untuk mencatat waktu pembuatan serta pembaruan data secara otomatis. Fungsi down() digunakan sebagai perintah pembatalan yang akan menghapus tabel subjects beserta isinya apabila proses migrasi ingin dibatalkan.
+                        </p>
+
+                        <h5>D. Migration untuk tabel pivot student_subject</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat migration tabel pivot student_subject.</p>
+                        <div class="command-text">php artisan make:migration create_student_subject_table</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 143000.png" alt="Output perintah create_student_subject_table" class="report-image medium">
+                        <p>Lalu isi file migration tersebut dengan struktur tabel pivot student_subject.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 143044.png" alt="Kode migration tabel student_subject" class="report-image medium">
+                        <p>
+                            Kodingan ini berfungsi untuk membuat tabel penghubung bernama student_subject yang menangani relasi many-to-many antara mahasiswa dan mata kuliah. Di dalam fungsi up(), tabel ini dikonfigurasi dengan kolom id, timestamps, serta dua foreign key yaitu student_id dan subject_id yang dilengkapi aturan onDelete('cascade'). Aturan tersebut membuat data pada tabel penghubung otomatis terhapus jika data mahasiswa atau mata kuliah terkait dihapus. Selain itu, terdapat baris aturan unique(['student_id', 'subject_id']) yang berfungsi mencegah satu mahasiswa mengambil mata kuliah yang sama lebih dari satu kali.
+                        </p>
+
+                        <h5>E. Menjalankan migration</h5>
+                        <p>Setelah seluruh file migration selesai dibuat, jalankan perintah berikut pada terminal.</p>
+                        <div class="command-text">php artisan migrate</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 143421.png" alt="Output menjalankan migration" class="report-image wide">
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>2. Membuat Model dengan Relationship</h4>
+
+                        <h5>A. Model Major</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat model Major.</p>
+                        <div class="command-text">php artisan make:model Major</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 143721.png" alt="Output pembuatan model Major" class="report-image medium">
+                        <p>Lalu isi model Major dengan relasi yang dibutuhkan.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 143822.png" alt="Kode model Major" class="report-image medium">
+                        <p>
+                            Kodingan ini berfungsi sebagai representasi dan pengatur interaksi data untuk tabel majors di dalam database. Di dalam kelas ini, properti protected $fillable = ['name'] digunakan untuk memberikan izin keamanan massal sehingga sistem hanya mengizinkan kolom name yang dapat diisi atau diubah secara langsung oleh pengguna. Selain itu, model ini mendefinisikan fungsi students() dengan relasi hasMany(Student::class), yang berarti model Major memiliki hubungan One-to-Many dengan model Student. Aturan ini menjelaskan bahwa satu jurusan dapat memiliki atau menampung banyak mahasiswa sekaligus di dalam sistem aplikasi.
+                        </p>
+
+                        <h5>B. Model Student</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat model Student.</p>
+                        <div class="command-text">php artisan make:model Student</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 144102.png" alt="Output pembuatan model Student" class="report-image medium">
+                        <p>Lalu isi model Student dengan relasi ke Major dan Subject.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 144141.png" alt="Kode model Student" class="report-image medium">
+                        <p>
+                            Kodingan ini berfungsi untuk mengelola data tabel mahasiswa di database serta mendefinisikan hubungan ke tabel lainnya. Melalui properti protected $fillable, model ini memberikan izin pengisian massal agar kolom nim, name, address, dan major_id bisa disimpan secara langsung oleh sistem. Selain itu, kelas ini mendefinisikan dua jenis relasi, yaitu fungsi major() menggunakan belongsTo(Major::class) untuk menunjukkan hubungan Many-to-One, sedangkan fungsi subjects() menggunakan belongsToMany(Subject::class) untuk mengatur relasi Many-to-Many antara mahasiswa dan mata kuliah.
+                        </p>
+
+                        <h5>C. Model Subject</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat model Subject.</p>
+                        <div class="command-text">php artisan make:model Subject</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 144331.png" alt="Output pembuatan model Subject" class="report-image medium">
+                        <p>Lalu isi model Subject dengan relasi ke Student.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 144411.png" alt="Kode model Subject" class="report-image medium">
+                        <p>
+                            Kodingan ini merepresentasikan tabel mata kuliah di dalam database untuk mengatur manipulasi data dan relasinya. Properti protected $fillable = ['name', 'sks'] berfungsi sebagai pengaman data agar hanya kolom nama mata kuliah dan bobot SKS saja yang diizinkan untuk diisi secara massal oleh sistem. Di samping itu, model ini menyediakan fungsi students() yang menggunakan metode belongsToMany(Student::class) untuk mendefinisikan hubungan Many-to-Many, sehingga sebuah mata kuliah dapat diambil oleh banyak mahasiswa dan secara otomatis terhubung timbal balik melalui tabel perantara.
+                        </p>
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>3. Seeder untuk Data Sample</h4>
+
+                        <h5>A. Seeder untuk Major</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat MajorSeeder.</p>
+                        <div class="command-text">php artisan make:seeder MajorSeeder</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 144654.png" alt="Output pembuatan MajorSeeder" class="report-image medium">
+                        <p>Lalu isi file MajorSeeder dengan data jurusan.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 144744.png" alt="Kode MajorSeeder" class="report-image medium">
+                        <p>
+                            Kodingan ini berfungsi untuk mengisi data awal atau data tiruan ke dalam tabel majors secara otomatis. Di dalam fungsi run(), terdapat sebuah array bernama majors yang menampung beberapa nama jurusan, yaitu Teknik Informatika, Sistem Informasi, Teknik Komputer, dan Manajemen Informatika. Kodingan ini kemudian menggunakan perulangan foreach untuk membaca setiap nama jurusan tersebut satu per satu dan langsung memasukkannya ke database menggunakan perintah Major::create().
+                        </p>
+
+                        <h5>B. Seeder untuk Subject</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat SubjectSeeder.</p>
+                        <div class="command-text">php artisan make:seeder SubjectSeeder</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 145029.png" alt="Output pembuatan SubjectSeeder" class="report-image medium">
+                        <p>Lalu isi file SubjectSeeder dengan data mata kuliah.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 145116.png" alt="Kode SubjectSeeder" class="report-image medium">
+                        <p>
+                            Kodingan ini digunakan untuk mengisi data awal mata kuliah ke dalam tabel subjects. Setiap data mata kuliah berisi nama mata kuliah dan jumlah SKS. Seeder ini membantu proses pengujian karena sistem langsung memiliki data mata kuliah tanpa harus memasukkan data satu per satu melalui database secara manual.
+                        </p>
+
+                        <h5>C. Seeder untuk Student</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat StudentSeeder.</p>
+                        <div class="command-text">php artisan make:seeder StudentSeeder</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 145305.png" alt="Output pembuatan StudentSeeder" class="report-image medium">
+                        <p>Lalu isi file StudentSeeder dengan data mahasiswa dan relasi mata kuliah.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 145413.png" alt="Kode StudentSeeder" class="report-image wide">
+                        <p>
+                            Kodingan ini berfungsi untuk mengisi data simulasi mahasiswa sekaligus menghubungkannya dengan mata kuliah secara otomatis ke dalam database. Di dalam fungsi run(), kode menyiapkan sebuah array students yang berisi beberapa data mahasiswa lengkap dengan NIM, nama, alamat, dan major_id untuk menentukan jurusan mereka. Menggunakan perulangan foreach, setiap data mahasiswa dimasukkan ke database melalui perintah Student::create(). Selanjutnya, kode mengambil antara dua sampai empat ID mata kuliah secara acak dari tabel subjects, lalu menempelkannya ke setiap mahasiswa menggunakan perintah attach(). Dengan cara ini, setelah seeder dijalankan, database langsung memiliki data mahasiswa yang sudah otomatis mengambil beberapa mata kuliah.
+                        </p>
+
+                        <h5>D. Update DatabaseSeeder</h5>
+                        <p>Buka file DatabaseSeeder.php, lalu panggil seluruh seeder yang sudah dibuat.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 145648.png" alt="Kode DatabaseSeeder" class="report-image medium">
+                        <p>
+                            Kodingan ini berfungsi sebagai pusat pengendali untuk menjalankan semua file seeder secara terpusat dan berurutan. Di dalam fungsi run(), terdapat perintah $this->call([...]) yang mengeksekusi tiga kelas seeder utama. Pertama, MajorSeeder dijalankan untuk mengisi data jurusan. Kedua, SubjectSeeder dijalankan untuk mengisi data mata kuliah. Ketiga, StudentSeeder dijalankan untuk mengisi data mahasiswa beserta relasi mata kuliahnya. Urutan eksekusi ini dibuat sangat terstruktur agar tidak terjadi error relasi database.
+                        </p>
+
+                        <h5>E. Jalankan seeder</h5>
+                        <p>Jalankan perintah berikut pada terminal untuk mengisi database dengan data sample.</p>
+                        <div class="command-text">php artisan db:seed</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 145909.png" alt="Output menjalankan seeder" class="report-image wide">
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>4. Membuat Controller</h4>
+
+                        <h5>A. StudentController</h5>
+                        <p>Ketik perintah berikut pada terminal untuk membuat StudentController.</p>
+                        <div class="command-text">php artisan make:controller StudentController</div>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 150121.png" alt="Output pembuatan StudentController" class="report-image medium">
+                        <p>Lalu isi controller dengan logic CRUD dan relationship.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 150210.png" alt="Kode StudentController bagian pertama" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 150231.png" alt="Kode StudentController bagian kedua" class="report-image wide">
+                        <p>
+                            Kodingan tersebut berfungsi sebagai pengatur logika utama untuk melakukan operasi CRUD lengkap dengan relasi jurusan dan mata kuliahnya. Di dalamnya terdapat fungsi index() dan show() untuk menampilkan semua data atau detail satu mahasiswa menggunakan teknik eager loading with() agar performa query lebih efisien. Fungsi create() dan edit() digunakan untuk memanggil halaman formulir beserta pilihan data jurusan dan mata kuliah yang tersedia, sedangkan fungsi store() dan update() bertugas memvalidasi input, menyimpan atau memperbarui data mahasiswa, sekaligus menyinkronkan mata kuliah yang dipilih ke tabel perantara menggunakan attach() atau sync(). Terakhir, fungsi destroy() berfungsi menghapus mahasiswa dari database setelah terlebih dahulu memutuskan hubungan mata kuliah menggunakan detach().
+                        </p>
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>5. Membuat Routes</h4>
+
+                        <p>Buka file web.php, lalu isi dengan routing yang mengarah ke StudentController.</p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 150443.png" alt="Kode routes web.php" class="report-image medium">
+                        <p>
+                            Kodingan ini berfungsi untuk mengatur alamat URL web dan mengarahkan pengguna ke halaman yang tepat. Di dalamnya terdapat dua pengaturan utama. Pertama, perintah Route::get('/', ...) mengatur agar ketika pengguna membuka halaman utama atau beranda web, sistem langsung mengalihkan mereka secara otomatis ke halaman daftar mahasiswa atau route students.index. Kedua, perintah Route::resource('students', StudentController::class) secara otomatis membuat paket route lengkap untuk kebutuhan CRUD yang langsung terhubung ke fungsi-fungsi terkait di dalam StudentController.
+                        </p>
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>6. Membuat Views</h4>
+
+                        <h5>A. Layout utama</h5>
+                        <p>
+                            Buat folder baru di dalam folder views dengan nama layouts. Di dalam folder layouts, buat file baru dengan nama app.blade.php, lalu isi dengan struktur layout utama.
+                        </p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 151019.png" alt="Kode layout app.blade.php" class="report-image wide">
+                        <p>
+                            Kodingan ini berfungsi sebagai kerangka dasar tampilan web agar desain aplikasi tetap konsisten di setiap halaman. Di dalam kode HTML ini terdapat integrasi framework Bootstrap melalui CDN untuk mengatur tampilan visual, navbar sederhana untuk identitas aplikasi, serta blok utama @yield('content') yang berfungsi sebagai tempat menempelkan konten dinamis dari halaman lain. Dengan menggunakan layout ini, setiap halaman anak dapat menggunakan struktur HTML yang sama tanpa perlu menulis ulang navbar dan kerangka dasar dari awal.
+                        </p>
+
+                        <h5>B. Index Students</h5>
+                        <p>
+                            Buat folder baru di dalam folder views dengan nama students. Di dalam folder students, buat file baru dengan nama index.blade.php untuk menampilkan daftar mahasiswa.
+                        </p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 153614.png" alt="Kode index.blade.php" class="report-image wide">
+                        <p>
+                            Kodingan ini berfungsi untuk menampilkan halaman daftar mahasiswa dalam bentuk tabel yang rapi dan interaktif. Di bagian atas halaman terdapat tombol Tambah Mahasiswa untuk mengarahkan pengguna ke formulir input baru. Bagian tabel menggunakan perulangan foreach untuk memunculkan data setiap mahasiswa satu per satu, mulai dari NIM, nama, nama jurusan, daftar mata kuliah yang diambil, hingga total SKS yang dihitung otomatis. Di kolom kanan tabel disediakan tombol aksi CRUD lengkap, yaitu tombol Detail, Edit, dan Hapus dengan perlindungan CSRF serta konfirmasi agar data tidak terhapus secara tidak sengaja.
+                        </p>
+
+                        <h5>C. Create Student</h5>
+                        <p>
+                            Buat file baru di dalam folder students dengan nama create.blade.php untuk menampilkan formulir tambah data mahasiswa.
+                        </p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 151714.png" alt="Kode create.blade.php bagian pertama" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 151734.png" alt="Kode create.blade.php bagian kedua" class="report-image wide">
+                        <p>
+                            Kodingan ini berfungsi untuk menampilkan halaman formulir pendaftaran atau tambah data mahasiswa baru. Formulir ini menyediakan kolom isian teks untuk NIM, nama, dan alamat, kolom pilihan untuk menentukan jurusan, serta pilihan kotak centang untuk mengambil beberapa mata kuliah sekaligus. Formulir dirancang aman dan interaktif karena menyertakan proteksi CSRF, fitur penahan input lama melalui old(), serta deteksi validasi error otomatis yang akan menampilkan pesan kesalahan di bawah kolom yang belum diisi secara benar saat tombol Simpan ditekan.
+                        </p>
+
+                        <h5>D. Detail Student</h5>
+                        <p>
+                            Buat file baru di dalam folder students dengan nama detail.blade.php untuk menampilkan informasi detail mahasiswa.
+                        </p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 153743.png" alt="Kode detail.blade.php" class="report-image wide">
+                        <p>
+                            Kodingan berfungsi untuk menampilkan halaman profil atau informasi detail dari seorang mahasiswa secara spesifik. Dengan mewarisi kerangka utama dari layouts.app, halaman ini menampilkan data pribadi mahasiswa seperti nama, NIM, jurusan, dan alamat. Bagian yang menarik adalah penggunaan logika foreach untuk mendeteksi daftar mata kuliah yang diambil mahasiswa. Jika ada, sistem akan menampilkan satu per satu dalam bentuk label, lengkap dengan bobot SKS. Jika tidak ada mata kuliah, maka sistem akan menampilkan keterangan bahwa data mata kuliah belum tersedia. Halaman ini juga dilengkapi tombol Edit dan Kembali.
+                        </p>
+
+                        <h5>E. Edit Student</h5>
+                        <p>
+                            Buat file baru di dalam folder students dengan nama edit.blade.php untuk menampilkan formulir pembaruan data mahasiswa.
+                        </p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 153949.png" alt="Kode edit.blade.php bagian pertama" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 154007.png" alt="Kode edit.blade.php bagian kedua" class="report-image wide">
+                        <p>
+                            Kodingan ini berfungsi untuk menampilkan form pembaruan data mahasiswa yang sudah ada di database. Memiliki struktur yang mirip dengan formulir tambah data, halaman ini secara cerdas langsung mengisi setiap kolom input dengan data lama milik mahasiswa tersebut yang diambil dari database menggunakan kombinasi old() dan nilai data asli. Formulir ini dikirim menggunakan metode POST namun dimanipulasi dengan @method('PUT') sesuai standar RESTful API Laravel untuk proses update data. Validasi dan CSRF tetap digunakan agar pembaruan data berjalan aman dan terkontrol.
+                        </p>
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>Output</h4>
+                        <p>
+                            Setelah seluruh migration, model, seeder, controller, route, dan view selesai dibuat, aplikasi dapat dijalankan untuk menampilkan sistem manajemen mahasiswa sederhana. Sistem dapat menampilkan daftar mahasiswa, menambah data mahasiswa baru, menyimpan relasi jurusan dan mata kuliah, menampilkan detail mahasiswa, mengubah data mahasiswa, serta menghapus data dengan konfirmasi.
+                        </p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 154242.png" alt="Output daftar mahasiswa" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 154308.png" alt="Output tambah mahasiswa" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 154324.png" alt="Output daftar mahasiswa setelah data ditambahkan" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 154358.png" alt="Output data mahasiswa pada database" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 154413.png" alt="Output detail mahasiswa" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 154432.png" alt="Output edit mahasiswa" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-20 154449.png" alt="Output konfirmasi hapus data mahasiswa" class="report-image wide">
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>Latihan dan Tugas</h4>
+                        <p>Latihan pada praktikum ini adalah membuat query untuk menampilkan:</p>
+                        <ul class="dash-list">
+                            <li>Semua mahasiswa beserta jurusan dan mata kuliahnya.</li>
+                            <li>Jurusan yang memiliki mahasiswa terbanyak.</li>
+                            <li>Mata kuliah yang diambil oleh mahasiswa tertentu.</li>
+                            <li>Total SKS yang diambil oleh setiap mahasiswa.</li>
+                        </ul>
+
+                        <h5>Langkah 1: Memperbarui StudentController</h5>
+                        <p>
+                            Buka file StudentController.php yang berada di dalam folder app/Http/Controllers/. Pada fungsi index(), perbarui query menggunakan metode eager loading with() untuk memuat relasi major dan subjects secara bersamaan guna menghindari masalah N+1 query. Tambahkan juga metode withSum() untuk menghitung total SKS langsung dari basis data, serta withCount() untuk mencari jurusan dengan jumlah mahasiswa terbanyak. Seluruh hasil query tersebut kemudian dikirimkan ke view menggunakan fungsi compact().
+                        </p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-26 001129.png" alt="Kode StudentController untuk latihan bagian pertama" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-26 001217.png" alt="Kode StudentController untuk latihan bagian kedua" class="report-image wide">
+                        <p>
+                            Kodingan ini merupakan file StudentController di Laravel yang telah dimodifikasi pada fungsi index() untuk menyatukan pengolahan seluruh data logika CRUD mahasiswa dan query relasi dalam satu halaman tampilan. Di dalam fungsi index(), kode ini mengambil seluruh mahasiswa menggunakan eager loading with() dan menghitung total akumulasi SKS mereka secara otomatis melalui perintah withSum(). Selain itu, controller juga mencari jurusan dengan mahasiswa terbanyak, mencari mata kuliah yang diambil oleh mahasiswa tertentu, serta mengirim seluruh data hasil query tersebut ke halaman students.index menggunakan compact().
+                        </p>
+
+                        <h5>Langkah 2: Memperbarui index.blade.php</h5>
+                        <p>
+                            Buka file index.blade.php yang berada di dalam folder resources/views/students/. Tambahkan komponen antarmuka baru menggunakan class card atau alert bawaan Bootstrap di atas tabel utama untuk menampilkan hasil query jurusan terbanyak dan mata kuliah mahasiswa tertentu. Selanjutnya, sesuaikan baris kode pada kolom Total SKS di dalam tabel agar mencetak nilai yang dihasilkan langsung dari controller, sehingga proses pemuatan data menjadi lebih optimal.
+                        </p>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-26 001948.png" alt="Kode index.blade.php untuk latihan bagian pertama" class="report-image wide">
+                        <img src="images/laprak8pweb/Screenshot 2026-05-26 002007.png" alt="Kode index.blade.php untuk latihan bagian kedua" class="report-image wide">
+                        <p>
+                            Kodingan ini adalah file Blade view index.blade.php yang telah diperbarui untuk menampilkan halaman daftar utama mahasiswa sekaligus menyajikan visualisasi data hasil query tugas latihan dalam bentuk komponen Bootstrap. Pada bagian atas, halaman menampilkan informasi khusus berupa jurusan yang memiliki jumlah mahasiswa terbanyak dan daftar mata kuliah yang diambil oleh mahasiswa tertentu. Sementara itu, data seluruh mahasiswa tetap ditampilkan dalam bentuk tabel interaktif dengan kolom SKS yang langsung memanggil variabel hasil hitung dari controller lewat perintah total_sks. Dengan demikian, halaman menjadi lebih informatif, rapi, dan optimal.
+                        </p>
+
+                        <h5>Output latihan</h5>
+                        <img src="images/laprak8pweb/Screenshot 2026-05-26 002200.png" alt="Output hasil latihan query relationship" class="report-image wide">
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
+                    <div class="conclusion-text">
+                        <p>
+                            Melalui pelaksanaan praktikum ini, telah berhasil dipelajari dan diimplementasikan langkah-langkah mendasar dalam membuat relasi One-to-Many dan Many-to-Many pada framework Laravel. Proses ini melibatkan pemahaman teknis yang komprehensif mengenai implementasi foreign key pada struktur tabel serta pembuatan pivot table khusus untuk menangani relasi antar entitas yang saling terhubung. Selain berfokus pada penyusunan struktur basis data, praktikum ini juga memberikan pemahaman tentang bagaimana menggunakan fitur Eloquent relationship untuk mengeksekusi query data secara lebih efisien dibandingkan metode query konvensional.
+                        </p>
+
+                        <p>
+                            Pengerjaan modul ini juga menekankan penerapan praktik terbaik dalam pengembangan aplikasi, khususnya mengenai penggunaan metode eager loading untuk mengoptimalkan kinerja sistem guna menghindari masalah inefisiensi saat memuat data. Seluruh proses pengelolaan basis data dan penulisan logika kode tersebut pada akhirnya diintegrasikan untuk menampilkan data yang saling berelasi dengan baik pada halaman view pengguna. Secara keseluruhan, penguasaan terhadap konsep fundamental relasi ini terbukti sangat penting dalam mendukung proses perancangan dan pembangunan aplikasi web yang efisien, terstruktur, serta mudah dikelola.
+                        </p>
+
+                        <a href="https://github.com/BallFord/PraktikumPWeb8_Iqbal-Miftahul-Fikri_2411531004"
+                           target="_blank"
+                           class="btn btn-outline-warning fw-bold mt-3">
+
+                            <i class="fab fa-github me-2"></i>
+                            Lihat Repository GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-white mt-5">
+        <div class="container">
+            <p class="mb-3">@ Iqbal Miftahul Fikri - Portofolio</p>
+            <div>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-whatsapp fa-lg text-success"></i>
+                </a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-instagram fa-lg text-danger"></i>
+                </a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none">
+                    <i class="fas fa-envelope fa-lg text-warning"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
