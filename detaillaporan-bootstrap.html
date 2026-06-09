@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Bootstrap dan Templating - Iqbal Miftahul Fikri</title>
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #121212;
+            min-height: 100vh;
+        }
+
+        .report-header {
+            background:
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                url('images/BgUnand.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 60px;
+            margin-top: -76px;
+        }
+
+        .content-box {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-top: 5px solid #ffc107;
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        .report-text,
+        .report-list,
+        .conclusion-text p,
+        .detail-subsection p,
+        .detail-subsection li {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .report-text p,
+        .conclusion-text p,
+        .detail-subsection p {
+            margin-bottom: 20px;
+        }
+
+        .report-list li {
+            margin-bottom: 10px;
+        }
+
+        .detail-subsection {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-left: 4px solid #ffc107;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .detail-subsection h4 {
+            color: #ffc107;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .detail-subsection h5 {
+            color: #ffc107;
+            font-size: 19px;
+            font-weight: 600;
+            margin: 28px 0 14px;
+        }
+
+        .dash-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dash-list li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 8px;
+        }
+
+        .dash-list li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+        }
+
+        .command-text {
+            color: #ffc107;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 16px;
+            background-color: #121212;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin: 14px 0 20px;
+            overflow-x: auto;
+        }
+
+        .image-placeholder {
+            min-height: 230px;
+            background-color: #121212;
+            border: 2px dashed #555;
+            border-radius: 8px;
+            color: #bdbdbd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            font-size: 16px;
+            margin: 18px 0 26px;
+        }
+
+        .image-placeholder.small {
+            min-height: 110px;
+            max-width: 420px;
+        }
+
+        .image-placeholder.medium {
+            min-height: 220px;
+            max-width: 640px;
+        }
+
+        .image-placeholder.wide {
+            min-height: 280px;
+            width: 100%;
+        }
+
+        .report-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 18px 0 26px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background-color: #121212;
+        }
+
+        .report-image.small {
+            width: auto;
+            max-width: 420px;
+        }
+
+        .report-image.medium {
+            width: auto;
+            max-width: 640px;
+        }
+
+        .report-image.wide {
+            width: 100%;
+        }
+
+        @media (max-width: 576px) {
+            .content-box {
+                padding: 20px;
+            }
+
+            .detail-subsection {
+                padding: 18px;
+            }
+
+            .detail-subsection h4 {
+                font-size: 20px;
+            }
+
+            .image-placeholder {
+                min-height: 190px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LogoBallFord.png" alt="Logo" width="40" height="40" class="rounded-circle border border-warning">
+                Iqbal M.F.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portofolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="report.html">Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontak.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="report-header text-center">
+        <div class="container">
+            <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Pemrograman Web</span>
+            <h1 class="text-white fw-bold">UI Bootstrap dan Templating</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum UI Bootstrap dan Sistem Templating pada Framework Laravel</p>
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <a href="report.html" class="btn btn-outline-light mb-4">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Kembali ke Halaman Report
+                </a>
+
+                <div class="content-box shadow-lg">
+                    <h3 class="text-warning mb-3">A. Pendahuluan</h3>
+                    <div class="report-text">
+                        <p>
+                            Pengembangan aplikasi berbasis web saat ini dituntut untuk cepat dan efisien, salah satunya dengan memanfaatkan framework PHP seperti Laravel. Pada studi kasus Sistem Informasi Sekolah ini, pembangunan aplikasi diawali dengan instalasi project Laravel dan konfigurasi database agar sistem dapat terhubung dengan baik. Selain itu, keamanan dan akses pengguna menjadi fondasi penting, sehingga diperlukan implementasi fitur user authentication yang sudah disediakan secara otomatis oleh Laravel melalui package laravel atau ui.
+                        </p>
+
+                        <p>
+                            Untuk memberikan pengalaman pengguna yang baik, antarmuka aplikasi perlu dikelola menggunakan sistem templating atau layouting. Praktikum ini menerapkan template SB Admin 2 berbasis framework Bootstrap untuk merancang halaman login, dashboard, hingga menu navigasi seperti sidebar dan topbar secara global. Tidak hanya tampilan, fungsionalitas inti juga dibangun melalui modul manajemen user yang komprehensif, mencakup operasi pemrosesan data (CRUD) menggunakan arsitektur Controller Resource agar pengelolaan data pengguna menjadi lebih terstruktur.
+                        </p>
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
+                    <p class="text-white">Tujuan dari praktikum ini adalah:</p>
+                    <ol class="report-list">
+                        <li>Mampu membuat project baru Laravel dan melakukan konfigurasi koneksi database MySQL dengan benar.</li>
+                        <li>Mampu menginstal dan mengimplementasikan fitur user authentication bawaan Laravel menggunakan package laravel/ui dan framework Bootstrap.</li>
+                        <li>Memahami cara melakukan kustomisasi struktur tabel bawaan pada database melalui migration dan membuat data pengguna awal (admin) menggunakan fitur database seeder.</li>
+                        <li>Mampu menerapkan sistem templating atau layouting global secara modular pada aplikasi menggunakan template antarmuka SB Admin 2.</li>
+                        <li>Menguasai pembuatan fitur Manajemen Users yang mengimplementasikan fungsi penuh Create, Read, Update, dan Delete (CRUD) menggunakan Controller Resource.</li>
+                    </ol>
+
+                    <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
+
+                    <!-- Langkah 1: Membuat Project Laravel -->
+                    <div class="detail-subsection">
+                        <h4>1. Membuat Project Laravel</h4>
+
+                        <p>Membuat project Laravel dengan nama laravel-sisfo. Ketikkan perintah berikut pada workspace menggunakan Composer:</p>
+                        <div class="command-text">composer create-project laravel/laravel=^9.0 laravel-sisfo --prefer-dist</div>
+                        <p>Untuk menjalankan project dapat menggunakan perintah php artisan serve.</p>
+
+                        <img src="images/screenshot_0.png" class="report-image wide" alt="Screenshot: Tampilan halaman default Laravel setelah project berhasil dibuat">
+                    </div>
+
+                    <!-- Langkah 2: Konfigurasi Database -->
+                    <div class="detail-subsection">
+                        <h4>2. Konfigurasi Database</h4>
+
+                        <p>Buka file .env kemudian isikan konfigurasi database berikut ini.</p>
+
+                        <img src="images/screenshot_1.png" class="report-image small" alt="Screenshot: Konfigurasi database pada file .env (DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD)">
+                    </div>
+
+                    <!-- Langkah 3: User Authentication -->
+                    <div class="detail-subsection">
+                        <h4>3. User Authentication</h4>
+
+                        <p>User authentication pada studi kasus ini menggunakan fitur authentication bawaan Laravel.</p>
+
+                        <h5>Install package Laravel atau UI</h5>
+                        <p>Buka terminal atau cmd kemudian ketikkan perintah "composer require laravel/ui".</p>
+                        <p>Jika berhasil maka akan tampil seperti gambar berikut ini.</p>
+
+                        <img src="images/screenshot_2.png" class="report-image medium" alt="Screenshot: Output perintah composer require laravel/ui (daftar package yang terinstall)">
+
+                        <h5>Authentication fitur</h5>
+                        <p>Ketikkan perintah php artisan ui bootstrap --auth pada terminal / cmd.</p>
+                        <p>Jika berhasil maka akan tampil seperti gambar berikut.</p>
+
+                        <img src="images/screenshot_3.png" class="report-image medium" alt="Screenshot: Output perintah php artisan ui bootstrap --auth (Authentication scaffolding generated successfully)">
+
+                        <h5>Install dan compile</h5>
+                        <p>Ketikkan perintah npm install && npm run dev untuk menginstall dan compile file-file asset bawaan, dengan perintah diatas maka file-file yang dibutuhkan untuk authentication akan di generate secara otomatis, seperti halaman login, register dan forgot password, selain itu juga akan di generate controller auth seperti gambar berikut.</p>
+
+                        <img src="images/screenshot_4.png" class="report-image medium" alt="Screenshot: Daftar file Controller Auth yang di-generate (ConfirmPasswordController, ForgotPasswordController, LoginController, RegisterController, ResetPasswordController, VerificationController, Controller.php, HomeController.php)">
+
+                        <p>Selain controller juga degenerate view untuk authentication seperti gambar berikut.</p>
+
+                        <img src="images/screenshot_5.png" class="report-image medium" alt="Screenshot: Struktur folder views/auth (passwords/, login.blade.php, register.blade.php, verify.blade.php) dan layouts/ (app.blade.php, home.blade.php, welcome.blade.php)">
+
+                        <h5>Migration</h5>
+                        <p>Ketikkan perintah php artisan migrate maka Laravel akan membuat migration table authentication, jika sebelumnya belum terdapat database maka akan ada konfirmasi dari Laravel apakah akan dibuatkan databasenya atau tidak. Jika migration berhasil maka akan tampil seperti tampilan berikut.</p>
+
+                        <img src="images/screenshot_6.png" class="report-image wide" alt="Screenshot: Output perintah php artisan migrate (create_users_table, create_cache_table, create_jobs_table)">
+
+                        <p>Jika instalasi berhasil maka aplikasi sisfo sudah memiliki fitur authentication bawaan dari Laravel, berikut tampilan fitur authentication dari Laravel.</p>
+
+                        <h5>Halaman Login</h5>
+                        <p>Akses url http://127.0.0.1:8000/login pada browser maka akan tampil halaman login seperti berikut.</p>
+
+                        <img src="images/screenshot_9.png" class="report-image wide" alt="Screenshot: Tampilan halaman login bawaan Laravel (form Email Address, Password, Remember Me, Login button)">
+
+                        <h5>Halaman Register</h5>
+                        <p>Akses url http://127.0.0.1:8000/register pada browser maka akan tampil halaman register seperti berikut.</p>
+
+                        <img src="images/screenshot_7.png" class="report-image wide" alt="Screenshot: Tampilan halaman register bawaan Laravel (form Name, Email Address, Password, Confirm Password, Register button)">
+
+                        <p>Selanjutnya coba registrasi dan lakukan login ke aplikasi, jika berhasil maka akan tampil seperti gambar berikut.</p>
+
+                        <img src="images/screenshot_8.png" class="report-image wide" alt="Screenshot: Tampilan dashboard setelah berhasil login ("You are logged in!")">
+
+                        <p>Kesimpulan singkat: Fitur authentication Laravel akan mengenerate controller, model, view dan route authentication secara otomatis, selain itu juga tampilan view sudah menggunakan framework bootstrap sehingga mempermudah dalam membuat fitur authentication pada aplikasi.</p>
+
+                        <h5>Costum Table Users</h5>
+                        <p>Authentication Laravel secara otomatis akan mengenerate table Users yang berisi tentang informasi data user, berikut struktur table users.</p>
+
+                        <img src="images/screenshot_11.png" class="report-image medium" alt="Screenshot: Struktur tabel users (id, name, email, email_verified_at, password, remember_token, created_at, updated_at)">
+
+                        <p>Dari struktur table users diatas maka perlu ditambahkan beberapa field yaitu username, level dan status, maka perlu membuat sebuah migration untuk menambahkan field-field diatas, ketikkan perintah berikut pada terminal atau cmd.</p>
+                        <div class="command-text">php artisan make:migration costum_table_users</div>
+                        <p>Selanjutnya buka folder database/migration/ seperti gambar berikut.</p>
+
+                        <img src="images/screenshot_10.png" class="report-image medium" alt="Screenshot: Daftar file migration (create_users_table, create_cache_table, create_jobs_table, costum_table_users)">
+
+                        <p>Kemudian buka file yang diakhiri costum_table_users.php dan isikan dengan kode program berikut.</p>
+
+                        <img src="images/screenshot_12.png" class="report-image wide" alt="Screenshot: Kode migration costum_table_users (up: menambahkan kolom username unique, level, status enum ACTIVE/INACTIVE; down: dropColumn username, level, avatar, status)">
+
+                        <p>Kemudian jalankan perintah php artisan migrate, jika berhasil maka struktur table users telah berubah sesuai dengan kebutuhan aplikasi.</p>
+
+                        <img src="images/screenshot_13.png" class="report-image wide" alt="Screenshot: Struktur tabel users setelah migration (menampilkan kolom tambahan username, level, status)">
+                    </div>
+
+                    <!-- Seeding User -->
+                    <div class="detail-subsection">
+                        <h4>Seeding User</h4>
+
+                        <p>Setelah berhasil melakukan costum table users selanjutnya membuat user menggunakan fitur seeding pada Laravel, buat seeder dengan nama AdminSeeder dengan perintah:</p>
+                        <div class="command-text">php artisan make:seeder AdminSeeder</div>
+
+                        <p>Maka secara otomatis file AdminSeeder.php akan dibuat pada folder database/Seeder. Kemudian buka file tersebut dan buat akun admin seperti kode program berikut.</p>
+
+                        <img src="images/screenshot_16.png" class="report-image wide" alt="Screenshot: Kode AdminSeeder.php (membuat user admin dengan username "admin", name "Admin Aplikasi", email "admin@sisfo.com", level json_encode ["ADMIN"], password Hash::make)">
+
+                        <p>Selanjutnya untuk menjalankan seeding dengan cara menjalankan perintah berikut.</p>
+                        <div class="command-text">php artisan db:seed --class=AdminSeeder</div>
+                        <p>Jika berhasil maka akan tampil seperti gambar berikut.</p>
+
+                        <img src="images/screenshot_15.png" class="report-image medium" alt="Screenshot: Output perintah php artisan db:seed (User Admin berhasil ditambahkan)">
+
+                        <p>Jika sudah berhasil menambahkan user maka dapat login ke aplikasi menggunakan akun tersebut.</p>
+
+                        <img src="images/screenshot_17.png" class="report-image wide" alt="Screenshot: Tampilan dashboard setelah login dengan akun admin">
+                    </div>
+
+                    <!-- Langkah 4: Templating atau Layouting -->
+                    <div class="detail-subsection">
+                        <h4>4. Templating atau Layouting</h4>
+
+                        <p>Authentication Laravel secara otomatis mengenerate tampilan dashboard aplikasi, Langkah selanjutnya kita akan konfigurasi tampilan aplikasi sesuai dengan template yang kita pilih, ada studi kasus ini kita akan menggunakan template SB Admin 2 dengan framework bootstrap, silahkan download template pada link https://startbootstrap.com/theme/sb-admin-2 kemudian ekstrak, selanjutnya buat folder pada public project Laravel dengan nama sbadmin dan copy paste kan seluruh asset template sbadmin kedalam folder tersebut.</p>
+
+                        <img src="images/screenshot_18.png" class="report-image wide" alt="Screenshot: File Explorer menampilkan folder sbadmin di dalam folder public project Laravel">
+
+                        <h5>Halaman Login Aplikasi</h5>
+                        <p>Buka file app.blade.php pada folder view/layouts kemudian ganti dengan kode program dibawah ini.</p>
+
+                        <img src="images/screenshot_19.png" class="report-image wide" alt="Screenshot: Kode app.blade.php (halaman login dengan styling SB Admin 2, form login dengan gradient background, card body)">
+
+                        <p>Kode tersebut adalah struktur halaman login untuk sebuah aplikasi web yang dibangun menggunakan framework Laravel dan template desain antarmuka SB Admin 2. Kode ini berfungsi untuk menampilkan kotak formulir di tengah layar yang meminta pengguna memasukkan email dan kata sandi agar dapat masuk ke dalam sistem. Selain mengatur tampilan visualnya dengan latar belakang gradasi dan tata letak yang responsif, kode tersebut juga telah terintegrasi dengan fungsi keamanan bawaan Laravel dan sistem validasi yang akan otomatis menampilkan pesan peringatan jika email atau kata sandi yang dimasukkan salah atau kosong.</p>
+
+                        <p>Sehingga tampilan login akan berubah seperti gambar dibawah ini.</p>
+
+                        <img src="images/screenshot_21.png" class="report-image wide" alt="Screenshot: Tampilan halaman login dengan template SB Admin 2 (background biru gradient, card "Halaman Login")">
+
+                        <h5>Halaman Global (Layout Utama)</h5>
+                        <p>Selanjutnya membuat layout global yang mana layout ini akan digunakan sebagai layout utama aplikasi dan view-view lain akan mengambil resource disini, karena app.blade.php sudah digunakan untuk view login, maka kita perlu membuat layout baru, buat file baru dengan nama main.blade.php pada folder view/layouts dan isikan dengan kode program berikut ini.</p>
+
+                        <img src="images/screenshot_23.png" class="report-image wide" alt="Screenshot: Kode main.blade.php (layout utama dengan SB Admin 2, include sidebar dan topbar, @yield untuk judul dan konten, footer, modal logout, script jQuery, Bootstrap, DataTables, Select2)">
+
+                        <p>Kode tersebut adalah template utama untuk halaman dashboard aplikasi web yang dibangun menggunakan framework Laravel dan antarmuka SB Admin 2. Kode ini berfungsi sebagai kerangka halaman utuh yang secara otomatis mengatur letak tata letak permanen seperti sidebar, topbar, footer, dan jendela pop-up konfirmasi logout, sekaligus memuat semua CSS maupun fungsi JavaScript. Melalui perintah seperti @yield, template ini menyediakan ruang kosong agar halaman web lain dapat dengan mudah menyisipkan judul dan isi utamanya ke dalam kerangka tersebut tanpa perlu menulis ulang seluruh struktur HTML dari awal untuk setiap halaman yang berbeda.</p>
+
+                        <h5>Sidebar</h5>
+                        <p>Buat file pada folder layouts dengan nama sidebar.blade.php dan isi dengan kode program berikut.</p>
+
+                        <img src="images/screenshot_22.png" class="report-image wide" alt="Screenshot: Kode sidebar.blade.php (menu sidebar dengan brand "Sisfo", menu Dashboard dengan icon tachometer-alt, toggle button)">
+
+                        <p>Kode tersebut adalah berfungsi untuk membuat sebuah menu sidebar interaktif pada antarmuka aplikasi web. Kode ini membangun struktur visual yang berurutan dari atas ke bawah, diawali dengan bagian merek atau logo yang menampilkan nama aplikasi beserta sebuah ikon wajah tersenyum, diikuti oleh sebuah garis pembatas, lalu terdapat sebuah link untuk mengarahkan pengguna ke halaman utama lengkap dengan ikon speedometer, dan diakhiri dengan sebuah tombol di bagian paling bawah yang berfungsi untuk melipat atau melebarkan ukuran menu samping tersebut agar tampilan layar bisa disesuaikan menjadi lebih luas atau lebih padat.</p>
+
+                        <h5>Topbar</h5>
+                        <p>Buat file pada folder layouts dengan nama topbar.blade.php dan isi dengan kode program berikut.</p>
+
+                        <img src="images/screenshot_25.png" class="report-image wide" alt="Screenshot: Kode topbar.blade.php (navbar dengan sidebar toggle, user info dropdown dengan Profile, Settings, Logout)">
+
+                        <p>Kode tersebut berfungsi untuk membangun menu topbar pada antarmuka aplikasi web. Kode ini berfungsi untuk menyediakan bilah navigasi yang memuat dua fitur utama, sebuah tombol bergaris tiga di sebelah kiri yang berguna untuk memunculkan atau menyembunyikan menu samping saat diakses melalui perangkat layar kecil (seperti smartphone), dan sebuah informasi akun di sudut kanan atas. Area informasi akun tersebut menggunakan sistem dari framework Laravel untuk secara otomatis mendeteksi dan menampilkan nama serta foto profil pengguna yang sedang masuk ke dalam sistem, di mana saat bagian profil itu diklik, ia akan memunculkan pilihan menu ke bawah yang berisi akses pintas ke halaman Profile, Settings, serta tombol Logout untuk keluar dari aplikasi yang terhubung dengan jendela pop-up konfirmasi.</p>
+
+                        <h5>Cara penggunaan layouts main.blade.php</h5>
+                        <p>Sebagai contoh kita akan menggunakan view home.blade.php, buka file tersebut dan isikan dengan kode program berikut.</p>
+
+                        <img src="images/screenshot_27.png" class="report-image medium" alt="Screenshot: Kode home.blade.php (@extends('layouts.main'), @section("judul") Dashboard @endsection, @section('konten') dashboard @endsection)">
+
+                        <p>Untuk menggunakan layouts main menggunakan @extends('layouts.main') sehingga seluruh tampilan main.blade.php akan ditampilkan pada view home, untuk menampilkan data judul pada layout main dengan perintah @section('judul')Dashboard @endsection dan konten dengan cara @section('judul')Dashboard @endsection.</p>
+
+                        <p>Jika konfigurasi layout berhasil maka akan tampil seperti gambar berikut.</p>
+
+                        <div class="image-placeholder wide">
+                            <i class="fas fa-image me-2"></i> Screenshot: Tampilan dashboard aplikasi dengan SB Admin 2 (sidebar Sisfo, topbar dengan nama user, konten "Dashboard")
+                        </div>
+                    </div>
+
+                    <!-- Langkah 5: Manajemen Users -->
+                    <div class="detail-subsection">
+                        <h4>5. Manajemen Users</h4>
+
+                        <p>Selanjutnya membuat fitur manajemen users, kita akan menggunakan fungsi keseluruhan CRUD maka kita akan membuat controller resource, buka terminal/CMD kemudian ketikkan perintah berikut.</p>
+                        <div class="command-text">php artisan make:controller UserController --resource</div>
+
+                        <img src="images/screenshot_29.png" class="report-image medium" alt="Screenshot: Output perintah pembuatan UserController (created successfully)">
+
+                        <p>Sehingga jika dilihat pemetaan route php artisan route:list menjadi seperti gambar di bawah ini.</p>
+
+                        <img src="images/screenshot_26.png" class="report-image wide" alt="Screenshot: Output php artisan route:list (menampilkan semua route CRUD untuk users: index, create, store, show, edit, update, destroy)">
+
+                        <h5>File UserController Resource</h5>
+
+                        <img src="images/screenshot_28.png" class="report-image wide" alt="Screenshot: Kode UserController.php bagian pertama (method index, create, store, show)">
+
+                        <img src="images/screenshot_30.png" class="report-image wide" alt="Screenshot: Kode UserController.php bagian kedua (method edit, update, destroy)">
+
+                        <p>Kedua tersebut menampilkan Resource Controller dengan nama UserController. Kode ini adalah sebuah kerangka dasar untuk mengelola operasi CRUD (Create, Read, Update, Delete). Setiap fungsi yang saat ini masih kosong tersebut sudah diplot untuk tugas spesifik, index untuk menampilkan daftar seluruh data pengguna, create untuk memunculkan formulir tambah data baru, store untuk menyimpan data baru ke database, show untuk melihat detail satu pengguna secara spesifik, edit untuk memunculkan formulir ubah data, update untuk memproses dan menyimpan perubahan tersebut, serta destroy untuk menghapus data pengguna, sehingga programmer hanya perlu mengisi instruksi detail di dalam kurung kurawal masing-masing fungsi tanpa harus membangun pondasi utamanya dari nol.</p>
+                    </div>
+
+                    <!-- Create Users -->
+                    <div class="detail-subsection">
+                        <h4>Create Users</h4>
+
+                        <p>Route untuk menampilkan view form tambah data users adalah users/create silahkan buka file UserController kemudian pada action create edit kode program menjadi seperti berikut.</p>
+
+                        <img src="images/screenshot_33.png" class="report-image small" alt="Screenshot: Kode method create() { return view('user.create'); }">
+
+                        <p>Perintah return view('user.create') artinya menampilkan view create pada folder user, selanjutnya buat folder user didalam folder view, kemudian tambahkan file create.blade.php dan isikan dengan kode program berikut ini.</p>
+
+                        <img src="images/screenshot_31.png" class="report-image medium" alt="Screenshot: Kode awal create.blade.php (@extends('layouts.main'), @section("judul") Create User @endsection, @section('konten'))">
+
+                        <p>Selanjutnya tambahkan file css dan javascript select2 kedalam layout main.blade.php.</p>
+
+                        <img src="images/screenshot_32.png" class="report-image medium" alt="Screenshot: Kode penambahan Select2 CSS dan JS di main.blade.php beserta inisialisasi script">
+
+                        <p>Nanti saat membuat form penambahan user, select box akan otomatis berubah menjadi tampilan Select2 yang rapi dan bisa dicari.</p>
+
+                        <p>Selanjutnya membuat form inputan create user, edit user/create.blade.php menjadi seperti kode program berikut.</p>
+
+                        <img src="images/screenshot_36.png" class="report-image wide" alt="Screenshot: Kode lengkap create.blade.php (form dengan input Nama, Email, Username, Password, Level select2-multiple dengan opsi ADMIN/GURU/STAFF, tombol Batal dan Simpan)">
+
+                        <p>Sehingga tampilan form inputan user menjadi seperti gambar dibawah ini.</p>
+
+                        <img src="images/screenshot_35.png" class="report-image wide" alt="Screenshot: Tampilan halaman Create User dengan form input (Nama, Email, Username, Password, Level dropdown)">
+
+                        <p>Selanjutnya buka action store pada UserController kemudian isikan kode program berikut.</p>
+
+                        <img src="images/screenshot_37.png" class="report-image wide" alt="Screenshot: Kode method store() (membuat instance User baru, mengisi name, username, email, password dengan Hash::make, level dengan json_encode, save, redirect dengan session status)">
+
+                        <p>Form create user menggunakan method POST yang akan dikirimkan ke action store dengan route users.store, selanjutnya pada action store akan ditangkap isi form create user dengan cara $request->get('nama input') kemudian disimpan pada table user dengan cara instance model User dengan cara $user = new \App\Models\User setelah itu assign sesuai dengan nama field. Untuk menyimpan kedalam database User menggunakan perintah $user->save, jika data berhasil disimpan akan di redirect ke route users.index dengan membawa session status.</p>
+                    </div>
+
+                    <!-- Read / List Users -->
+                    <div class="detail-subsection">
+                        <h4>Read / List Users</h4>
+
+                        <p>Selanjutnya setelah fungsi create selesai kita akan menampilkan data user, untuk menampilkan data user kita akan menggunakan method GET yaitu http://localhost/users yang mana route ini merupakan action index pada UserController, buka action index kemudian edit menjadi seperti kode program berikut.</p>
+
+                        <img src="images/screenshot_38.png" class="report-image small" alt="Screenshot: Kode method index() { $users = \App\Models\User::all(); return view('user.index', ['users' => $users]); }">
+
+                        <p>Selanjutnya buat file dengan nama index.blade.php pada folder views/user dan isi dengan kode program berikut.</p>
+
+                        <img src="images/screenshot_39.png" class="report-image wide" alt="Screenshot: Kode index.blade.php (tabel dengan DataTables, kolom Name/Username/Email/Action, foreach loop, tombol Edit dan Hapus)">
+
+                        <p>Kode tersebut adalah tampilan halaman web yang berfungsi untuk menyajikan daftar data pengguna ke dalam bentuk tabel yang rapi. Kode ini bekerja dengan cara meminjam kerangka desain utama dari file layouts.main, lalu menyisipkan judul halaman Users dan mengisi ruang utamanya dengan beberapa elemen. Di bagian awal konten, sistem akan mendeteksi dan menampilkan pesan notifikasi berwarna hijau jika ada tindakan sebelumnya yang berhasil dilakukan, selanjutnya, kode tersebut membangun sebuah tabel yang dilengkapi perintah perulangan otomatis untuk mengambil seluruh data pengguna dari database dan menampilkannya baris demi baris ke dalam kolom Nama, Username, dan Email, lengkap dengan satu kolom tambahan yang nantinya akan digunakan untuk meletakkan tombol seperti edit atau hapus.</p>
+
+                        <p>Karena menggunakan datatables tambahkan file css datatable pada bagian head main.blade.php dan file js datatables pada bagian bawah main.blade.php.</p>
+
+                        <img src="images/screenshot_40.png" class="report-image medium" alt="Screenshot: Kode penambahan DataTables CSS dan JS di main.blade.php">
+
+                        <p>Selanjutnya menambahkan button untuk membuka form tambah user seperti kode program berikut.</p>
+
+                        <img src="images/screenshot_42.png" class="report-image small" alt="Screenshot: Kode tombol "Tambah User" (a href route users.create, btn btn-primary btn-sm)">
+
+                        <p>Sehingga tampilan list user menjadi seperti gambar dibawah ini.</p>
+
+                        <img src="images/screenshot_44.png" class="report-image wide" alt="Screenshot: Tampilan halaman Users dengan tabel data (DataTables, tombol Tambah User, data user admin)">
+                    </div>
+
+                    <!-- Update Users -->
+                    <div class="detail-subsection">
+                        <h4>Update Users</h4>
+
+                        <p>Selanjutnya untuk melakukan proses update data user terlebih dahulu kita buatkan tombol action yang mengarahkan pada route users/edit/{user}/edit atau action edit pada UserController untuk menampilkan form dan menggunakan route users/edit/{user} untuk method PUT. Pertama-tama kita akan membuat tombol edit pada tampilan list user, silahkan buka file user/index.blade.php pada kolom [action] ganti dengan kode berikut ini.</p>
+
+                        <img src="images/screenshot_43.png" class="report-image medium" alt="Screenshot: Kode tombol Edit (a href route users.edit, btn btn-sm btn-success)">
+
+                        <p>Jika salah satu tombol diatas diklik maka akan menghasilkan string url http://localhost/users/{user}/edit yang mana {user} merupakan id dari user yang di klik. Selanjutnya buka action edit pada UserController dan isikan dengan kode program berikut.</p>
+
+                        <img src="images/screenshot_45.png" class="report-image medium" alt="Screenshot: Kode method edit($id) { $user = \App\Models\User::findOrFail($id); return view('user.edit', ['user' => $user]); }">
+
+                        <p>Kode diatas akan mengambil data user berdasarkan id user yang didapatkan dan ditampung pada variable $user dan dikrimkan ke view user.edit, silahkan buat view didalam folder user/edit.blade.php dan isikan dengan kode program berikut.</p>
+
+                        <img src="images/screenshot_46.png" class="report-image wide" alt="Screenshot: Kode edit.blade.php (form dengan method POST + hidden _method PUT, input Nama/Email/Username pre-filled, Level select2-multiple dengan selected values dari json_decode, tombol Batal dan Simpan)">
+
+                        <p>Kode tersebut berfungsi untuk menampilkan formulir pembaruan data pengguna. Kode ini meminjam tata letak utama aplikasi dan menyajikan sebuah kotak formulir yang secara otomatis sudah memuat informasi pengguna saat ini seperti Nama, Email, Username, serta daftar pilihan hak akses (Level) yang memungkinkan pemilihan ganda dan sudah tertandai sesuai data sebelumnya. Formulir ini juga telah disematkan kode keamanan pelindung bawaan Laravel serta instruksi pengiriman khusus (PUT) agar sistem mengenali bahwa aktivitas ini bertujuan menimpa data lama, sehingga ketika tombol Simpan diklik, semua perubahan akan langsung dikirim untuk diperbarui ke dalam database, sementara tombol Batal tersedia untuk menghentikan proses dan mengembalikan pengguna ke halaman daftar nama.</p>
+
+                        <p>Sehingga tampilan form edit user menjadi seperti gambar berikut ini.</p>
+
+                        <img src="images/screenshot_47.png" class="report-image wide" alt="Screenshot: Tampilan halaman Edit User dengan form pre-filled (Nama, Email, Username, Level)">
+
+                        <p>Selanjutnya buka action update pada UserController kemudian isikan dengan kode program berikut ini.</p>
+
+                        <img src="images/screenshot_48.png" class="report-image medium" alt="Screenshot: Kode method update() (findOrFail, update name dan level json_encode, save, redirect dengan status "User berhasil diubah")">
+
+                        <p>Selanjutnya kita akan mencoba melakukan perubahan data user seperti gambar dibawah ini.</p>
+
+                        <img src="images/screenshot_49.png" class="report-image wide" alt="Screenshot: Form edit user dengan data yang diubah (nama menjadi "Iqbal Miftahul Fikri")">
+
+                        <p>Sesuai gambar diatas kita akan mengubah nama user menjadi Iqbal Miftahul Fikri seperti gambar berikut.</p>
+
+                        <img src="images/screenshot_50.png" class="report-image wide" alt="Screenshot: Form Edit User setelah nama diubah menjadi "Iqbal Fikri"">
+
+                        <p>Setelah diganti nama user tersebut klik simpan, jika berhasil maka akan diredirect ke halaman users dengan menampilkan alert success seperti gambar berikut.</p>
+
+                        <img src="images/screenshot_54.png" class="report-image wide" alt="Screenshot: Tampilan halaman Users dengan alert success "User berhasil diubah" dan data nama yang sudah berubah">
+                    </div>
+
+                    <!-- Delete Users -->
+                    <div class="detail-subsection">
+                        <h4>Delete Users</h4>
+
+                        <p>Tambahkan tombol atau link pada list user, silahkan buka view user/index.blade.php dan tambahkan kode program berikut dibawah link edit.</p>
+
+                        <img src="images/screenshot_52.png" class="report-image medium" alt="Screenshot: Kode tombol Hapus (form dengan onsubmit confirm, method POST, hidden _method DELETE, input submit "Hapus" btn-danger)">
+
+                        <p>Selanjutnya buka action destroy pada UserController dan isikan dengan kode program berikut ini.</p>
+
+                        <img src="images/screenshot_51.png" class="report-image medium" alt="Screenshot: Kode method destroy($id) (findOrFail, delete, redirect dengan status "User berhasil dihapus")">
+
+                        <p>Ketika diklik salah satu tombol hapus maka akan muncul pop up dialog peringatan apakah data akan dihapus seperti gambar dibawah ini.</p>
+
+                        <img src="images/screenshot_53.png" class="report-image wide" alt="Screenshot: Tampilan halaman Users dengan pop-up konfirmasi "Hapus data user?" (OK / Cancel)">
+
+                        <p>Jika kita tekan oke maka data akan dihapus, jika data berhasil dihapus maka akan muncul pesan seperti gambar berikut.</p>
+
+                        <img src="images/screenshot_55.png" class="report-image wide" alt="Screenshot: Tampilan halaman Users dengan alert success "User berhasil dihapus"">
+                    </div>
+
+                    <!-- Menambahkan Menu Users -->
+                    <div class="detail-subsection">
+                        <h4>Menambahkan Menu Users di Sidebar</h4>
+
+                        <p>Silahkan buka view Layouts/sidebar.blade.php kemudian tambahkan kode program berikut.</p>
+
+                        <img src="images/screenshot_57.png" class="report-image medium" alt="Screenshot: Kode penambahan menu Users di sidebar (li nav-item, a nav-link href route users.index, icon fa-users, span Users)">
+
+                        <p>Sehingga pada aplikasi akan muncul menu users seperti gambar berikut ini.</p>
+
+                        <img src="images/screenshot_56.png" class="report-image medium" alt="Screenshot: Tampilan sidebar dengan menu Dashboard dan Users (icon users)">
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
+                    <div class="conclusion-text">
+                        <p>
+                            Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa framework Laravel sangat mempermudah dan mempercepat proses pengembangan aplikasi Sistem Informasi Sekolah. Fitur authentication bawaan dari Laravel mampu men-generate controller, model, view, dan route secara otomatis, sehingga pengembang tidak perlu membangun sistem login dan registrasi dari awal. Kemudahan ini juga didukung oleh fleksibilitas Laravel dalam memodifikasi struktur tabel bawaan melalui perintah migration serta otomasi pengisian data pengguna awal melalui fitur seeder.
+                        </p>
+
+                        <p>
+                            Selain fungsionalitas backend, integrasi antarmuka juga berjalan secara efisien melalui sistem templating menggunakan engine Blade. Penggunaan template SB Admin 2 yang dipadukan dengan pemisahan komponen layout (seperti sidebar, topbar, dan konten utama) membuat kode tampilan lebih rapi, terpusat, dan mudah dikelola. Ditambah dengan pemanfaatan Controller Resource, pembuatan modul Manajemen Users (CRUD) menjadi jauh lebih ringkas dan terstruktur karena pemetaan route dan metode operasi data telah diatur secara otomatis oleh Laravel.
+                        </p>
+
+                        <a href="https://github.com/BallFord/PraktikumPWeb9_IqbalMiftahulFikri_2411531004"
+                           target="_blank"
+                           class="btn btn-outline-warning fw-bold mt-3">
+
+                            <i class="fab fa-github me-2"></i>
+                            Lihat Repository GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-white mt-5">
+        <div class="container">
+            <p class="mb-3">@ Iqbal Miftahul Fikri - Portofolio</p>
+            <div>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-whatsapp fa-lg text-success"></i>
+                </a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-instagram fa-lg text-danger"></i>
+                </a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none">
+                    <i class="fas fa-envelope fa-lg text-warning"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
