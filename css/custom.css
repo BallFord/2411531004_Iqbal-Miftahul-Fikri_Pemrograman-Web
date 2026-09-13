@@ -3,6 +3,9 @@ body {
     background-color: #121212;
     color: #f8f9fa;
     padding-top: 76px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .navbar {
@@ -106,6 +109,6 @@ body {
 footer {
     background-color: #000;
     padding: 40px 0;
-    margin-top: 60px;
+    margin-top: auto;
     border-top: 1px solid #333;
 }
