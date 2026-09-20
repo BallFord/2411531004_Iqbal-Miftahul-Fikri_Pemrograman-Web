@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Widgets Stateless, Stateful, & Manajemen State Dasar - Iqbal Miftahul Fikri</title>
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #121212;
+            min-height: 100vh;
+        }
+
+        .report-header {
+            background:
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                url('images/BgUnand.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 60px;
+            margin-top: -76px;
+        }
+
+        .content-box {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-top: 5px solid #ffc107;
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        .report-text,
+        .report-list,
+        .conclusion-text p,
+        .detail-subsection p,
+        .detail-subsection li {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .report-text p,
+        .conclusion-text p,
+        .detail-subsection p {
+            margin-bottom: 20px;
+        }
+
+        .report-list li {
+            margin-bottom: 10px;
+        }
+
+        .detail-subsection {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-left: 4px solid #ffc107;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .detail-subsection h4 {
+            color: #ffc107;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .detail-subsection h5 {
+            color: #ffc107;
+            font-size: 19px;
+            font-weight: 600;
+            margin: 28px 0 14px;
+        }
+
+        .dash-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dash-list li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 8px;
+        }
+
+        .dash-list li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+        }
+
+        .command-text {
+            color: #ffc107;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 16px;
+            background-color: #121212;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin: 14px 0 20px;
+            overflow-x: auto;
+        }
+
+        .image-placeholder {
+            min-height: 230px;
+            background-color: #121212;
+            border: 2px dashed #555;
+            border-radius: 8px;
+            color: #bdbdbd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            font-size: 16px;
+            margin: 18px 0 26px;
+        }
+
+        .image-placeholder.small {
+            min-height: 110px;
+            max-width: 420px;
+        }
+
+        .image-placeholder.medium {
+            min-height: 220px;
+            max-width: 640px;
+        }
+
+        .image-placeholder.wide {
+            min-height: 280px;
+            width: 100%;
+        }
+
+        .report-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 18px 0 26px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background-color: #121212;
+        }
+
+        .report-image.small {
+            width: auto;
+            max-width: 420px;
+        }
+
+        .report-image.medium {
+            width: auto;
+            max-width: 640px;
+        }
+
+        .report-image.wide {
+            width: 100%;
+        }
+
+        @media (max-width: 576px) {
+            .content-box {
+                padding: 20px;
+            }
+
+            .detail-subsection {
+                padding: 18px;
+            }
+
+            .detail-subsection h4 {
+                font-size: 20px;
+            }
+
+            .image-placeholder {
+                min-height: 190px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LogoBallFord.png" alt="Logo" width="40" height="40" class="rounded-circle border border-warning">
+                Iqbal M.F.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portofolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="report.html">Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontak.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="report-header text-center">
+        <div class="container">
+            <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Aplikasi Mobile</span>
+            <h1 class="text-white fw-bold">Pengenalan Widgets Stateless, Stateful, & Manajemen State Dasar</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum Pengenalan Widgets dan Manajemen State Dasar pada Framework Flutter</p>
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <a href="report.html" class="btn btn-outline-light mb-4">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Kembali ke Halaman Report
+                </a>
+
+                <div class="content-box shadow-lg">
+                    <h3 class="text-warning mb-3">A. Pendahuluan</h3>
+                    <div class="report-text">
+                        <p>
+                            Pengembangan aplikasi modern menuntut efisiensi dalam pembangunan antarmuka pengguna yang responsif dan menarik. Framework Flutter berbasis bahasa pemrograman Dart hadir membawa pendekatan declarative UI, di mana seluruh elemen antarmuka dibangun menggunakan komponen modular yang disebut widget. Struktur dasar aplikasi Flutter umumnya diawali dengan kontainer utama seperti MaterialApp dan Scaffold yang berfungsi sebagai fondasi struktur visual, tema, serta tata letak antarmuka.
+                        </p>
+
+                        <p>
+                            Dalam Flutter, pengolahan tampilan dibagi menjadi StatelessWidget untuk komponen statis yang tampilannya tidak berubah dan StatefulWidget untuk komponen dinamis yang menyimpan data internal. Praktikum ini berfokus pada penerapan pemahaman dasar mengenai manajemen state menggunakan fungsi setState(), yang diimplementasikan pada pembuatan antarmuka dasbor interaktif berupa sapaan pengguna dan kartu saldo dengan fitur penyensoran nominal serta kustomisasi tampilan.
+                        </p>
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
+                    <p class="text-white">Tujuan dari praktikum ini adalah:</p>
+                    <ul class="report-list dash-list">
+                        <li>Memahami kerangka dasar dan struktur hierarki aplikasi Flutter menggunakan MaterialApp dan Scaffold.</li>
+                        <li>Membedakan fungsi, karakteristik, serta penggunaan StatelessWidget dan StatefulWidget dalam pengembangan antarmuka.</li>
+                        <li>Menerapkan fungsi setState() untuk merender ulang antarmuka pengguna secara interaktif saat terjadi perubahan data.</li>
+                        <li>Menyusun tata letak antarmuka secara terstruktur menggunakan kombinasi widget Row, Column, Card, dan Padding.</li>
+                        <li>Melakukan modifikasi styling warna tema kartu saldo serta penambahan informasi teks statis nomor rekening sesuai spesifikasi tugas praktikum.</li>
+                    </ul>
+
+                    <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
+
+                    <!-- Langkah 1: Membuat Widget Sapaan (Stateless) -->
+                    <div class="detail-subsection">
+                        <h4>Membuat Widget Sapaan (Stateless)</h4>
+
+                        <p><strong>1.</strong> Membuat Widget Sapaan (Stateless).</p>
+                        <img src="images/laprak2_modul1_appmob/gambar1.png" class="report-image wide" alt="Kode GreetingWidget extends StatelessWidget">
+                        <p>
+                            Kode ini membuat StatelessWidget bernama GreetingWidget untuk menampilkan header sapaan statis yang tampilannya tidak berubah setelah dirender. Komponen disusun secara horizontal menggunakan Row, yang berisi Column untuk menumpuk teks sapaan secara vertikal di sebelah kiri serta CircleAvatar untuk menampilkan ikon profil pengguna di sebelah kanan.
+                        </p>
+                    </div>
+
+                    <!-- Langkah 2: Membuat Kartu Saldo (Stateful) -->
+                    <div class="detail-subsection">
+                        <h4>Membuat Kartu Saldo (Stateful)</h4>
+
+                        <p><strong>2.</strong> Membuat Kartu Saldo (Stateful).</p>
+                        <img src="images/laprak2_modul1_appmob/gambar2.png" class="report-image wide" alt="Kode BalanceCard extends StatefulWidget">
+                        <p>
+                            Kode ini membentuk struktur dasar StatefulWidget bernama BalanceCard yang terdiri dari dua kelas terpisah agar tampilannya dapat dinamis dan berinteraksi dengan pengguna. Kelas _BalanceCardState berfungsi menyimpan status internal aplikasi, di mana variabel boolean _isObscure digunakan untuk mengontrol status sembunyi/tampil nominal saldo, sedangkan variabel _balance menyimpan nilai nominal uang yang akan ditampilkan.
+                        </p>
+                    </div>
+
+                    <!-- Langkah 3: Menerapkan Interaktivitas (setState) -->
+                    <div class="detail-subsection">
+                        <h4>Menerapkan Interaktivitas (setState)</h4>
+
+                        <p><strong>3.</strong> Menerapkan Interaktivitas (setState).</p>
+                        <img src="images/laprak2_modul1_appmob/gambar3.png" class="report-image wide" alt="Kode setState dengan IconButton dan logika ternary">
+                        <p>
+                            Kode ini memberikan interaktivitas pada tombol IconButton dengan memanggil setState(), yang bertugas membalik nilai variabel _isObscure setiap kali ikon ditekan. Pemanggilan setState() memicu Flutter untuk merender ulang UI, sehingga logika operator ternary secara otomatis mengubah teks nominal saldo antara versi tersensor atau nilai asli, sekaligus memperbarui ikon mata di sampingnya.
+                        </p>
+                    </div>
+
+                    <!-- Langkah 4: Hasil Akhir -->
+                    <div class="detail-subsection">
+                        <h4>Hasil Akhir</h4>
+
+                        <p><strong>4.</strong> Hasil Akhir.</p>
+                        <img src="images/laprak2_modul1_appmob/gambar4.png" class="report-image medium" alt="Output awal - Header Halo Budi dan kartu saldo biru Rp 5.000.000">
+                    </div>
+
+                    <!-- Latihan / Tugas -->
+                    <div class="detail-subsection">
+                        <h4>Latihan / Tugas</h4>
+
+                        <p><strong>5.</strong> Tugas 1: Styling &rarr; Ubah warna tema BalanceCard dari biru (Colors.blueAccent) menjadi hijau emerald (Colors.teal).</p>
+                        <img src="images/laprak2_modul1_appmob/gambar5.png" class="report-image wide" alt="Kode perubahan warna Card menjadi Colors.teal">
+
+                        <p>Output:</p>
+                        <img src="images/laprak2_modul1_appmob/gambar6.png" class="report-image medium" alt="Output Tugas 1 - Kartu saldo berwarna hijau teal">
+
+                        <p><strong>6.</strong> Tugas 2: Modifikasi UI &rarr; Tambahkan teks statis berupa "No. Rekening: 1234-5678" di bagian bawah nominal saldo di dalam kartu.</p>
+                        <img src="images/laprak2_modul1_appmob/gambar7.png" class="report-image wide" alt="Kode const Text No. Rekening 1234-5678 dengan TextStyle">
+
+                        <p>Output:</p>
+                        <img src="images/laprak2_modul1_appmob/gambar8.png" class="report-image medium" alt="Output Tugas 2 - Kartu saldo hijau teal dengan teks No. Rekening 1234-5678">
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
+                    <div class="conclusion-text">
+                        <p>
+                            Berdasarkan praktikum yang telah dilaksanakan, dapat disimpulkan bahwa pemisahan antara StatelessWidget dan StatefulWidget merupakan fondasi utama dalam membangun antarmuka Flutter yang efisien. Komponen GreetingWidget berhasil dibuat secara statis untuk menampilkan sapaan dan avatar pengguna, sedangkan BalanceCardWidget berhasil menyajikan kartu saldo interaktif yang merespons ketukan tombol ikon mata untuk menyensor atau menampilkan nominal saldo secara real-time memanfaatkan fungsi setState().
+                        </p>
+
+                        <p>
+                            Selain itu, penyelesaian tugas praktikum berhasil dilakukan dengan mengubah tema warna BalanceCardWidget dari Colors.blueAccent menjadi Colors.teal, serta menambahkan teks statis nomor rekening tepat di bawah nominal saldo di dalam tata letak Column. Secara keseluruhan, praktikum ini memperkuat pemahaman mengenai komposisi hierarki widget, penyusunan tata letak, dan logika manajemen state dasar pada Flutter.
+                        </p>
+
+                        <a href="https://github.com/BallFord/Praktikum-AppMob_Iqbal-Miftahul-Fikri_2411531004/tree/main"
+                           target="_blank"
+                           class="btn btn-outline-warning fw-bold mt-3">
+                            <i class="fab fa-github me-2"></i>
+                            Lihat Repository GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-white">
+        <div class="container">
+            <p class="mb-3">@ Iqbal Miftahul Fikri - Portofolio</p>
+            <div>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-whatsapp fa-lg text-success"></i>
+                </a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-instagram fa-lg text-danger"></i>
+                </a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none">
+                    <i class="fas fa-envelope fa-lg text-warning"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
