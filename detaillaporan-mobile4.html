@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Widgets & Forms Menangkap Data, Dropdown, dan Validasi - Iqbal Miftahul Fikri</title>
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #121212;
+            min-height: 100vh;
+        }
+
+        .report-header {
+            background:
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                url('images/BgUnand.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 60px;
+            margin-top: -76px;
+        }
+
+        .content-box {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-top: 5px solid #ffc107;
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        .report-text,
+        .report-list,
+        .conclusion-text p,
+        .detail-subsection p,
+        .detail-subsection li {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .report-text p,
+        .conclusion-text p,
+        .detail-subsection p {
+            margin-bottom: 20px;
+        }
+
+        .report-list li {
+            margin-bottom: 10px;
+        }
+
+        .detail-subsection {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-left: 4px solid #ffc107;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .detail-subsection h4 {
+            color: #ffc107;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .detail-subsection h5 {
+            color: #ffc107;
+            font-size: 19px;
+            font-weight: 600;
+            margin: 28px 0 14px;
+        }
+
+        .dash-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dash-list li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 8px;
+        }
+
+        .dash-list li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+        }
+
+        .report-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 24px auto 32px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background-color: #121212;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+        }
+
+        .report-image.small {
+            width: auto;
+            max-width: 420px;
+        }
+
+        .report-image.medium {
+            width: auto;
+            max-width: 640px;
+        }
+
+        .report-image.wide {
+            width: 100%;
+        }
+
+        @media (max-width: 576px) {
+            .content-box {
+                padding: 20px;
+            }
+
+            .detail-subsection {
+                padding: 18px;
+            }
+
+            .detail-subsection h4 {
+                font-size: 20px;
+            }
+
+            .report-image {
+                margin: 16px auto 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LogoBallFord.png" alt="Logo" width="40" height="40" class="rounded-circle border border-warning">
+                Iqbal M.F.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portofolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="report.html">Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontak.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="report-header text-center">
+        <div class="container">
+            <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Aplikasi Mobile</span>
+            <h1 class="text-white fw-bold">Input Widgets & Forms Menangkap Data, Dropdown, dan Validasi</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum Input Widgets & Forms pada Framework Flutter</p>
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <a href="report.html" class="btn btn-outline-light mb-4">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Kembali ke Halaman Report
+                </a>
+
+                <div class="content-box shadow-lg">
+                    <h3 class="text-warning mb-3">A. Pendahuluan</h3>
+                    <div class="report-text">
+                        <p>
+                            Pengembangan aplikasi seluler dengan Flutter sering kali membutuhkan interaksi pengguna melalui pengisian formulir. Dalam praktikum ini, fokus utama adalah pemahaman dan penerapan komponen Input Widgets & Forms. Beberapa komponen yang dibahas meliputi penggunaan widget Form bersama GlobalKey sebagai wadah utama untuk mengontrol dan memvalidasi banyak input sekaligus, serta TextFormField sebagai kolom teks utama yang mendukung validasi terintegrasi. Selain itu, TextEditingController juga diterapkan sebagai pengendali untuk membaca dan mengelola data teks yang diketik oleh pengguna.
+                        </p>
+
+                        <p>
+                            Praktikum ini merancang antarmuka formulir "Catat Transaksi Baru" untuk sebuah aplikasi Expense Tracker. Proses perancangan antarmuka melibatkan pembuatan input untuk judul transaksi, input nominal yang dikhususkan untuk kibor angka, serta pemilihan kategori menggunakan DropdownButtonFormField. Lalu, praktikum ini juga mengeksplorasi penambahan interaksi tingkat lanjut pada bagian tugas, yaitu input tanggal transaksi berformat DD/MM/YYYY yang memanfaatkan fungsi showDatePicker. Seluruh elemen input tersebut dilengkapi dengan sistem validasi untuk mencegah masuknya data kosong atau format angka yang tidak sesuai sebelum data diproses dan ditampilkan melalui pop-up SnackBar.
+                        </p>
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
+                    <p>Tujuan dari praktikum ini adalah:</p>
+                    <ul class="report-list dash-list">
+                        <li>Menangkap dan mengelola data teks yang diinputkan oleh pengguna menggunakan TextEditingController.</li>
+                        <li>Menerapkan dan mengonfigurasi widget dropdown statis menggunakan DropdownButtonFormField untuk pemilihan kategori transaksi.</li>
+                        <li>Melakukan validasi input pada formulir untuk mencegah penyimpanan data yang kosong atau memiliki format yang salah, seperti format huruf pada kolom angka.</li>
+                        <li>Mengimplementasikan fungsi showDatePicker untuk memunculkan kalender pop-up yang berguna untuk memudahkan pengguna memilih input tanggal transaksi dengan format DD/MM/YYYY.</li>
+                        <li>Menggunakan widget Form beserta GlobalKey sebagai wadah utama untuk memvalidasi dan mengontrol seluruh komponen input secara bersamaan dalam satu waktu.</li>
+                    </ul>
+
+                    <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
+
+                    <div class="detail-subsection">
+                        <p><strong>1.</strong> Buat file baru dengan nama add_transaction_screen.dart</p>
+                        <img src="images/laprak3appmob/gambar 1.png" class="report-image small" alt="File add_transaction_screen.dart">
+
+                        <p><strong>2. Persiapan State & Controller.</strong></p>
+                        <img src="images/laprak3appmob/gambar 2.png" class="report-image medium" alt="Kode inisialisasi variabel dan state dasar">
+                        <p>
+                            Kode ini merupakan inisialisasi variabel dan state dasar pada class _AddTransactionScreenState, di mana _formKey digunakan sebagai kunci identifikasi unik untuk memvalidasi seluruh elemen form, dua objek TextEditingController disiapkan untuk mengambil teks yang diketikkan pada kolom judul dan nominal, serta atribut _selectedCategory diisi dengan nilai awal 'Makanan' untuk menyimpan pilihan kategori pada dropdown.
+                        </p>
+
+                        <p><strong>3. Membuat Kolom Input (TextFormField).</strong></p>
+                        <img src="images/laprak3appmob/gambar 3.png" class="report-image wide" alt="Kode TextFormField judul dan nominal">
+                        <p>
+                            Kode ini menyusun dua bidang input menggunakan TextFormField di dalam widget Form yang terikat pada _formKey, di mana input pertama digunakan untuk menangkap judul transaksi dengan validasi teks wajib diisi, sementara input kedua dikhususkan untuk masukan nominal menggunakan jenis kibor angka (TextInputType.number) serta memiliki dua tingkat validasi untuk memastikan nilainya tidak kosong dan berformat angka yang valid.
+                        </p>
+
+                        <p><strong>4. Dropdown & Tombol Simpan.</strong></p>
+                        <img src="images/laprak3appmob/gambar 4.png" class="report-image wide" alt="Kode DropdownButtonFormField dan ElevatedButton">
+                        <p>
+                            Kode ini menambahkan menu pilihan kategori menggunakan widget DropdownButtonFormField yang memperbarui nilai variabel _selectedCategory ketika pengguna memilih salah satu opsi, serta menyediakan tombol ElevatedButton yang berfungsi untuk memicu validasi seluruh field formulir melalui _formKey.currentState!.validate() dan menampilkan SnackBar berisi pesan konfirmasi apabila seluruh data input sudah valid.
+                        </p>
+
+                        <p><strong>5.</strong> Jika telah selesai, maka akan tampil output seperti ini.</p>
+                        <img src="images/laprak3appmob/gambar 5.png" class="report-image medium" alt="Output form Catat Transaksi Baru dengan pesan error">
+                        <img src="images/laprak3appmob/gambar 6.png" class="report-image medium" alt="Output form Catat Transaksi Baru terisi dengan SnackBar">
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>Latihan/Tugas</h4>
+                        
+                        <h5>Input Tanggal.</h5>
+                        <p>Tambahkan satu input baru sebelum tombol Simpan untuk mengisi Tanggal Transaksi.</p>
+                        <ul class="report-list dash-list mb-4">
+                            <li>Bisa menggunakan TextFormField biasa (format teks DD/MM/YYYY).</li>
+                            <li>Tombol plus: gunakan fungsi showDatePicker.</li>
+                            <li>Berikan validasi wajib diisi!.</li>
+                        </ul>
+
+                        <p><strong>6. Menambahkan Controller Baru.</strong></p>
+                        <img src="images/laprak3appmob/gambar 7.png" class="report-image medium" alt="Kode _dateController">
+                        <p>Di bagian awal state, dideklarasikan _dateController untuk menyimpan data teks tanggal.</p>
+
+                        <p><strong>7. Membuat Fungsi Pemilih Tanggal.</strong></p>
+                        <img src="images/laprak3appmob/gambar 8.png" class="report-image medium" alt="Kode _selectDate">
+                        <p>Tambahkan fungsi asinkron _selectDate yang memanggil showDatePicker, lalu memformat hasilnya ke dalam bentuk DD/MM/YYYY sebelum dimasukkan ke dalam controller.</p>
+
+                        <p><strong>8. Membersihkan Memori (Dispose).</strong></p>
+                        <img src="images/laprak3appmob/gambar 9.png" class="report-image medium" alt="Kode dispose">
+                        <p>Memastikan _dateController ikut dihapus saat halaman ditutup untuk mencegah kebocoran memori.</p>
+
+                        <p><strong>9. Menambahkan TextFormField Tanggal.</strong></p>
+                        <img src="images/laprak3appmob/gambar 10.png" class="report-image wide" alt="Kode TextFormField tanggal">
+                        <p>Sisipkan widget input baru sebelum tombol Simpan. Properti readOnly: true dipasang agar keyboard tidak muncul, dan onTap dihubungkan ke fungsi _selectDate untuk memunculkan kalender. Validasi wajib diisi juga diletakkan di sini.</p>
+
+                        <p><strong>10. Memperbarui Pesan SnackBar (Modifikasi).</strong></p>
+                        <img src="images/laprak3appmob/gambar 11.png" class="report-image wide" alt="Kode pesan SnackBar baru">
+                        <p>Tambahkan variabel _dateController.text pada pesan notifikasi sukses agar tanggal yang diinput ikut ditampilkan.</p>
+
+                        <p><strong>11.</strong> Jika sudah selesai, maka akan tampil output seperti ini.</p>
+                        <img src="images/laprak3appmob/gambar 12.png" class="report-image medium" alt="Output form dengan input tanggal terisi">
+                        <img src="images/laprak3appmob/gambar 13.png" class="report-image medium" alt="Output form setelah disimpan dengan SnackBar muncul">
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
+                    <div class="conclusion-text">
+                        <p>
+                            Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa pembuatan formulir interaktif pada Flutter dapat dibangun secara terstruktur dengan memanfaatkan widget Form dan TextFormField. Penggunaan GlobalKey&lt;FormState&gt; terbukti sangat efektif untuk mengontrol dan memicu validasi semua field input secara serentak hanya dengan satu perintah dari tombol simpan. Sementara itu, proses ekstraksi data dari kolom input dapat dikelola dengan mudah tanpa perlu melacak setiap perubahan state secara manual berkat penyematan TextEditingController.
+                        </p>
+
+                        <p>
+                            Selain itu, praktik validasi formulir merupakan langkah untuk menjaga integritas data pada aplikasi, seperti memastikan kolom input tidak dibiarkan kosong dan membatasi input nominal agar murni berisi karakter angka yang bisa dibaca menggunakan fungsi int.tryParse. Modifikasi tambahan dengan fitur showDatePicker pada bagian Latihan/Tugas juga menunjukkan fleksibilitas Flutter dalam menangani berbagai tipe input yang intuitif bagi pengguna. Hasil dari praktikum ini adalah sebuah halaman pencatatan transaksi yang lengkap, aman dari kesalahan input format data, dan siap dikembangkan lebih lanjut ke tahap integrasi basis data.
+                        </p>
+
+                        <a href="https://github.com/BallFord/Praktikum-AppMob_Iqbal-Miftahul-Fikri_2411531004/tree/main"
+                           target="_blank"
+                           class="btn btn-outline-warning fw-bold mt-3">
+                            <i class="fab fa-github me-2"></i>
+                            Lihat Repository GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-white">
+        <div class="container">
+            <p class="mb-3">@ Iqbal Miftahul Fikri - Portofolio</p>
+            <div>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-whatsapp fa-lg text-success"></i>
+                </a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-instagram fa-lg text-danger"></i>
+                </a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none">
+                    <i class="fas fa-envelope fa-lg text-warning"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
