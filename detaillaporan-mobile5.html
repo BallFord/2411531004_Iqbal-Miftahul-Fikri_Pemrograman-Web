@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigasi & Passing Data Navigator, Konsep Stack, dan Constructor - Iqbal Miftahul Fikri</title>
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #121212;
+            min-height: 100vh;
+        }
+
+        .report-header {
+            background:
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                url('images/BgUnand.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 60px;
+            margin-top: -76px;
+        }
+
+        .content-box {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-top: 5px solid #ffc107;
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        .report-text,
+        .report-list,
+        .conclusion-text p,
+        .detail-subsection p,
+        .detail-subsection li {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .report-text p,
+        .conclusion-text p,
+        .detail-subsection p {
+            margin-bottom: 20px;
+        }
+
+        .report-list li {
+            margin-bottom: 10px;
+        }
+
+        .detail-subsection {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-left: 4px solid #ffc107;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .detail-subsection h4 {
+            color: #ffc107;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .detail-subsection h5 {
+            color: #ffc107;
+            font-size: 19px;
+            font-weight: 600;
+            margin: 28px 0 14px;
+        }
+
+        .dash-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dash-list li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 8px;
+        }
+
+        .dash-list li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+        }
+
+        .report-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 24px auto 32px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background-color: #121212;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+        }
+
+        .report-image.small {
+            width: auto;
+            max-width: 420px;
+        }
+
+        .report-image.medium {
+            width: auto;
+            max-width: 640px;
+        }
+
+        .report-image.wide {
+            width: 100%;
+        }
+
+        @media (max-width: 576px) {
+            .content-box {
+                padding: 20px;
+            }
+
+            .detail-subsection {
+                padding: 18px;
+            }
+
+            .detail-subsection h4 {
+                font-size: 20px;
+            }
+
+            .report-image {
+                margin: 16px auto 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LogoBallFord.png" alt="Logo" width="40" height="40" class="rounded-circle border border-warning">
+                Iqbal M.F.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portofolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="report.html">Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontak.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="report-header text-center">
+        <div class="container">
+            <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Aplikasi Mobile</span>
+            <h1 class="text-white fw-bold">Navigasi & Passing Data Navigator, Konsep Stack, dan Constructor</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum Navigasi dan Aliran Data pada Framework Flutter</p>
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <a href="report.html" class="btn btn-outline-light mb-4">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Kembali ke Halaman Report
+                </a>
+
+                <div class="content-box shadow-lg">
+                    <h3 class="text-warning mb-3">A. Pendahuluan</h3>
+                    <div class="report-text">
+                        <p>
+                            Pengembangan aplikasi mobile modern bertolak dari kemampuan antarmuka dalam menyajikan informasi secara terstruktur melalui beberapa layar terpisah. Dalam framework Flutter, pengelolaan alur perpindahan antarlayar dan pertukaran data antarkomponen menjadi fondasi utama untuk membangun pengalaman pengguna yang interaktif. Pada aplikasi Expense Tracker, alur navigasi dari halaman utama menuju halaman formulir pencatatan maupun halaman rincian transaksi memerlukan mekanisme pengisian data yang terstruktur dan aman.
+                        </p>
+
+                        <p>
+                            Praktikum ini berfokus pada penerapan konsep tumpukan (stack) melalui widget Navigator bawaan Flutter, di mana instruksi Navigator.push digunakan untuk menumpuk rute layar baru dan Navigator.pop untuk menghapus layar teratas guna kembali ke halaman sebelumnya. Selain itu, praktikum ini melatih pengimplementasian passing data antar-widget memanfaatkan variabel final dan constructor berklausa required, serta penambahan komponen interaktif berupa date picker berbasis showDatePicker dan validasi formulir input transaksi.
+                        </p>
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
+                    <p>Tujuan dari praktikum ini adalah:</p>
+                    <ul class="report-list dash-list">
+                        <li>Memahami dan mengimplementasikan konsep tumpukan (stack) pada sistem navigasi antarmuka Flutter menggunakan kelas Navigator.</li>
+                        <li>Menerapkan perintah Navigator.push untuk berpindah ke layar baru dan Navigator.pop untuk menutup halaman formulir setelah aksi penyimpanan selesai.</li>
+                        <li>Mengimplementasikan pengiriman data antar-layar memanfaatkan variabel final dan constructor dengan penanda required.</li>
+                        <li>Mengintegrasikan komponen calendar picker menggunakan fungsi asynchronous showDatePicker pada kolom penginputan tanggal transaksi.</li>
+                        <li>Menerapkan fungsi validasi data input pada formulir transaksi menggunakan GlobalKey&lt;FormState&gt; dan menampilkan notifikasi umpan balik menggunakan SnackBar.</li>
+                    </ul>
+
+                    <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
+
+                    <div class="detail-subsection">
+                        <p><strong>1. Membuat Halaman Detail Transaksi.</strong></p>
+                        <p>Buat file baru dengan nama detail_transaction_screen.dart. Lalu buat kode seperti ini.</p>
+                        <img src="images/laprak4appmob/gambar 1.png" class="report-image medium" alt="Kode class DetailTransactionScreen">
+                        <p>
+                            Kode ini mendefinisikan sebuah widget Stateless bernama DetailTransactionScreen yang berfungsi untuk menampilkan halaman detail transaksi dengan wajib menerima kiriman data judul dan nominal dari layar sebelumnya melalui constructor, lalu menampilkan kedua informasi teks tersebut secara vertikal tepat di tengah layar menggunakan kombinasi widget Scaffold, Center, dan Column.
+                        </p>
+
+                        <p><strong>2. Pindah ke Detail & Mengirim Data (Push).</strong></p>
+                        <p>Buka kembali Dashboard. Pada widget ListTile daftar transaksi, tambahkan fungsi onTap.</p>
+                        <img src="images/laprak4appmob/gambar 2.png" class="report-image medium" alt="Kode onTap dengan Navigator.push">
+                        <p>
+                            Kode ini membuat sebuah komponen baris daftar transaksi (ListTile) dengan ikon makanan, judul "Makan Siang", dan nominal harga, di mana ketika pengguna menekan baris tersebut, fungsi Navigator.push akan dijalankan untuk membuka halaman DetailTransactionScreen sekaligus menyertakan data judul dan nominal transaksi ke halaman tujuan.
+                        </p>
+
+                        <p><strong>3. Menutup Layar / Kembali Otomatis (Pop).</strong></p>
+                        <p>Kembali ke file add_transaction_screen.dart. Kita ingin formulir otomatis tertutup dan kembali ke Dashboard setelah klik Simpan.</p>
+                        <img src="images/laprak4appmob/gambar 3.png" class="report-image medium" alt="Kode validasi dan Navigator.pop">
+                        <p>
+                            Kode ini membuat tombol aksi bernama "Simpan Transaksi" yang ketika ditekan akan memvalidasi seluruh isian formulir terlebih dahulu, jika data sudah valid, aplikasi akan menampilkan notifikasi pemberitahuan melayang bertuliskan "Menyimpan Transaksi..." kemudian menutup layar formulir tersebut untuk kembali ke halaman utama menggunakan perintah Navigator.pop(context).
+                        </p>
+
+                        <p><strong>4. Hasil Akhir: Mockup Halaman Detail</strong></p>
+                        <p>Sekarang daftar transaksi di Dashboard bisa di-klik dan akan membuka detail yang berisi data lengkap.<br>Jika sudah selesai maka akan tampil output seperti ini:</p>
+                        <img src="images/laprak4appmob/gambar 4.png" class="report-image small" alt="Output halaman Detail Transaksi">
+                        <img src="images/laprak4appmob/gambar 5.png" class="report-image small" alt="Output form Catat Transaksi Baru">
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>Latihan/Tugas</h4>
+                        
+                        <h5>Input Tanggal</h5>
+                        <p>Tambahkan satu input baru sebelum tombol Simpan untuk mengisi Tanggal Transaksi.</p>
+                        <ul class="report-list dash-list mb-4">
+                            <li>Bisa menggunakan TextFormField biasa (format teks DD/MM/YYYY).</li>
+                            <li>Tombol plus: gunakan fungsi showDatePicker.</li>
+                            <li>Berikan validasi wajib diisi!</li>
+                        </ul>
+
+                        <p><strong>5. Menambahkan Controller Tanggal.</strong></p>
+                        <p>Tambahkan sebuah TextEditingController baru khusus untuk menampung teks tanggal.</p>
+                        <img src="images/laprak4appmob/gambar 6.png" class="report-image medium" alt="Kode controller tanggal">
+                        <p>Controller ini berfungsi sebagai penampung dan pengelola data teks tanggal yang akan ditampilkan pada kolom input setelah pengguna memilih tanggal di kalender.</p>
+
+                        <p><strong>6. Membuat Fungsi Pemilih Tanggal (showDatePicker).</strong></p>
+                        <p>Buat fungsi untuk memunculkan modal kalender bawaan Flutter.</p>
+                        <img src="images/laprak4appmob/gambar 7.png" class="report-image medium" alt="Kode showDatePicker">
+                        <p>Fungsi showDatePicker akan menampilkan popup kalender. Jika pengguna memilih tanggal, tanggal tersebut akan diubah formatnya menjadi DD/MM/YYYY dan nilainya dimasukkan ke dalam _dateController.</p>
+
+                        <p><strong>7. Menambahkan TextFormField Tanggal dan Validasi.</strong></p>
+                        <p>Tambahkan komponen kolom input tanggal tepat di atas tombol Simpan.</p>
+                        <img src="images/laprak4appmob/gambar 8.png" class="report-image medium" alt="Kode TextFormField tanggal">
+                        <p>Penambahan komponen TextFormField ini dikonfigurasi dengan properti readOnly: true agar pengguna tidak dapat mengetikkan tanggal secara manual, melainkan diwajibkan memilihnya langsung dari tampilan modal kalender. Event onTap pada kolom input serta tombol suffixIcon dihubungkan ke fungsi _selectDate sehingga popup kalender akan otomatis muncul saat kolom atau ikon kalender diklik. Selain itu, bagian validator bertugas melakukan pengecekan data dan akan menampilkan pesan peringatan "Tanggal wajib diisi!" apabila tombol simpan ditekan ketika kolom tanggal masih dalam kondisi kosong.</p>
+
+                        <p><strong>8. Hasil Akhir.</strong></p>
+                        <p>Jika sudah selesai, maka akan tampil output seperti ini:</p>
+                        <img src="images/laprak4appmob/gambar 9.png" class="report-image small" alt="Output form dengan popup date picker">
+                        <img src="images/laprak4appmob/gambar 10.png" class="report-image small" alt="Output modal kalender">
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
+                    <div class="conclusion-text">
+                        <p>
+                            Berdasarkan hasil praktikum yang telah dilaksanakan, dapat disimpulkan bahwa pengelolaan navigasi antarmuka pada Flutter bekerja berbasis struktur data tumpukan yang dikelola secara efisien oleh widget Navigator. Metode Navigator.push terbukti efektif untuk membuka halaman baru seperti formulir transaksi atau detail transaksi, sedangkan Navigator.pop memungkinkan aplikasi menutup layar teratas dan mengembalikan kontrol ke halaman sebelumnya tanpa merusak state aplikasi. Pengiriman data antar-layar menggunakan variabel final yang dipassing melalui constructor tipe named parameter berklausa required mampu menjamin ketersediaan data secara aman dan konsisten dari halaman Dashboard ke halaman Detail Transaksi.
+                        </p>
+
+                        <p>
+                            Selain sistem navigasi, pengimplementasian formulir interaktif pada aplikasi Expense Tracker berhasil ditingkatkan fungsinya dengan penambahan fitur pemilih tanggal menggunakan showDatePicker dan penguncian input manual melalui readOnly: true. Mekanisme validasi formulir melalui _formKey.currentState!.validate() memastikan bahwa seluruh data transaksi yang wajib diisi, termasuk judul, nominal, dan tanggal, telah tervalidasi sebelum proses penyimpanan dieksekusi. Kombinasi antara struktur navigasi yang tepat, pertukaran data yang aman, serta validasi formulir menghasilkan arsitektur aplikasi mobile yang solid, rapi, dan responsif.
+                        </p>
+
+                        <a href="https://github.com/BallFord/Praktikum-AppMob_Iqbal-Miftahul-Fikri_2411531004/tree/main"
+                           target="_blank"
+                           class="btn btn-outline-warning fw-bold mt-3">
+                            <i class="fab fa-github me-2"></i>
+                            Lihat Repository GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-white">
+        <div class="container">
+            <p class="mb-3">@ Iqbal Miftahul Fikri - Portofolio</p>
+            <div>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-whatsapp fa-lg text-success"></i>
+                </a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-instagram fa-lg text-danger"></i>
+                </a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none">
+                    <i class="fas fa-envelope fa-lg text-warning"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
