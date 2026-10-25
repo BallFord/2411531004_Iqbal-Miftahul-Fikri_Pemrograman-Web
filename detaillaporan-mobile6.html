@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsitektur Navigasi Named Routes &amp; Bottom Navigation Bar dan Pembuatan Aplikasi Expense Tracker - Iqbal Miftahul Fikri</title>
+    <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #121212;
+            min-height: 100vh;
+        }
+
+        .report-header {
+            background:
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                url('images/BgUnand.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 60px;
+            margin-top: -76px;
+        }
+
+        .content-box {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-top: 5px solid #ffc107;
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        .report-text,
+        .report-list,
+        .conclusion-text p,
+        .detail-subsection p,
+        .detail-subsection li {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .report-text p,
+        .conclusion-text p,
+        .detail-subsection p {
+            margin-bottom: 20px;
+        }
+
+        .report-list li {
+            margin-bottom: 10px;
+        }
+
+        .detail-subsection {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-left: 4px solid #ffc107;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .detail-subsection h4 {
+            color: #ffc107;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .detail-subsection h5 {
+            color: #ffc107;
+            font-size: 19px;
+            font-weight: 600;
+            margin: 28px 0 14px;
+        }
+
+        .dash-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dash-list li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 8px;
+        }
+
+        .dash-list li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+        }
+
+        .report-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 24px auto 32px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background-color: #121212;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+        }
+
+        .report-image.medium {
+            width: auto;
+            max-width: 640px;
+        }
+
+        @media (max-width: 576px) {
+            .content-box {
+                padding: 20px;
+            }
+
+            .detail-subsection {
+                padding: 18px;
+            }
+
+            .detail-subsection h4 {
+                font-size: 20px;
+            }
+
+            .report-image {
+                margin: 16px auto 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LogoBallFord.png" alt="Logo" width="40" height="40" class="rounded-circle border border-warning">
+                Iqbal M.F.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portofolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="report.html">Report</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontak.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="report-header text-center">
+        <div class="container">
+            <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Aplikasi Mobile</span>
+            <h1 class="text-white fw-bold">Arsitektur Navigasi Named Routes &amp; Bottom Navigation Bar dan Pembuatan Aplikasi Expense Tracker</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum Navigasi dan Project Expense Tracker pada Framework Flutter</p>
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <a href="report.html" class="btn btn-outline-light mb-4">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Kembali ke Halaman Report
+                </a>
+
+                <div class="content-box shadow-lg">
+                    <h3 class="text-warning mb-3">A. Pendahuluan</h3>
+                    <div class="report-text">
+                        <p>
+                            Perkembangan teknologi informasi membuat penggunaan aplikasi semakin dibutuhkan dalam kehidupan sehari-hari, termasuk untuk mengelola keuangan pribadi. Pencatatan pemasukan dan pengeluaran secara manual terkadang menyulitkan pengguna ketika ingin mengetahui jumlah transaksi yang telah dilakukan. Oleh karena itu, diperlukan aplikasi yang dapat membantu pengguna mencatat transaksi, menyimpan data, dan melihat riwayat keuangan dengan lebih mudah. Pada Project Praktikum 5 ini, dikembangkan aplikasi Expense Tracker menggunakan Flutter sebagai framework pengembangan antarmuka aplikasi dan SQLite sebagai database lokal untuk menyimpan informasi pengguna serta transaksi keuangan.
+                        </p>
+                        <p>
+                            Project ini merupakan penggabungan materi dari Modul Praktikum 1 sampai Modul Praktikum 5 ke dalam satu aplikasi yang saling terhubung. Aplikasi dilengkapi dengan halaman login, registrasi akun, dashboard, penambahan transaksi, riwayat transaksi, detail transaksi, dan profil pengguna. SQLite digunakan agar data dapat disimpan secara lokal pada perangkat, sedangkan Flutter digunakan untuk membangun tampilan dan mengatur interaksi antarlayar. Melalui project ini, materi praktikum diterapkan dalam bentuk aplikasi yang memiliki struktur lebih terorganisasi dan dapat diuji secara langsung.
+                        </p>
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
+                    <p>Tujuan dari praktikum ini adalah:</p>
+                    <ul class="report-list dash-list">
+                        <li>Memahami penerapan framework Flutter dalam membangun aplikasi dengan antarmuka yang interaktif.</li>
+                        <li>Menerapkan penggunaan widget, form, validasi input, navigasi halaman, dan pengelolaan state pada aplikasi.</li>
+                        <li>Mengimplementasikan database lokal SQLite untuk menyimpan data pengguna dan transaksi keuangan.</li>
+                        <li>Menggabungkan materi Praktikum 1 sampai 5 menjadi aplikasi Expense Tracker yang memiliki fitur login, registrasi, dashboard, pencatatan transaksi, riwayat, dan profil pengguna.</li>
+                        <li>Menguji fungsionalitas aplikasi untuk memastikan proses registrasi, login, penyimpanan transaksi, dan pengambilan data berjalan sesuai kebutuhan.</li>
+                    </ul>
+
+                    <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
+
+                    <div class="detail-subsection">
+                        <h4>Arsitektur Navigasi</h4>
+
+                        <p><strong>1. Mendaftarkan Named Routes.</strong></p>
+                        <p>Buka file main.dart. Hapus parameter home pada MaterialApp, lalu ganti dengan initialRoute dan routes.</p>
+                        <img src="images/laprak5appmob/gambar 1.png" class="report-image medium" alt="konfigurasi Named Routes">
+                        <p>
+                            Kode ini berfungsi untuk mengatur arsitektur navigasi terpusat berbasis Named Routes pada aplikasi Flutter dengan mengganti deklarasi tunggal home menggunakan initialRoute dan tabel routes. Properti initialRoute: '/' menentukan halaman awal yang langsung dimuat saat aplikasi dibuka, yaitu MainScreen, sementara peta routes mendaftarkan alamat rute unik seperti '/add' yang terhubung ke AddTransactionScreen agar proses perpindahan layar dapat dipanggil dengan rapi dan konsisten menggunakan Navigator.pushNamed.
+                        </p>
+
+                        <p><strong>2. Membuat Penampung Tab (MainScreen).</strong></p>
+                        <p>Buat file main_screen.dart. Jadikan halaman ini sebagai StatefulWidget karena tab yang aktif akan selalu berubah nilainya.</p>
+                        <img src="images/laprak5appmob/gambar 2.png" class="report-image medium" alt="state MainScreen">
+                        <p>
+                            Kode ini bertugas mengelola status penentuan halaman aktif pada menu navigasi bawah menggunakan variabel _selectedIndex dan daftar widget _pages yang merepresentasikan setiap tampilan layar. Ketika pengguna mengetuk salah satu item menu navigasi, fungsi _onItemTapped akan dijalankan untuk memperbarui nilai _selectedIndex di dalam perintah setState, sehingga antarmuka Flutter secara otomatis memperbarui tampilan utama sesuai dengan halaman yang dipilih.
+                        </p>
+
+                        <p><strong>3. Merangkai BottomNavigationBar.</strong></p>
+                        <p>Lengkapi method build di MainScreen dengan Scaffold dan BottomNavigationBar untuk menghubungkan halaman Beranda, Riwayat, dan Profil.</p>
+                        <img src="images/laprak5appmob/gambar 3.png" class="report-image medium" alt="BottomNavigationBar">
+                        <p>
+                            Kode ini bertugas membangun struktur tampilan utama aplikasi menggunakan Scaffold, di mana komponen body menampilkan halaman dari daftar _pages sesuai dengan indeks tab yang sedang dipilih. Properti bottomNavigationBar membentuk navigasi di bagian bawah dengan tiga item, yang mengaitkan fungsi _onItemTapped saat tombol diketuk untuk mengubah posisi currentIndex serta memberi sorotan warna amber pada ikon yang aktif.
+                        </p>
+
+                        <h5>Latihan/Tugas</h5>
+                        <ul class="report-list dash-list">
+                            <li>Buat halaman riwayat transaksi.</li>
+                            <li>Buat halaman profil yang berisi avatar, nama, email, dan tombol logout.</li>
+                            <li>Buat halaman login yang berisi text field email dan password serta tombol login. Setelah login, tampilkan halaman utama dan informasi email pengguna.</li>
+                        </ul>
+
+                        <p><strong>4. Halaman Riwayat Transaksi (history_screen.dart).</strong></p>
+                        <p>Halaman ini menggunakan ListView untuk menampilkan daftar transaksi statis.</p>
+                        <img src="images/laprak5appmob/gambar 4.png" class="report-image medium" alt="kode halaman riwayat transaksi">
+                        <p>
+                            Kode ini membangun tampilan layar HistoryScreen berjenis StatelessWidget yang digunakan untuk menyajikan daftar riwayat transaksi secara berulang menggunakan widget ListView.builder. Antarmuka ini dilengkapi dengan AppBar berwarna amber berjudul "Riwayat Transaksi" serta menampilkan lima baris daftar, di mana setiap item memuat ikon koin amber, judul transaksi dinamis berdasarkan nomor indeks, tanggal transaksi, dan nominal pengeluaran bernilai negatif dengan cetak tebal berwarna merah.
+                        </p>
+
+                        <p><strong>5. Halaman Profil (profile_screen.dart).</strong></p>
+                        <img src="images/laprak5appmob/gambar 5.png" class="report-image medium" alt="kode halaman profil pengguna">
+                        <p>
+                            Kode ini membuat tampilan layar profil pengguna berjenis StatelessWidget yang menampilkan avatar lingkaran, nama pengguna "Iqbal Miftahul Fikri", serta alamat email yang diterima dari proses login. Antarmuka ini disusun secara vertikal di tengah layar menggunakan widget Column di dalam Scaffold berbalut AppBar, serta dilengkapi tombol Logout yang memanfaatkan perintah Navigator.pushNamedAndRemoveUntil untuk mengembalikan pengguna ke halaman login sekaligus menghapus seluruh tumpukan riwayat navigasi sebelumnya.
+                        </p>
+
+                        <p><strong>6. Halaman Login (login_screen.dart).</strong></p>
+                        <img src="images/laprak5appmob/gambar 6.png" class="report-image medium" alt="kode halaman login">
+                        <p>
+                            Kode ini mengimplementasikan layar login berjenis StatefulWidget yang bertugas menangkap input pengguna melalui dua bidang TextField menggunakan TextEditingController. Antarmuka ini disusun rapi di dalam Scaffold dengan ikon dompet dan judul "Login Aplikasi", serta menyediakan tombol "LOGIN" yang saat ditekan akan mengambil teks email pengguna dan mengarahkannya ke halaman utama menggunakan Navigator.pushReplacement untuk mengirim data email sekaligus menggantikan halaman login dari tumpukan navigasi.
+                        </p>
+                    </div>
+
+                    <div class="detail-subsection">
+                        <h4>Project Praktikum 5</h4>
+                        <p>
+                            Pada praktikum ini dibuat aplikasi sederhana yang menggabungkan materi dari Modul Praktikum 1 sampai 5.
+                        </p>
+
+                        <p><strong>7. Persiapan Project Flutter.</strong></p>
+                        <p>
+                            Tahap pertama adalah menyiapkan project Flutter sebagai dasar pengembangan aplikasi. Project dibuat dan dijalankan menggunakan Visual Studio Code atau Android Studio dengan perangkat Android sebagai target pengujian. Struktur file disusun agar setiap halaman memiliki file tersendiri, misalnya main.dart, login_screen.dart, register_screen.dart, dashboard_screen.dart, add_transaction_screen.dart, history_screen.dart, profile_screen.dart, transaction_detail_screen.dart, dan database_helper.dart.
+                        </p>
+                        <img src="images/laprak5appmob/gambar 7.png" class="report-image medium" alt="struktur file project Flutter">
+
+                        <p><strong>8. Menambahkan Dependensi.</strong></p>
+                        <p>
+                            Tahap berikutnya adalah menambahkan dependensi yang diperlukan untuk mengembangkan aplikasi. Dependensi yang digunakan meliputi sqflite untuk mengakses database SQLite, path untuk menyusun lokasi file database, dan bcrypt untuk melakukan pemeriksaan hash password pengguna.
+                        </p>
+                        <img src="images/laprak5appmob/gambar 8.png" class="report-image medium" alt="dependensi Flutter">
+
+                        <p><strong>9. Membuat Database Lokal SQLite.</strong></p>
+                        <p>
+                            Buat file database_helper.dart untuk mengelola database lokal aplikasi. File ini berfungsi membuka database, membuat tabel, menyimpan data pengguna, mengambil data transaksi, memperbarui transaksi, menghapus transaksi, dan menghitung total pengeluaran. Database yang digunakan bernama catatan_keuangan.db, dengan dua tabel utama, yaitu users dan transactions.
+                        </p>
+                        <p>Kode berikut merupakan bagian utama untuk membuka database dan membuat tabel:</p>
+                        <img src="images/laprak5appmob/gambar 9.png" class="report-image medium" alt="pembuatan database dan tabel">
+                        <p>
+                            Tabel users digunakan untuk menyimpan identitas pengguna, seperti nama, email, dan hash password. Sementara itu, tabel transactions digunakan untuk menyimpan data transaksi berupa judul, nominal, kategori, tanggal, dan ID pengguna yang melakukan transaksi. Kolom user_id menghubungkan transaksi dengan akun pemiliknya sehingga setiap pengguna dapat memiliki data transaksi masing-masing. Pengaturan PRAGMA foreign_keys = ON digunakan untuk mengaktifkan pemeriksaan relasi antartabel.
+                        </p>
+
+                        <p><strong>10. Menambahkan Fungsi Pengelolaan Database.</strong></p>
+                        <p>
+                            Setelah tabel dibuat, langkah berikutnya adalah menambahkan fungsi untuk berinteraksi dengan database. Fungsi tersebut diletakkan di dalam kelas DatabaseHelper sehingga halaman aplikasi tidak perlu menulis perintah SQL secara berulang. Contoh fungsi untuk menambahkan pengguna (database_helper.dart):
+                        </p>
+                        <img src="images/laprak5appmob/gambar 10.png" class="report-image medium" alt="fungsi menambahkan pengguna">
+                        <p>
+                            Fungsi untuk mengambil pengguna berdasarkan email:
+                        </p>
+                        <img src="images/laprak5appmob/gambar 11.png" class="report-image medium" alt="fungsi mengambil pengguna berdasarkan email">
+                        <p>Fungsi untuk menambahkan transaksi:</p>
+                        <img src="images/laprak5appmob/gambar 12.png" class="report-image medium" alt="fungsi menambahkan transaksi">
+
+                        <p><strong>11. Menginisialisasi Database pada main.dart.</strong></p>
+                        <p>
+                            Tahap berikutnya adalah menghubungkan database dengan aplikasi melalui file main.dart. Flutter perlu diinisialisasi sebelum database dibuka dan aplikasi dijalankan menggunakan runApp().
+                        </p>
+                        <img src="images/laprak5appmob/gambar 13.png" class="report-image medium" alt="inisialisasi database dan routes">
+                        <p>
+                            Fungsi WidgetsFlutterBinding.ensureInitialized() memastikan Flutter siap sebelum proses inisialisasi database dilakukan. Lalu, DatabaseHelper.instance.database digunakan untuk membuka database dan membuat tabel apabila database belum tersedia. Properti initialRoute menentukan bahwa aplikasi pertama kali menampilkan halaman login, sedangkan routes digunakan untuk mengarahkan navigasi menuju halaman tertentu.
+                        </p>
+
+                        <p><strong>12. Membuat Halaman Registrasi Akun.</strong></p>
+                        <p>
+                            Halaman registrasi dibuat melalui file register_screen.dart. Halaman ini digunakan oleh pengguna baru untuk memasukkan nama, email, dan password sebelum dapat masuk ke aplikasi. Data yang diisi kemudian divalidasi dan disimpan ke tabel users melalui fungsi insertUser(). Contoh bagian inti proses registrasi:
+                        </p>
+                        <img src="images/laprak5appmob/gambar 14.png" class="report-image medium" alt="fungsi registrasi dan penyimpanan hash password">
+                        <p>
+                            Fungsi tersebut memperlihatkan proses inti penyimpanan akun, yaitu membersihkan input nama dan email, mengubah email menjadi huruf kecil, membuat hash password, lalu menyimpan data pengguna ke database. Password tidak disimpan sebagai teks biasa, melainkan sebagai hash yang nantinya digunakan untuk memeriksa password ketika login. Di kode lengkapnya, fungsi ini dipanggil dari tombol registrasi setelah semua input dinyatakan valid. Jika email sudah digunakan, proses penyimpanan perlu ditangani agar aplikasi dapat memberikan pesan yang sesuai.
+                        </p>
+
+                        <p><strong>13. Membuat Halaman Login.</strong></p>
+                        <p>
+                            Halaman login dibuat melalui file login_screen.dart. Halaman ini berfungsi memeriksa email dan password yang dimasukkan pengguna. Data akun dicari berdasarkan email menggunakan getUserByEmail(), kemudian password diperiksa menggunakan BCrypt.checkpw(). Jika akun ditemukan dan password sesuai, pengguna diarahkan ke halaman utama dengan membawa data email dan ID pengguna. Berikut bagian utama fungsi login berdasarkan implementasi yang telah digunakan:
+                        </p>
+                        <img src="images/laprak5appmob/gambar 15.png" class="report-image medium" alt="fungsi login dan validasi akun">
+                        <p>
+                            Fungsi login() melakukan validasi input sebelum mengakses database. Jika email tidak ditemukan, aplikasi menampilkan pesan bahwa akun belum terdaftar. Jika email ditemukan, password yang dimasukkan dibandingkan dengan hash yang tersimpan. Apabila pemeriksaan berhasil, pengguna diarahkan ke MainScreen dengan membawa ID pengguna dan email. Data tersebut diperlukan agar halaman berikutnya dapat menampilkan informasi pengguna yang sesuai dan mengakses transaksi milik akun yang sedang login.
+                        </p>
+
+                        <p><strong>14. Membuat Halaman Utama dan Navigasi.</strong></p>
+                        <p>
+                            Setelah login berhasil, pengguna diarahkan ke halaman utama yang dibuat pada file main_screen.dart. Halaman ini menggunakan BottomNavigationBar untuk menghubungkan tiga bagian aplikasi, yaitu Beranda, Riwayat, dan Profil. ID pengguna dan email diteruskan ke halaman yang memerlukan informasi akun.
+                        </p>
+                        <img src="images/laprak5appmob/gambar 16.png" class="report-image medium" alt="struktur MainScreen dan navigasi utama">
+                        <p>
+                            Kode ini menunjukkan struktur utama navigasi aplikasi. Variabel _selectedIndex digunakan untuk menentukan halaman yang sedang ditampilkan, sedangkan fungsi _onItemTapped() mengubah halaman ketika pengguna memilih menu di bagian bawah layar. Data userId diteruskan ke halaman dashboard dan riwayat agar kedua halaman dapat mengambil transaksi milik pengguna yang sedang login. Data email juga diteruskan ke halaman profil. Pada kode final atau yang sudah jadi, nilai Nama Pengguna perlu diganti dengan nama pengguna yang diambil dari database agar setiap akun menampilkan nama yang benar.
+                        </p>
+
+                        <p><strong>15. Membuat Dashboard Keuangan.</strong></p>
+                        <p>
+                            Dashboard dibuat melalui file dashboard_screen.dart. Halaman ini menjadi tampilan utama setelah pengguna login. Dashboard menampilkan sapaan pengguna, kartu saldo, daftar transaksi terakhir, dan tombol tambah transaksi. Tombol tambah transaksi menggunakan navigasi bernama /add untuk membuka formulir pencatatan transaksi.
+                        </p>
+                        <p>Berikut struktur utama dashboard:</p>
+                        <img src="images/laprak5appmob/gambar 17.png" class="report-image medium" alt="struktur dashboard keuangan">
+                        <p>
+                            Dashboard digunakan sebagai pusat informasi keuangan pengguna. Bagian sapaan menampilkan nama pengguna, kartu saldo menampilkan informasi saldo, sedangkan bagian transaksi terakhir digunakan untuk melihat transaksi yang baru dilakukan. Tombol dengan ikon tambah memudahkan pengguna membuka halaman pencatatan transaksi. Kode ini menyederhanakan bagian daftar transaksi sebagai contoh struktur. Di akhir, bagian tersebut harus diganti dengan _buildTransactionList() agar sesuai dengan tampilan dan perilaku aplikasi yang benar-benar dijalankan.
+                        </p>
+
+                        <p><strong>16. Membuat Formulir Tambah Transaksi.</strong></p>
+                        <p>
+                            Formulir penambahan transaksi dibuat melalui file add_transaction_screen.dart. Halaman ini menyediakan input judul transaksi, nominal, kategori, dan tanggal.
+                        </p>
+                        <img src="images/laprak5appmob/gambar 18.png" class="report-image medium" alt="kode formulir tambah transaksi bagian pertama">
+                        <img src="images/laprak5appmob/gambar 19.png" class="report-image medium" alt="kode formulir tambah transaksi bagian kedua">
+                        <img src="images/laprak5appmob/gambar 20.png" class="report-image medium" alt="kode formulir tambah transaksi bagian ketiga">
+                        <img src="images/laprak5appmob/gambar 21.png" class="report-image medium" alt="kode formulir tambah transaksi bagian keempat">
+                        <p>
+                            Kode ini menunjukkan struktur formulir dan validasi data transaksi. Judul tidak boleh kosong, nominal harus berupa angka bulat positif, kategori dipilih melalui dropdown, dan tanggal dipilih menggunakan showDatePicker(). Namun, pada contoh di atas, tombol simpan baru menampilkan notifikasi dan menutup halaman. Agar transaksi benar-benar tersimpan, kode final harus memanggil DatabaseHelper.instance.insertTransaction() sebelum menampilkan pesan berhasil.
+                        </p>
+
+                        <p><strong>Proses Penyimpanan Transaksi ke SQLite.</strong></p>
+                        <p>
+                            Bagian penting pada project ini adalah menghubungkan tombol simpan dengan database. Contoh ini memperlihatkan inti proses penyimpanan transaksi.
+                        </p>
+                        <img src="images/laprak5appmob/gambar 22.png" class="report-image medium" alt="kode penyimpanan transaksi ke SQLite">
+                        <p>
+                            Kode ini memasukkan data transaksi ke tabel transactions. Kolom user_id digunakan untuk menghubungkan transaksi dengan akun yang sedang login. Dengan demikian, data transaksi tidak hanya ditampilkan melalui notifikasi, tetapi juga disimpan dalam database lokal. Pada kode final, kode penyimpanan perlu ditempatkan dalam fungsi async pada tombol simpan, setelah validasi form berhasil dilakukan.
+                        </p>
+
+                        <p><strong>17. Membuat Halaman Riwayat Transaksi.</strong></p>
+                        <p>
+                            Halaman riwayat dibuat melalui file history_screen.dart. Halaman ini digunakan untuk menampilkan daftar transaksi yang sudah dilakukan pengguna. Data transaksi diambil berdasarkan ID pengguna agar setiap akun hanya melihat transaksi miliknya sendiri. Contoh inti pengambilan data transaksi:
+                        </p>
+                        <img src="images/laprak5appmob/gambar 23.png" class="report-image medium" alt="kode halaman riwayat transaksi dari SQLite">
+                        <p>
+                            Kode tersebut merupakan contoh implementasi riwayat yang membaca data dari SQLite menggunakan getTransactions(). FutureBuilder digunakan untuk menangani proses pemuatan data, menampilkan indikator ketika data sedang diambil, dan menampilkan pesan jika belum ada transaksi. Apabila transaksi tersedia, data ditampilkan melalui ListView.builder(). Dengan pendekatan ini, halaman riwayat dapat menampilkan data yang benar-benar tersimpan, bukan sekadar data contoh yang ditulis secara langsung di dalam kode.
+                        </p>
+
+                        <p><strong>18. Membuat Halaman Detail Transaksi.</strong></p>
+                        <p>
+                            Halaman detail transaksi dibuat melalui file transaction_detail_screen.dart. Halaman ini digunakan untuk menampilkan informasi satu transaksi secara lebih lengkap, seperti judul, nominal, kategori, tanggal, dan status. Data transaksi dikirim melalui parameter constructor sehingga halaman detail dapat menampilkan informasi sesuai transaksi yang dipilih pengguna.
+                        </p>
+                        <img src="images/laprak5appmob/gambar 24.png" class="report-image medium" alt="kode halaman detail transaksi">
+                        <p>
+                            Pada kode ini, TransactionDetailScreen menggunakan StatelessWidget karena halaman hanya menerima data yang dibutuhkan dan tidak mengelola perubahan state internal. Constructor dengan parameter required memastikan data yang dibutuhkan tersedia ketika halaman dibuka. Fungsi _buildDetailRow() digunakan untuk membuat baris informasi agar tampilan kategori, tanggal, dan status lebih teratur. Halaman ini dapat dibuka dari daftar transaksi melalui navigasi ketika pengguna memilih salah satu transaksi.
+                        </p>
+
+                        <p><strong>19. Membuat Halaman Profil Pengguna.</strong></p>
+                        <p>
+                            Halaman profil dibuat melalui file profile_screen.dart. Halaman ini digunakan untuk menampilkan informasi akun pengguna, terutama nama dan email. Data tersebut diteruskan dari halaman utama menggunakan parameter userName dan userEmail.
+                        </p>
+                        <p>Contoh struktur sederhana halaman profil:</p>
+                        <img src="images/laprak5appmob/gambar 25.png" class="report-image medium" alt="kode halaman profil pengguna">
+                        <p>
+                            Halaman profil menampilkan identitas akun yang sedang digunakan. Nama dan email diterima dari parameter constructor sehingga halaman tidak perlu mengambil input dari halaman login secara langsung. Pendekatan ini memudahkan pengiriman data antar halaman dan membuat struktur aplikasi lebih terorganisasi.
+                        </p>
+
+                        <p><strong>20. Menghubungkan Data Pengguna dengan Dashboard dan Profil.</strong></p>
+                        <p>
+                            Pada tahap ini, data pengguna yang tersimpan di database diteruskan ke halaman utama. Hal ini penting karena setiap pengguna dapat memiliki nama, email, dan transaksi yang berbeda. Saat login berhasil, aplikasi mengirimkan ID pengguna ke MainScreen, sedangkan nama dan email perlu diambil atau diteruskan dari data akun yang tersimpan.
+                        </p>
+                        <p>Contoh pengiriman data saat login:</p>
+                        <img src="images/laprak5appmob/gambar 26.png" class="report-image medium" alt="kode pengiriman data pengguna setelah login">
+                        <p>
+                            Kode ini mengarahkan pengguna menuju halaman utama setelah proses login berhasil. emailInput digunakan untuk mengirimkan email akun, sedangkan userId digunakan untuk membedakan transaksi milik setiap pengguna. Pada kode final, nama pengguna sebaiknya diambil dari kolom name pada tabel users, bukan menggunakan nama yang ditulis langsung di dalam kode. Dengan demikian, akun baru akan menampilkan nama yang sesuai dengan data ketika registrasi.
+                        </p>
+
+                        <p><strong>21. Pengujian Aplikasi.</strong></p>
+                        <p>
+                            Setelah seluruh halaman dan fungsi utama dihubungkan, lakukan pengujian untuk memastikan aplikasi berjalan dengan baik. Pengujian dilakukan pada perangkat Android melalui lingkungan pengembangan Flutter. Pemeriksaan meliputi proses registrasi, login, navigasi halaman, penambahan transaksi, pengambilan riwayat, dan penampilan profil pengguna.
+                        </p>
+                        <img src="images/laprak5appmob/gambar 27.png" class="report-image medium" alt="hasil flutter analyze">
+                        <p>
+                            Pengujian dilakukan dengan membuat akun baru, melakukan login menggunakan akun tersebut, membuka dashboard, dan mencoba fitur yang tersedia. Pengujian dua akun juga digunakan untuk memeriksa apakah data pengguna dapat dibedakan. Selain itu, proses penyimpanan transaksi perlu diperiksa dengan memastikan data benar-benar muncul pada riwayat setelah disimpan. Pengujian ini membantu mengetahui apakah setiap halaman sudah terhubung dengan database dan berfungsi sesuai tujuan pengembangan aplikasi.
+                        </p>
+
+                        <p><strong>22. Jika semua kode telah selesai diimplementasikan, maka aplikasi akan berjalan seperti ini.</strong></p>
+                        <img src="images/laprak5appmob/gambar 28.png" class="report-image medium" alt="hasil halaman login aplikasi">
+                        <img src="images/laprak5appmob/gambar 29.png" class="report-image medium" alt="hasil halaman registrasi akun">
+                        <img src="images/laprak5appmob/gambar 30.png" class="report-image medium" alt="hasil dashboard keuangan">
+                        <img src="images/laprak5appmob/gambar 31.png" class="report-image medium" alt="hasil halaman detail transaksi">
+                        <img src="images/laprak5appmob/gambar 32.png" class="report-image medium" alt="hasil halaman riwayat transaksi">
+                        <img src="images/laprak5appmob/gambar 33.png" class="report-image medium" alt="hasil formulir tambah transaksi">
+                        <img src="images/laprak5appmob/gambar 34.png" class="report-image medium" alt="hasil halaman profil pengguna">
+                        <img src="images/laprak5appmob/gambar 35.png" class="report-image medium" alt="validasi formulir tambah transaksi">
+                        <img src="images/laprak5appmob/gambar 36.png" class="report-image medium" alt="validasi halaman login">
+                        <img src="images/laprak5appmob/gambar 37.png" class="report-image medium" alt="validasi halaman registrasi">
+                    </div>
+
+                    <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
+                    <div class="conclusion-text">
+                        <p>
+                            Berdasarkan pengerjaan Project Praktikum 5, dapat disimpulkan bahwa materi dari Modul Praktikum 1 sampai 5 dapat digabungkan menjadi sebuah aplikasi pencatatan keuangan berbasis Flutter. Aplikasi Expense Tracker dirancang dengan beberapa halaman utama, yaitu registrasi akun, login, dashboard, penambahan transaksi, riwayat transaksi, detail transaksi, dan profil pengguna. Penggunaan widget, form, validasi input, navigasi, serta pengelolaan state membantu membangun aplikasi yang lebih terstruktur dan mudah digunakan. Sementara itu, penggunaan SQLite menyediakan penyimpanan lokal untuk data akun dan transaksi.
+                        </p>
+                        <p>
+                            Melalui project ini, pemahaman mengenai pengembangan aplikasi Flutter dapat diterapkan secara langsung, mulai dari penyusunan antarmuka hingga pengelolaan data menggunakan database lokal. Fungsi autentikasi membantu membedakan akun pengguna, sedangkan struktur tabel dan relasi database memungkinkan transaksi dikaitkan dengan pemiliknya. Pengujian melalui perangkat Android dan pemeriksaan kode menggunakan Flutter Analyzer juga membantu memastikan kesiapan aplikasi. Dengan demikian, project ini menjadi penerapan materi praktikum dalam bentuk aplikasi yang menggabungkan antarmuka, navigasi, validasi, dan penyimpanan data lokal dalam satu sistem.
+                        </p>
+                    </div>
+
+                    <a href="https://github.com/BallFord/Praktikum-AppMob_Iqbal-Miftahul-Fikri_2411531004/tree/main"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-outline-warning fw-bold mt-3">
+                        <i class="fab fa-github me-2"></i>
+                        Lihat Repository GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-white">
+        <div class="container">
+            <p class="mb-3">@ Iqbal Miftahul Fikri - Portofolio</p>
+            <div>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-whatsapp fa-lg text-success"></i>
+                </a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none">
+                    <i class="fab fa-instagram fa-lg text-danger"></i>
+                </a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none">
+                    <i class="fas fa-envelope fa-lg text-warning"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
