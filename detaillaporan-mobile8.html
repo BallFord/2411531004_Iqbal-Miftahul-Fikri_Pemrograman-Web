@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List, Grid, Gambar, dan Asset pada ResepKu - Iqbal Miftahul Fikri</title>
+    <title>HTTP Request dan Integrasi API pada ResepKu - Iqbal Miftahul Fikri</title>
     <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -107,8 +107,8 @@
         }
 
         .report-image.small {
-            width: auto;
-            max-width: 420px;
+            width: 100%;
+            max-width: 360px;
         }
 
         .report-image.medium {
@@ -140,17 +140,6 @@
             background-color: #1f1f1f !important;
             color: #ffffff !important;
             vertical-align: middle;
-        }
-
-        .formula-box {
-            background-color: #181818;
-            border: 1px solid #3d3d3d;
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin: 16px 0 20px;
-            color: #e0e0e0;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 15px;
         }
 
         @media (max-width: 576px) {
@@ -198,8 +187,8 @@
     <header class="report-header text-center">
         <div class="container">
             <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Aplikasi Mobile</span>
-            <h1 class="text-white fw-bold">List, Grid, Gambar, dan Asset pada ResepKu</h1>
-            <p class="text-white-50 mt-3">Dokumentasi Praktikum Integrasi Asset Lokal, Pemuatan Gambar Jaringan, Lazy Loading List & Grid, serta Optimasi Memori pada Framework Flutter</p>
+            <h1 class="text-white fw-bold">HTTP Request dan Integrasi API pada ResepKu</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum Komunikasi Jaringan REST API, Deserialisasi JSON, FutureBuilder, Operasi CRUD, dan Pengujian Otomatis Menggunakan Framework Flutter</p>
         </div>
     </header>
 
@@ -215,354 +204,469 @@
                     <h3 class="text-warning mb-3">A. Pendahuluan</h3>
                     <div class="report-text">
                         <p>
-                            Pengembangan aplikasi mobile menuntut penyajian data dan elemen visual yang tidak hanya menarik secara estetika, tetapi juga efisien dalam penggunaan sumber daya perangkat. Pada aplikasi ResepKu, daftar item yang disertai foto beresolusi tinggi dapat membebani memori dan menurunkan kelancaran scrolling apabila tidak dikelola dengan teknik lazy rendering serta optimasi gambar yang tepat. Oleh karena itu, pemahaman mengenai manajemen asset lokal, pemuatan gambar dari jaringan secara asinkron, dan pemilihan tata letak daftar maupun grid menjadi fondasi penting dalam membangun antarmuka Flutter yang responsif.
+                            Pengembangan aplikasi mobile modern sangat bergantung pada kemampuan pertukaran data secara dinamis dengan layanan web eksternal melalui protokol HTTP dan arsitektur REST API. Pada modul sebelumnya, aplikasi ResepKu masih menggunakan daftar data statis yang tersimpan secara lokal di dalam kode program sehingga cakupan resepnya terbatas dan tidak dapat diperbarui secara real time. Melalui Praktikum Modul 8 ini, arsitektur aplikasi dikembangkan agar mampu berkomunikasi langsung dengan server REST API eksternal menggunakan pustaka http, melakukan serialisasi serta deserialisasi format data JSON ke dalam objek model Dart, dan mengelola pemanggilan asinkron secara terstruktur di dalam kelas layanan khusus.
                         </p>
                         <p>
-                            Pada Praktikum Aplikasi Mobile Modul 7 ini, pembahasan difokuskan pada integrasi asset lokal (logo, gambar placeholder, dan font Poppins) serta penerapan komponen ListView.builder, ListView.separated, dan GridView.builder pada aplikasi ResepKu. Praktikum ini juga mencakup pembuatan widget RecipeImage dengan penanganan status pemuatan (loadingBuilder), penanganan kegagalan koneksi (errorBuilder), serta efisiensi memori melalui parameter cacheWidth. Selain itu, fungsionalitas aplikasi diperluas melalui implementasi filter kategori masakan menggunakan ChoiceChip, fitur hapus geser (Dismissible) pada halaman favorit, serta efek foto menyusut saat digulir pada halaman detail menggunakan CustomScrollView dan SliverAppBar.
+                            Selain mengambil daftar resep dari server, integrasi API pada aplikasi mobile juga menuntut pengelolaan siklus hidup state antarmuka yang responsif dan aman dari berbagai skenario kegagalan jaringan. Oleh karena itu, praktikum ini menerapkan widget FutureBuilder untuk menangani tiga kondisi utama, yakni proses memuat data, penanganan galat, serta penyajian data yang dilengkapi fitur pull-to-refresh melalui RefreshIndicator. Lebih lanjut, praktikum ini juga mengimplementasikan operasi manipulasi data secara penuh meliputi penambahan resep baru, pencarian resep berdasarkan kata kunci, pembaruan nama resep, penghapusan data, hingga pengujian unit otomatis tanpa koneksi internet menggunakan MockClient.
                         </p>
                     </div>
 
                     <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
                     <p>Tujuan dari praktikum ini adalah:</p>
                     <ul class="report-list dash-list">
-                        <li>Mampu mengonfigurasi dan menampilkan asset lokal berupa gambar logo, placeholder, serta font kustom pada proyek Flutter melalui file pubspec.yaml.</li>
-                        <li>Mampu mengimplementasikan pemuatan gambar dari jaringan (Image.network) yang dilengkapi indikator proses muat (loadingBuilder), penanganan kesalahan (errorBuilder), serta optimasi memori menggunakan parameter cacheWidth.</li>
-                        <li>Mampu membangun tampilan daftar dan kisi secara efisien menggunakan ListView.builder, ListView.separated, dan GridView.builder serta mengelola pergantian mode tampilan secara dinamis.</li>
-                        <li>Mampu menerapkan interaktivitas pada daftar data berupa penyaringan kategori (cuisine) menggunakan ChoiceChip dan penghapusan item dengan gestur geser (Dismissible) berbasis ValueKey.</li>
-                        <li>Mampu merancang tata letak halaman detail yang responsif menggunakan CustomScrollView, SliverAppBar, dan package cached_network_image untuk menyimpan cache gambar pada perangkat.</li>
+                        <li>Memahami konsep komunikasi jaringan berbasis protokol HTTP dan integrasi layanan REST API menggunakan format pertukaran data JSON pada framework Flutter.</li>
+                        <li>Mengimplementasikan lapisan layanan jaringan dan model deserialisasi untuk memisahkan logika komunikasi server dari lapisan antarmuka pengguna.</li>
+                        <li>Mengelola operasi asinkron menggunakan widget FutureBuilder untuk menangani seluruh siklus tampilan data meliputi kondisi memuat, berhasil memuat data, dan penanganan kesalahan jaringan beserta mekanisme muat ulang.</li>
+                        <li>Menerapkan operasi CRUD serta pencarian data secara dinamis menggunakan metode HTTP GET, POST, PUT, dan DELETE dengan pemeriksaan siklus hidup widget.</li>
+                        <li>Melakukan pengujian unit otomatis terhadap logika pemrosesan JSON dan pemanggilan layanan HTTP tanpa ketergantungan koneksi internet menggunakan MockClient.</li>
                     </ul>
 
                     <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
 
                     <!-- BAGIAN A -->
                     <div class="detail-subsection">
-                        <h4>Bagian A — Asset Gambar dan Custom Font</h4>
+                        <h4>Bagian A — Mengenal API dan Model fromJson</h4>
 
-                        <p><strong>1. Langkah A.1 — Menyiapkan folder assets</strong></p>
-                        <p>Di folder utama project, buat folder assets beserta dua subfolder. Bisa melalui Explorer VS Code, atau melalui terminal.</p>
+                        <p><strong>1. Langkah A.1 — Membaca respons API di browser</strong></p>
+                        <p>Buka URL berikut di browser laptop:</p>
+                        <p><a href="https://dummyjson.com/recipes?limit=2" target="_blank" class="text-warning text-decoration-underline">https://dummyjson.com/recipes?limit=2</a></p>
+
+                        <div class="table-responsive">
+                            <table class="table table-dark table-bordered table-custom">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%;">Pertanyaan</th>
+                                        <th style="width: 50%;">Jawaban</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Nilai total</td>
+                                        <td>50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Key yang berisi daftar resep</td>
+                                        <td>recipes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipe nilai rating pada resep pertama (int atau double?)</td>
+                                        <td>double</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tiga key resep yang belum ada di model Recipe Modul 7</td>
+                                        <td>instructions, tags, reviewCount</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p><strong>2. Langkah A.2 — Memasang package http</strong></p>
+                        <p>Jalankan ini di terminal:</p>
+                        <p><code>flutter pub add http</code></p>
                         <!-- Placeholder 1: gambar 1.png -->
-                        <img src="images/laprak7appmob/gambar 1.png" class="report-image small" alt="Struktur Folder Assets dan Subfolder">
+                        <img src="images/laprak8appmob/gambar 1.png" class="report-image medium" alt="Menjalankan flutter pub add http di terminal">
 
-                        <p><strong>2. Langkah A.2 — Mendaftarkan asset dan font di pubspec.yaml</strong></p>
-                        <p>Buka pubspec.yaml. Cari bagian flutter: di bagian bawah file, lalu ubah sehingga menjadi seperti berikut.</p>
+                        <p><strong>3. Langkah A.3 — Model Recipe dengan fromJson</strong></p>
+                        <p>Ganti seluruh isi <code>lib/models/recipe.dart</code>. Ada dua perubahan: field baru instructions (langkah memasak) dan factory Recipe.fromJson.</p>
                         <!-- Placeholder 2: gambar 2.png -->
-                        <img src="images/laprak7appmob/gambar 2.png" class="report-image medium" alt="Konfigurasi Asset dan Font di pubspec.yaml">
+                        <img src="images/laprak8appmob/gambar 2.png" class="report-image wide" alt="Kode lib/models/recipe.dart dengan factory Recipe.fromJson">
                         <p>
-                            Langkah ini bertujuan mendaftarkan berkas gambar dan font kustom ke dalam berkas konfigurasi pubspec.yaml agar dapat dibaca oleh proyek Flutter. Baris assets/images/ berfungsi memasukkan seluruh gambar di dalam folder tersebut ke dalam bundel aplikasi, sementara bagian fonts mendaftarkan nama keluarga font (Poppins) beserta pemetaan tingkat ketebalannya (weight 500 untuk Medium dan 700 untuk Bold) berdasarkan berkas yang diletakkan pada folder assets/fonts/.
+                            Kode ini merupakan model data Recipe yang telah diperbarui dengan penambahan atribut instructions untuk menyimpan daftar langkah memasak serta konstruktor factory Recipe.fromJson untuk mengubah data JSON hasil parsing dari server menjadi objek Recipe. Di dalam Recipe.fromJson, setiap atribut opsional diberikan nilai bawaan menggunakan operator ?? agar aplikasi tidak mengalami crash ketika server mengembalikan data yang tidak lengkap, nilai rating dibaca melalui tipe num lalu diubah ke double agar tetap aman meskipun server mengirimkan angka bulat, serta daftar bahan dan langkah dikonversi dari struktur array JSON menjadi List&lt;String&gt;.
                         </p>
-                        <p>Setelah itu, jalankan flutter pub get pada terminal.</p>
+
+                        <p><strong>4. Langkah A.4 — Menghapus data dummy</strong></p>
+                        <p>Hapus file <code>lib/data/dummy_recipes.dart</code> beserta folder data. VS Code akan menampilkan error merah di home_page.dart karena dummyRecipes tidak ada lagi. Error ini wajar dan akan hilang setelah Bagian B selesai.</p>
                         <!-- Placeholder 3: gambar 3.png -->
-                        <img src="images/laprak7appmob/gambar 3.png" class="report-image medium" alt="Menjalankan flutter pub get pada terminal">
-
-                        <p><strong>3. Langkah A.3 — Memasang font di tema aplikasi</strong></p>
-                        <p>Di lib/main.dart, tambahkan fontFamily pada theme dan darkTheme di MaterialApp.</p>
-                        <!-- Placeholder 4: gambar 4.png -->
-                        <img src="images/laprak7appmob/gambar 4.png" class="report-image medium" alt="Konfigurasi fontFamily Poppins pada theme dan darkTheme MaterialApp">
-                        <p>
-                            Pada kode ini, atribut fontFamily: 'Poppins' ditambahkan ke dalam konfigurasi theme dan darkTheme pada MaterialApp untuk menerapkan font kustom Poppins secara global ke seluruh elemen teks aplikasi, baik pada mode terang maupun mode gelap, tanpa mengganggu integrasi ThemeProvider dan IdentityFooter yang telah dikonfigurasi sebelumnya.
-                        </p>
-
-                        <p><strong>4. Langkah A.4 — Logo di AppBar</strong></p>
-                        <p>Di lib/pages/home_page.dart, ganti parameter title pada AppBar menjadi Row berisi logo dan teks.</p>
-                        <!-- Placeholder 5: gambar 5.png -->
-                        <img src="images/laprak7appmob/gambar 5.png" class="report-image medium" alt="Kode AppBar title Row logo dan teks">
-
-                        <h5>Checkpoint 1</h5>
-                        <!-- Placeholder 6: gambar 6.png -->
-                        <img src="images/laprak7appmob/gambar 6.png" class="report-image small" alt="Checkpoint 1 Tampilan antarmuka HomePage ResepKu dengan logo dan font Poppins">
-                        <p>
-                            Pada Checkpoint 1 ini, aplikasi ResepKu berhasil mengintegrasikan asset gambar lokal dan custom font yang telah didaftarkan pada pubspec.yaml ke dalam antarmuka aplikasi. Penggunaan Image.asset pada AppBar berhasil menampilkan logo di samping judul aplikasi, sementara penerapan fontFamily: 'Poppins' pada ThemeData secara global mengubah seluruh tipografi teks aplikasi ke font Poppins tanpa mengganggu komponen utama lain seperti footer identitas mahasiswa.
-                        </p>
+                        <img src="images/laprak8appmob/gambar 3.png" class="report-image small" alt="Menghapus file lib/data/dummy_recipes.dart">
                     </div>
 
                     <!-- BAGIAN B -->
                     <div class="detail-subsection">
-                        <h4>Bagian B — ListView.builder dan Foto Resep</h4>
+                        <h4>Bagian B — RecipeService dan FutureBuilder</h4>
 
-                        <p><strong>5. Langkah B.1 — Membuat widget RecipeImage</strong></p>
+                        <p><strong>5. Langkah B.1 — Membuat RecipeService</strong></p>
+                        <p>Semua komunikasi dengan server diletakkan di satu class. Widget tidak memanggil http secara langsung. Buat folder <code>lib/services</code>, lalu buat file <code>recipe_service.dart</code>.</p>
+                        <!-- Placeholder 4: gambar 4.png -->
+                        <img src="images/laprak8appmob/gambar 4.png" class="report-image wide" alt="Kode lib/services/recipe_service.dart">
+                        <p>
+                            Kode ini berfungsi memusatkan seluruh komunikasi jaringan aplikasi ResepKu dengan REST API dummyjson.com agar komponen antarmuka tidak memanggil package http secara langsung. Di dalamnya terdapat method fetchRecipes yang mengirimkan permintaan HTTP GET ke endpoint /recipes?limit=50 dengan batas waktu tunggu selama 10 detik, memeriksa kode status respons menggunakan _checkStatus agar status gagal di luar rentang 2xx melemparkan RecipeServiceException, serta menguraikan data JSON pada key recipes menjadi daftar objek List&lt;Recipe&gt; melalui Recipe.fromJson.
+                        </p>
+
+                        <p><strong>6. Langkah B.2 — Mendaftarkan RecipeService sebagai Provider</strong></p>
+                        <p>Ganti seluruh isi <code>lib/main.dart</code>. RecipeService didaftarkan dengan Provider biasa (bukan ChangeNotifierProvider) karena service tidak menyimpan state yang berubah. ThemeProvider dari Latihan 1 Modul 6 juga tetap didaftarkan.</p>
+                        <!-- Placeholder 5: gambar 5.png -->
+                        <img src="images/laprak8appmob/gambar 5.png" class="report-image wide" alt="Kode lib/main.dart pendaftaran RecipeService di MultiProvider">
+                        <p>
+                            Pembaruan pada file lib/main.dart ini mendaftarkan RecipeService ke dalam daftar providers milik MultiProvider menggunakan Provider biasa karena kelas layanan tersebut tidak menyimpan state yang berubah maupun memerlukan pemanggilan notifyListeners(). Selain menginisialisasi RecipeService melalui parameter create, disertakan parameter dispose yang memanggil service.close() untuk menutup koneksi http.Client secara bersih ketika aplikasi dihentikan.
+                        </p>
+
+                        <p><strong>7. Langkah B.3 — Widget ErrorView</strong></p>
+                        <p>Buat widget untuk error state agar dapat dipakai di beberapa halaman.</p>
+                        <!-- Placeholder 6: gambar 6.png -->
+                        <img src="images/laprak8appmob/gambar 6.png" class="report-image wide" alt="Kode lib/widgets/error_view.dart">
+                        <p>
+                            Widget ErrorView merupakan komponen reusable (StatelessWidget) yang dirancang untuk menampilkan kondisi kegagalan secara seragam di berbagai halaman aplikasi. Widget ini menyusun ikon jaringan terputus, teks keterangan kesalahan, serta tombol aksi FilledButton.icon berlabel "Coba lagi" di tengah layar, di mana menekan tombol tersebut akan menjalankan fungsi callback onRetry yang diteruskan dari halaman pemanggil untuk mengulang permintaan data.
+                        </p>
+
+                        <p><strong>8. Langkah B.4 — HomePage dengan FutureBuilder</strong></p>
+                        <p>Ganti seluruh isi <code>lib/pages/home_page.dart</code>.</p>
                         <!-- Placeholder 7: gambar 7.png -->
-                        <img src="images/laprak7appmob/gambar 7.png" class="report-image medium" alt="Kode Widget RecipeImage lib/widgets/recipe_image.dart">
+                        <img src="images/laprak8appmob/gambar 7.png" class="report-image wide" alt="Kode lib/pages/home_page.dart dengan integrasi FutureBuilder">
                         <p>
-                            Kode ini merupakan widget reusable berbasis StatelessWidget yang mengontrol proses pemuatan gambar jaringan secara aman dan efisien di seluruh aplikasi. Menggunakan Image.network, widget ini menangani tiga kondisi utama, yaitu menampilkan indikator loading berupa ikon menu restoran saat unduhan berlangsung via loadingBuilder, menampilkan gambar cadangan lokal via errorBuilder saat koneksi terputus atau URL gagal diakses, serta mengoptimalkan penggunaan memori RAM perangkat dengan opsi pemotongan skala resolusi gambar melalui parameter cacheWidth.
+                            Pembaruan home_page.dart ini menggantikan sumber data statis dummyRecipes dengan FutureBuilder&lt;List&lt;Recipe&gt;&gt; yang memanggil RecipeService.fetchRecipes() satu kali di dalam initState() agar pemintaan jaringan tidak berulang setiap kali mode tampilan list dan grid diganti. Di dalam FutureBuilder, aplikasi menangani kondisi pemuatan dengan CircularProgressIndicator, kondisi kegagalan jaringan dengan widget ErrorView beserta tombol coba lagi, serta mendukung fitur tarik untuk memuat ulang melalui RefreshIndicator. Sementara itu, deretan ChoiceChip untuk filter kategori cuisine kini diambil langsung dari daftar recipes yang diterima dari server.
                         </p>
 
-                        <p><strong>6. Langkah B.2 — Thumbnail di RecipeTile</strong></p>
-                        <p>Ganti seluruh isi recipe_tile.dart. Perubahannya hanya pada leading: CircleAvatar diganti foto berukuran 56 x 56 dengan sudut membulat.</p>
+                        <p><strong>9. Langkah B.5 — Langkah memasak di halaman detail</strong></p>
+                        <p>Data dari server kini memiliki instructions. Di detail_page.dart, tambahkan potongan berikut tepat setelah perulangan for yang menampilkan bahan:</p>
                         <!-- Placeholder 8: gambar 8.png -->
-                        <img src="images/laprak7appmob/gambar 8.png" class="report-image medium" alt="Kode Thumbnail di RecipeTile lib/widgets/recipe_tile.dart">
-                        <p>
-                            Kode ini mendefinisikan widget RecipeTile berbasis StatelessWidget yang menampilkan item resep dalam bentuk daftar. Widget ini menggunakan ClipRRect dan RecipeImage berukuran 56 x 56 dp dengan cacheWidth: 168 untuk menampilkan gambar thumbnail bersudut membulat secara efisien dari segi penggunaan memori. Selain itu, widget ini memanfaatkan Provider yang berguna untuk mengelola status ikon favorit secara real time, serta menyediakan fungsi onTap untuk mengarahkan pengguna ke halaman DetailPage saat baris resep ditekan.
-                        </p>
+                        <img src="images/laprak8appmob/gambar 8.png" class="report-image wide" alt="Potongan kode instructions pada detail_page.dart">
 
-                        <p><strong>7. Langkah B.3 — ListView.builder di HomePage</strong></p>
-                        <p>Ganti seluruh isi home_page.dart dengan versi berikut: body yang sebelumnya ListView(children: [...]) diganti ListView.builder.</p>
+                        <p>Di detail_page.dart, tambahkan tiga sliver berikut di dalam slivers: [ ... ], tepat setelah SliverList.builder yang menampilkan bahan:</p>
                         <!-- Placeholder 9: gambar 9.png -->
-                        <img src="images/laprak7appmob/gambar 9.png" class="report-image medium" alt="Kode ListView.builder di lib/pages/home_page.dart">
-                        <!-- Placeholder 10: gambar 10.png -->
-                        <img src="images/laprak7appmob/gambar 10.png" class="report-image small" alt="Tampilan antarmuka HomePage dengan ListView.builder">
+                        <img src="images/laprak8appmob/gambar 9.png" class="report-image wide" alt="Potongan kode sliver instructions pada detail_page.dart">
                         <p>
-                            Kode ini dan hasil tampilan aplikasinya menunjukkan penerapan ListView.builder untuk menyusun daftar resep secara efisien melalui mekanisme lazy loading, di mana elemen RecipeTile hanya dibuat saat dirender di area layar. Pada tampilan antarmuka, setiap baris resep kini dilengkapi dengan thumbnail foto dari internet yang tampil rapi di sebelah nama dan detail resep, sambil tetap mempertahankan komponen lainnya.
+                            Pembaruan pada file detail_page.dart versi SliverAppBar ini menambahkan bagian Langkah memasak di bawah daftar bahan dengan tetap mengikuti aturan tata letak CustomScrollView yang mewajibkan seluruh elemen anaknya berupa komponen sliver. Judul Langkah dibungkus menggunakan SliverToBoxAdapter dengan kondisi if (recipe.instructions.isNotEmpty), sedangkan daftar tahapan memasaknya dirender secara lazy menggunakan SliverList.builder yang menampilkan nomor urut langkah dalam CircleAvatar serta teks instruksi recipe.instructions[index], diakhiri dengan SliverToBoxAdapter sebagai jarak bawah layar.
                         </p>
 
-                        <p><strong>8. Langkah B.4 — Menguji error state</strong></p>
-                        <p>Uji apa yang terjadi jika foto gagal dimuat.</p>
-                        <!-- Placeholder 11: gambar 11.png -->
-                        <img src="images/laprak7appmob/gambar 11.png" class="report-image small" alt="Tampilan saat foto gagal dimuat menampilkan placeholder lokal">
-                        <p>
-                            Terlihat pada resep pertama (Classic Margherita Pizza), foto dari internet gagal dimuat karena URL yang diubah menjadi salah (1.webpX), sehingga widget RecipeImage melalui errorBuilder secara otomatis menampilkan gambar placeholder lokal. Sementara itu, resep lainnya tetap menampilkan foto dengan normal.
-                        </p>
-
-                        <h5>Checkpoint 2</h5>
-                        <div class="row justify-content-center g-3 my-2">
+                        <h5>Checkpoint 1</h5>
+                        <div class="row g-3">
                             <div class="col-md-6 text-center">
-                                <!-- Placeholder 12: gambar 12.png -->
-                                <img src="images/laprak7appmob/gambar 12.png" class="report-image small" alt="Checkpoint 2 Tampilan normal daftar resep">
+                                <!-- Placeholder 10: gambar 10.png -->
+                                <img src="images/laprak8appmob/gambar 10.png" class="report-image small" alt="Checkpoint 1: Indikator Pemuatan">
                             </div>
                             <div class="col-md-6 text-center">
-                                <!-- Placeholder 13: gambar 13.png -->
-                                <img src="images/laprak7appmob/gambar 13.png" class="report-image small" alt="Checkpoint 2 Tampilan error state placeholder">
+                                <!-- Placeholder 11: gambar 11.png -->
+                                <img src="images/laprak8appmob/gambar 11.png" class="report-image small" alt="Checkpoint 1: Daftar Resep dari REST API">
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <!-- Placeholder 12: gambar 12.png -->
+                                <img src="images/laprak8appmob/gambar 12.png" class="report-image small" alt="Checkpoint 1: Halaman Detail Resep dengan Langkah Memasak">
                             </div>
                         </div>
                         <p>
-                            Pada Checkpoint 2 ini, aplikasi ResepKu berhasil mengimplementasikan lazy loading daftar resep menggunakan ListView.builder yang terintegrasi dengan widget kustom RecipeImage. Penggunaan RecipeImage berbasis Image.network tidak hanya menampilkan thumbnail foto resep berukuran 56 x 56 dp secara efisien melalui pembatasan cacheWidth: 168, tetapi juga menyediakan penanganan loading state saat unduhan berlangsung serta error state yang secara otomatis mengalihkan tampilan ke gambar placeholder lokal jika koneksi terputus atau URL gambar tidak valid, tanpa mengganggu hal lainnya.
+                            Pada Checkpoint 1 ini, aplikasi ResepKu diuji untuk memastikan integrasi data secara asinkron dari REST API dummyjson.com berjalan dengan baik menggantikan data dummy statis sebelumnya. Hasil pengujian menunjukkan bahwa aplikasi mampu menampilkan indikator pemuatan saat proses permintaan jaringan berlangsung, menyajikan daftar resep baru beserta gambar dan filter kategori dari server pada halaman utama, serta menampilkan rincian tahapan memasak bernomor urut pada bagian Langkah di halaman detail resep.
+                        </p>
+
+                        <p><strong>10. Langkah B.6 — Menguji error state dan refresh</strong></p>
+                        <ul class="dash-list">
+                            <li>Aktifkan mode pesawat, lalu hot restart. ErrorView tampil dengan pesan error.</li>
+                            <li>Matikan mode pesawat, lalu tekan "Coba lagi". Daftar resep tampil kembali.</li>
+                            <li>Tarik daftar ke bawah (pull-to-refresh). Indikator berputar di atas daftar, sementara daftar lama tetap terlihat.</li>
+                        </ul>
+
+                        <h5>Checkpoint 2</h5>
+                        <div class="row g-3 justify-content-center">
+                            <div class="col-md-6 text-center">
+                                <!-- Placeholder 13: gambar 13.png -->
+                                <img src="images/laprak8appmob/gambar 13.png" class="report-image small" alt="Checkpoint 2: ErrorView saat Mode Pesawat Aktif">
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <!-- Placeholder 14: gambar 14.png -->
+                                <img src="images/laprak8appmob/gambar 14.png" class="report-image small" alt="Checkpoint 2: Indikator RefreshIndicator saat Pull-to-Refresh">
+                            </div>
+                        </div>
+                        <p>
+                            Pada Checkpoint 2 ini, aplikasi ResepKu diuji untuk memastikan mekanisme penanganan kegagalan jaringan dan pemuatan ulang data (pull-to-refresh) berfungsi sebagaimana mestinya. Hasil pengujian menunjukkan bahwa saat koneksi internet diputus, aplikasi menampilkan widget ErrorView beserta pesan kesalahan dan tombol Coba lagi yang mampu memulihkan daftar resep ketika koneksi kembali normal, sedangkan saat pengguna menarik daftar resep ke bawah melalui RefreshIndicator, lingkaran indikator pemuatan berputar di bagian atas tanpa menghapus daftar resep lama di bawahnya.
                         </p>
                     </div>
 
                     <!-- BAGIAN C -->
                     <div class="detail-subsection">
-                        <h4>Bagian C — GridView dan Tombol Ganti Tampilan</h4>
+                        <h4>Bagian C — Mengirim Resep Baru (POST)</h4>
 
-                        <p><strong>9. Langkah C.1 — Membuat RecipeGridCard</strong></p>
-                        <p>Buat file baru untuk kartu grid dengan nama recipe_grid_card.dart</p>
-                        <!-- Placeholder 14: gambar 14.png -->
-                        <img src="images/laprak7appmob/gambar 14.png" class="report-image medium" alt="Kode lib/widgets/recipe_grid_card.dart">
-                        <p>
-                            Kode ini mendefinisikan widget RecipeGridCard berbasis StatelessWidget yang berfungsi menampilkan item resep dalam bentuk kartu pada tata letak grid. Widget ini menggunakan komponen Card dengan clipBehavior: Clip.antiAlias agar sudut foto terpotong rapi mengikuti lengkungan kartu, serta InkWell untuk mengarahkan pengguna ke halaman DetailPage saat kartu ditekan. Pada bagian atas kartu, kombinasi Expanded dan Stack digunakan untuk menampilkan foto resep secara penuh melalui RecipeImage sekaligus menempatkan tombol favorit di pojok kanan atas yang terhubung dengan FavoriteProvider, sedangkan bagian bawah menampilkan nama resep yang dibatasi satu baris beserta informasi rating dan waktu memasak.
-                        </p>
-
-                        <p><strong>10. Langkah C.2 — HomePage dengan list dan grid</strong></p>
-                        <p>Ganti seluruh isi home_page.dart, namun tombol pengaturan tetap dipertahankan.</p>
+                        <p><strong>11. Langkah C.1 — Method addRecipe</strong></p>
+                        <p>Di recipe_service.dart, tambahkan method berikut tepat sebelum komentar <code>// Status 2xx berarti berhasil</code>.</p>
                         <!-- Placeholder 15: gambar 15.png -->
-                        <img src="images/laprak7appmob/gambar 15.png" class="report-image medium" alt="Kode lib/pages/home_page.dart dengan mode list dan grid">
+                        <img src="images/laprak8appmob/gambar 15.png" class="report-image wide" alt="Kode method addRecipe di recipe_service.dart">
                         <p>
-                            Kode ini mengubah HomePage menjadi StatefulWidget untuk mengelola variabel state lokal _isGrid menggunakan fungsi setState() saat tombol ikon tampilan pada AppBar ditekan. Berdasarkan nilai _isGrid, bagian body halaman akan beralih merender daftar resep dalam format satu kolom menggunakan ListView.builder atau format kartu dua kolom beraspek 3 / 4 menggunakan GridView.builder.
+                            Penambahan method asinkron addRecipe pada recipe_service.dart berfungsi untuk mengirim data resep baru ke endpoint POST /recipes/add menggunakan _client.post dengan header 'Content-Type': 'application/json'. Data parameter berupa name, cuisine, dan cookTimeMinutes dikonversi menjadi format JSON menggunakan jsonEncode, dan batas waktu tunggu _timeout dan validasi kode status HTTP melalui _checkStatus(response) sebelum respons JSON dari server dipetakan kembali menjadi objek Recipe.
                         </p>
 
-                        <p><strong>11. Langkah C.3 — Menghitung ukuran kartu</strong></p>
-                        <p class="mb-2"><strong>- Menghitung Lebar Kartu:</strong></p>
-                        <div class="formula-box">
-                            Lebar kartu = (W_layar - Padding Horizontal - (Jumlah Kolom - 1) * crossAxisSpacing) / Jumlah Kolom<br><br>
-                            Lebar kartu = (360 - 16 - (2 - 1) * 8) / 2 = (360 - 16 - 8) / 2 = 336 / 2 = 168 dp
-                        </div>
+                        <p><strong>12. Langkah C.2 — Halaman form AddRecipePage</strong></p>
+                        <p>Buat file baru dengan nama <code>add_recipe_page.dart</code>.</p>
+                        <!-- Placeholder 16: gambar 16.png -->
+                        <img src="images/laprak8appmob/gambar 16.png" class="report-image wide" alt="Kode lib/pages/add_recipe_page.dart">
+                        <p>
+                            Kode ini mengimplementasikan kelas AddRecipePage sebagai halaman formulir untuk menambahkan data resep baru ke dalam aplikasi. Halaman ini menggunakan Form yang dikelola oleh GlobalKey&lt;FormState&gt; dan tiga buah TextEditingController untuk menangkap masukan nama resep, jenis masakan, serta durasi memasak, lengkap dengan fungsi validasi input pada setiap kolom dan pembersihan memori di dalam method dispose(). Saat tombol Simpan ditekan, fungsi asinkron _save() akan mengubah tampilan tombol menjadi indikator loading, mengirimkan data ke server melalui RecipeService.addRecipe(), serta mengembalikan objek resep yang berhasil dibuat ke halaman sebelumnya menggunakan Navigator.pop(context, created) setelah memastikan status mounted tetap aktif.
+                        </p>
 
-                        <p class="mb-2"><strong>- Menghitung Tinggi Kartu:</strong></p>
-                        <div class="formula-box">
-                            Tinggi kartu = Lebar kartu / childAspectRatio<br><br>
-                            Tinggi kartu = 168 / (3 / 4) = 168 * (4 / 3) = 224 dp
-                        </div>
+                        <p><strong>13. Langkah C.3 — Tombol tambah di HomePage</strong></p>
+                        <p>Di home_page.dart, tambahkan import berikut:</p>
+                        <!-- Placeholder 17: gambar 17.png -->
+                        <img src="images/laprak8appmob/gambar 17.png" class="report-image wide" alt="Import add_recipe_page.dart pada home_page.dart">
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-custom text-center">
-                                <thead>
-                                    <tr>
-                                        <th>Yang dihitung</th>
-                                        <th>Hasil</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Lebar kartu (dp)</td>
-                                        <td>168 dp</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tinggi kartu (dp)</td>
-                                        <td>224 dp</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <p>Tambahkan method berikut di dalam _HomePageState, sebelum @override Widget build:</p>
+                        <!-- Placeholder 18: gambar 18.png -->
+                        <img src="images/laprak8appmob/gambar 18.png" class="report-image wide" alt="Method _openAddPage pada home_page.dart">
+
+                        <p>Lalu tambahkan parameter berikut pada Scaffold, setelah body:</p>
+                        <!-- Placeholder 19: gambar 19.png -->
+                        <img src="images/laprak8appmob/gambar 19.png" class="report-image wide" alt="FloatingActionButton pada Scaffold home_page.dart">
+                        <p>
+                            Pembaruan home_page.dart ini menambahkan tombol melayang FloatingActionButton berikon tambah pada Scaffold yang memicu fungsi asinkron _openAddPage(). Fungsi tersebut menavigasikan pengguna ke halaman AddRecipePage melalui Navigator.push&lt;Recipe&gt; serta menunggu kembalian data resep yang baru dibuat, dan apabila objek created berhasil dikembalikan serta widget masih mounted, aplikasi menampilkan notifikasi konfirmasi melalui SnackBar yang memuat nama resep dan ID baru yang diberikan oleh server.
+                        </p>
+
+                        <p><strong>14. Langkah C.4 — Mencoba POST</strong></p>
+                        <ul class="dash-list">
+                            <li>Tekan tombol +, lalu tekan Simpan dengan form kosong. Pesan "Wajib diisi" harus muncul dan tidak ada request yang dikirim.</li>
+                            <li>Isi nama Rendang, cuisine Indonesian, dan waktu 180, lalu tekan Simpan. Form tertutup dan SnackBar menampilkan id yang diberikan server.</li>
+                            <li>Tarik daftar untuk refresh. Rendang tidak muncul, karena dummyjson hanya menyimulasikan penyimpanan.</li>
+                        </ul>
+
+                        <h5>Checkpoint 3</h5>
+                        <div class="row g-3 justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <!-- Placeholder 20: gambar 20.png -->
+                                <img src="images/laprak8appmob/gambar 20.png" class="report-image small" alt="Checkpoint 3: Validasi Form Kosong">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <!-- Placeholder 21: gambar 21.png -->
+                                <img src="images/laprak8appmob/gambar 21.png" class="report-image small" alt="Checkpoint 3: Pengisian Form Resep Baru">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <!-- Placeholder 22: gambar 22.png -->
+                                <img src="images/laprak8appmob/gambar 22.png" class="report-image small" alt="Checkpoint 3: SnackBar Konfirmasi ID Server">
+                            </div>
                         </div>
+                        <p>
+                            Pada Checkpoint 3 ini, aplikasi ResepKu diuji untuk memastikan validasi formulir masukan dan pengiriman data resep baru ke server melalui metode HTTP POST berfungsi dengan baik. Hasil pengujian menunjukkan bahwa saat tombol Simpan ditekan dalam keadaan kosong, aplikasi memunculkan pesan peringatan merah tanpa mengirimkan permintaan jaringan, sedangkan saat formulir diisi dengan data valid, halaman formulir tertutup dan menampilkan SnackBar konfirmasi bahwa resep telah diterima server dengan ID baru sebagai simulasi penyimpanan dari dummyjson.com.
+                        </p>
                     </div>
 
                     <!-- BAGIAN D -->
                     <div class="detail-subsection">
-                        <h4>Bagian D — Foto di Halaman Detail dan Pengujian</h4>
+                        <h4>Bagian D — Pengujian</h4>
 
-                        <p><strong>12. Langkah D.1 — Foto besar di halaman detail</strong></p>
-                        <p>Di detail_page.dart, tambahkan import berikut di bagian atas</p>
-                        <!-- Placeholder 16: gambar 16.png -->
-                        <img src="images/laprak7appmob/gambar 16.png" class="report-image medium" alt="Import pada detail_page.dart">
-                        <p>Lalu tambahkan foto sebagai child pertama ListView, tepat setelah baris children: [</p>
-                        <!-- Placeholder 17: gambar 17.png -->
-                        <img src="images/laprak7appmob/gambar 17.png" class="report-image medium" alt="Menambahkan RecipeImage sebagai child pertama di detail_page.dart">
-                        <p>Pada halaman ini cacheWidth tidak diisi, karena foto tampil hampir selebar layar.</p>
+                        <p><strong>15. Langkah D.1 — Menguji aplikasi</strong></p>
 
-                        <p><strong>13. Langkah D.2 — Menguji aplikasi</strong></p>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-custom">
+                            <table class="table table-dark table-bordered table-custom">
                                 <thead>
                                     <tr>
-                                        <th style="width: 50px;">No</th>
-                                        <th>Skenario</th>
-                                        <th>Hasil yang diharapkan</th>
-                                        <th style="width: 90px;">Sesuai?</th>
+                                        <th style="width: 5%;">No</th>
+                                        <th style="width: 35%;">Skenario</th>
+                                        <th style="width: 50%;">Hasil yang diharapkan</th>
+                                        <th style="width: 10%;">Sesuai?</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="text-center">1</td>
                                         <td>Buka aplikasi</td>
-                                        <td>Logo di AppBar, font Poppins, thumbnail foto di setiap resep</td>
-                                        <td class="text-center text-success"><i class="fas fa-check"></i></td>
+                                        <td>Indikator loading, lalu 50 resep dari server</td>
+                                        <td class="text-center text-success fw-bold">✓</td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">2</td>
-                                        <td>Tekan tombol grid di AppBar</td>
-                                        <td>Resep tampil sebagai kartu dua kolom; ikon tombol berubah menjadi ikon list</td>
-                                        <td class="text-center text-success"><i class="fas fa-check"></i></td>
+                                        <td>Tandai dua resep sebagai favorit, lalu tarik untuk refresh kembali ke list</td>
+                                        <td>Ikon hati kedua resep tetap merah dan badge tetap 2</td>
+                                        <td class="text-center text-success fw-bold">✓</td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">3</td>
-                                        <td>Di mode grid, tap ikon hati pada Margherita</td>
-                                        <td>Ikon merah dan badge bertambah</td>
-                                        <td class="text-center text-success"><i class="fas fa-check"></i></td>
+                                        <td>Tekan tombol grid, lalu kembali ke list</td>
+                                        <td>Tidak ada indikator loading baru</td>
+                                        <td class="text-center text-success fw-bold">✓</td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">4</td>
-                                        <td>Kembali ke mode list</td>
-                                        <td>Ikon hati Margherita tetap merah</td>
-                                        <td class="text-center text-success"><i class="fas fa-check"></i></td>
+                                        <td>Buka detail salah satu resep</td>
+                                        <td>Foto, porsi, bahan, dan langkah memasak tampil</td>
+                                        <td class="text-center text-success fw-bold">✓</td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">5</td>
-                                        <td>Tap kartu Alfredo di mode grid</td>
-                                        <td>Halaman detail terbuka dengan foto besar di atas</td>
-                                        <td class="text-center text-success"><i class="fas fa-check"></i></td>
+                                        <td>Mode pesawat, lalu hot restart</td>
+                                        <td>ErrorView dengan tombol "Coba lagi"</td>
+                                        <td class="text-center text-success fw-bold">✓</td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">6</td>
-                                        <td>Aktifkan mode pesawat, tutup dan buka aplikasi</td>
-                                        <td>Gambar placeholder tampil tanpa error merah</td>
-                                        <td class="text-center text-success"><i class="fas fa-check"></i></td>
+                                        <td>Matikan mode pesawat, tekan "Coba lagi"</td>
+                                        <td>Daftar resep tampil kembali</td>
+                                        <td class="text-center text-success fw-bold">✓</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">7</td>
+                                        <td>Kirim resep baru melalui tombol +</td>
+                                        <td>SnackBar berisi id dari server</td>
+                                        <td class="text-center text-success fw-bold">✓</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <h5>Checkpoint 3</h5>
-                        <div class="row justify-content-center g-3 my-2">
+                        <p class="mt-4">Karena pada skenario nomor 1, 4, 5, 6, dan 7 sudah diuji sebelumnya, maka sisa skenario 2 dan 3 yang belum.</p>
+
+                        <p class="mt-4 mb-2"><strong>Skenario 2 berhasil</strong></p>
+                        <!-- Placeholder 23: gambar 23.png -->
+                        <img src="images/laprak8appmob/gambar 23.png" class="report-image wide" alt="Skenario 2 berhasil">
+
+                        <p class="mt-4 mb-2"><strong>Skenario 3 berhasil</strong></p>
+                        <div class="row g-3 justify-content-center">
                             <div class="col-md-6 text-center">
-                                <!-- Placeholder 18: gambar 18.png -->
-                                <img src="images/laprak7appmob/gambar 18.png" class="report-image small" alt="Checkpoint 3 Tampilan mode list">
+                                <!-- Placeholder 24: gambar 24.png -->
+                                <img src="images/laprak8appmob/gambar 24.png" class="report-image small" alt="Skenario 3 berhasil: Grid View">
                             </div>
                             <div class="col-md-6 text-center">
-                                <!-- Placeholder 19: gambar 19.png -->
-                                <img src="images/laprak7appmob/gambar 19.png" class="report-image small" alt="Checkpoint 3 Tampilan mode grid dua kolom">
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <!-- Placeholder 20: gambar 20.png -->
-                                <img src="images/laprak7appmob/gambar 20.png" class="report-image small" alt="Checkpoint 3 Sinkronisasi status favorit ke mode list">
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <!-- Placeholder 21: gambar 21.png -->
-                                <img src="images/laprak7appmob/gambar 21.png" class="report-image small" alt="Checkpoint 3 Halaman detail dengan foto besar">
+                                <!-- Placeholder 25: gambar 25.png -->
+                                <img src="images/laprak8appmob/gambar 25.png" class="report-image small" alt="Skenario 3 berhasil: List View">
                             </div>
                         </div>
                         <p>
-                            Pada Checkpoint 3 ini, aplikasi ResepKu telah berhasil mengimplementasikan tampilan tata letak kisi dua kolom (grid) menggunakan GridView.builder serta penyajian foto resep beresolusi penuh beraspek 16 : 9 pada bagian atas halaman detail. Seluruh state favorit yang diubah pada kartu grid tersinkronisasi secara real time dengan badge favorit di AppBar maupun tampilan mode list.
+                            Berdasarkan pengujian menyeluruh pada Bagian D untuk memastikan integrasi seluruh fitur dari Modul 6 hingga Modul 8 dengan data REST API berjalan optimal, ketujuh skenario uji coba berhasil terpenuhi sesuai harapan. Aplikasi mampu memuat 50 resep dari server diawali indikator loading, mempertahankan status dan jumlah badge resep favorit setelah proses pull-to-refresh, beralih antara tampilan grid dan list secara instan tanpa memicu pemuatan jaringan ulang, menampilkan rincian foto, porsi, bahan, serta langkah memasak pada halaman detail, menangani kondisi offline melalui ErrorView beserta pemulihannya lewat tombol Coba lagi, hingga mengirimkan resep baru melalui tombol tambah (+) dengan konfirmasi ID server pada SnackBar.
+                        </p>
+
+                        <h5>Pertanyaan Analisis</h5>
+                        <p><strong>16. Pada skenario 2, setiap refresh membuat objek Recipe yang baru dari JSON. Mengapa status favorit tetap benar? Hubungkan dengan cara FavoriteProvider membandingkan resep (Modul 6).</strong></p>
+                        <p>
+                            Status favorit tetap bertahan dengan benar karena FavoriteProvider melacak dan membandingkan resep berdasarkan nilai id unik milik resep. Meskipun proses pull-to-refresh mengurai ulang respons JSON dan menghasilkan objek Recipe baru di memori, setiap objek tersebut tetap membawa nilai id yang identik dengan data sebelumnya dari server, sehingga pemeriksaan status favorit pada FavoriteProvider tetap cocok dan ikon hati maupun angka badge tidak berubah.
+                        </p>
+
+                        <p><strong>17. Pada skenario 3, mengapa menekan tombol grid tidak memunculkan indikator loading? Apa yang akan terjadi jika future ditulis langsung di dalam build()?</strong></p>
+                        <p>
+                            Menekan tombol grid tidak memunculkan indikator loading karena objek _recipesFuture diinisialisasi hanya satu kali di dalam initState(), sehingga pemanggilan setState() saat mengubah tata letak grid/list hanya membangun ulang tampilan menggunakan Future yang statusnya sudah selesai. Apabila pemanggilan fetchRecipes() diletakkan langsung di dalam metode build(), setiap perubahan state antarmuka, seperti mengganti tampilan grid, memilih filter kategori, atau menekan tombol favorit, akan menciptakan Future baru yang memicu permintaan HTTP ulang ke server dan terus-menerus menampilkan indikator loading.
+                        </p>
+
+                        <p><strong>18. HomePage tidak memanggil http.get secara langsung, melainkan melalui RecipeService. Sebutkan dua keuntungan cara ini!</strong></p>
+                        <p>
+                            Pemisahan komunikasi jaringan ke dalam kelas RecipeService memberikan dua keuntungan utama, yaitu pemisahan tanggung jawab dan penggunaan ulang kode, karena konfigurasi URL, timeout, parsing JSON, serta validasi status HTTP terpusat di satu tempat sehingga kode UI pada HomePage tetap bersih dan logika API mudah dipakai ulang oleh halaman lain. Keuntungan kedua adalah kemudahan pengujian, sebab RecipeService dirancang menerima injeksi http.Client opsional yang memungkinkan logika pengambilan data diuji secara mandiri menggunakan mock client tanpa harus merender tampilan widget maupun bergantung pada koneksi internet.
+                        </p>
+
+                        <p><strong>19. Setelah POST berhasil, server memberi id baru, tetapi resep tidak muncul saat daftar dimuat ulang. Jelaskan penyebabnya, dan bagaimana aplikasi dengan server sungguhan biasanya menampilkan data yang baru ditambahkan!</strong></p>
+                        <p>
+                            Resep baru tidak muncul saat daftar dimuat ulang karena dummyjson.com merupakan layanan API tiruan yang hanya menyimulasikan respons keberhasilan POST /recipes/add beserta pembuatan ID sementara tanpa benar-benar menyimpan data tersebut ke dalam basis datanya, sehingga permintaan GET /recipes berikutnya tetap mengembalikan daftar awal. Pada aplikasi yang terhubung ke server sungguhan dengan basis data permanen, data yang baru ditambahkan umumnya ditampilkan dengan cara memuat ulang daftar dari server setelah menerima data kembalian dari Navigator.push, atau menyisipkan langsung objek resep baru hasil respons POST ke dalam list di state lokal agar langsung tampil tanpa harus mengunduh ulang seluruh data.
+                        </p>
+
+                        <p><strong>20. Di AddRecipePage terdapat if (!mounted) return; setelah await. Jelaskan skenario yang dicegah oleh baris tersebut!</strong></p>
+                        <p>
+                            Baris if (!mounted) return; mencegah terjadinya runtime error apabila pengguna menutup halaman AddRecipePage saat proses pengiriman data await service.addRecipe(...) masih berlangsung di latar belakang. Jika operasi await selesai ketika widget halaman tersebut sudah dihancurkan dari widget tree, pemanggilan Navigator.pop(), setState(), atau ScaffoldMessenger.of(context) pada BuildContext yang sudah tidak aktif akan menyebabkan aplikasi crash, sehingga pengecekan !mounted memastikan eksekusi kode segera dihentikan dengan aman.
                         </p>
                     </div>
 
-                    <!-- PERTANYAAN ANALISIS -->
+                    <!-- BAGIAN LATIHAN -->
                     <div class="detail-subsection">
-                        <h4>Pertanyaan Analisis</h4>
+                        <h4>Latihan Mandiri & Bonus</h4>
 
-                        <p><strong>14. Pada skenario 3 dan 4 Langkah D.2, status favorit tetap sama walaupun tampilan berganti dari grid ke list. Padahal RecipeGridCard dan RecipeTile adalah dua widget yang berbeda. Jelaskan mengapa, dengan mengaitkannya pada Modul 6.</strong></p>
-                        <p>
-                            Status favorit tetap sama ketika tampilan berganti antara grid dan list karena data favorit tidak disimpan di dalam state lokal masing-masing widget kartu, melainkan dikelola secara terpusat sebagai app state menggunakan FavoriteProvider (ChangeNotifier) yang dibagikan ke seluruh pohon widget melalui ChangeNotifierProvider seperti yang telah dipelajari pada Modul 6. Baik RecipeGridCard maupun RecipeTile sama-sama memantau dan membaca sumber data tunggal dari context.watch&lt;FavoriteProvider&gt;().isFavorite(recipe), sehingga perubahan status favorit pada salah satu tampilan otomatis tercermin pada tampilan lainnya.
-                        </p>
-
-                        <p><strong>15. Di dalam loadingBuilder terdapat baris if (loadingProgress == null) return child; Apa yang akan tampil jika baris tersebut dihapus? Jelaskan alasannya.</strong></p>
-                        <p>
-                            Jika baris if (loadingProgress == null) return child; dihapus, maka gambar foto resep tidak akan pernah muncul di layar dan aplikasi akan terus-menerus menampilkan indikator loading (CircularProgressIndicator) meskipun proses pengunduhan foto dari server telah selesai. Hal ini terjadi karena Flutter menandai selesainya pengunduhan gambar dengan mengirimkan nilai loadingProgress bernilai null, sehingga tanpa kondisi pengecekan tersebut fungsi loadingBuilder tidak akan pernah mengembalikan widget child (gambar asli) dan terus merender animasi pemuatan.
-                        </p>
-
-                        <p><strong>16. Hitung berapa pixel foto thumbnail yang di-decode dengan dan tanpa cacheWidth: 168, jika foto asli dari server berukuran 1200 x 800 pixel. Apa akibatnya bagi memory ketika datanya menjadi 50 resep pada Modul 8?</strong></p>
-                        <p>
-                            Tanpa cacheWidth, foto berukuran asli 1200 x 800 pixel akan di-decode penuh sebanyak 1200 x 800 = 960.000 pixel per foto, sedangkan dengan cacheWidth: 168 dan rasio aspek yang sama (3 : 2), tinggi hasil decode menjadi 168 x (800 / 1200) = 112 pixel sehingga totalnya hanya 168 x 112 = 18.816 pixel per foto. Ketika jumlah data resep bertambah menjadi 50 resep pada Modul 8, pemuatan tanpa cacheWidth akan membebani RAM sebesar 50 x 960.000 = 48.000.000 pixel yang berisiko menyebabkan lag saat scrolling hingga crash pada perangkat berspesifikasi rendah, sedangkan dengan cacheWidth: 168 total beban memorinya hanya 940.800 pixel sehingga aplikasi tetap ringan dan responsif.
-                        </p>
-
-                        <p><strong>17. Logo memakai Image.asset, sedangkan foto resep memakai Image.network. Mengapa logo tidak sebaiknya diambil dari internet, dan mengapa foto resep tidak dimasukkan ke asset?</strong></p>
-                        <p>
-                            Logo aplikasi sebaiknya menggunakan Image.asset karena ukurannya kecil, bersifat statis, dan merupakan bagian dari identitas utama antarmuka sehingga harus dapat dimuat secara instan tanpa jeda jaringan maupun risiko gagal tampil saat perangkat tidak terhubung ke internet. Sebaliknya, foto resep jumlahnya sangat banyak, berukuran besar, serta bersifat dinamis mengikuti penambahan data dari server/API, sehingga memasukkannya ke dalam asset lokal akan membuat ukuran file instalasi aplikasi membengkak dan menyulitkan pembaruan konten tanpa harus merilis ulang versi aplikasi.
-                        </p>
-                    </div>
-
-                    <!-- LATIHAN -->
-                    <div class="detail-subsection">
-                        <h4>Latihan</h4>
-
-                        <p><strong>18. Latihan 1 (wajib) — Filter cuisine</strong></p>
-                        <p>
-                            Tambahkan deretan ChoiceChip di bawah AppBar Home yang dapat digeser ke samping: "Semua" ditambah setiap cuisine yang ada di data. Memilih sebuah chip hanya menampilkan resep dengan cuisine tersebut, baik di mode list maupun grid.
-                        </p>
-                        <ul class="report-list dash-list">
-                            <li>Tambahkan state String? _cuisine di _HomePageState. Nilai null berarti semua cuisine.</li>
-                            <li>Ambil daftar cuisine dari data, bukan ditulis manual, misalnya dummyRecipes.map((r) =&gt; r.cuisine).toSet().</li>
-                            <li>Ubah body menjadi Column: deretan chip di dalam SizedBox(height: 56) berisi ListView horizontal, lalu Expanded berisi list atau grid.</li>
-                            <li>Kirim data yang sudah difilter ke _buildList() dan _buildGrid().</li>
+                        <h5>21. Latihan 1 — Pencarian resep</h5>
+                        <p>Tambahkan halaman pencarian yang dibuka dari ikon kaca pembesar di AppBar Home. User mengetik kata kunci, menekan Enter, lalu hasil ditampilkan dengan FutureBuilder.</p>
+                        <ul class="dash-list">
+                            <li>Tambahkan method searchRecipes(String query) di RecipeService yang memanggil GET /recipes/search?q=... Gunakan <code>Uri.parse(...).replace(queryParameters: {'q': query})</code> agar spasi dan karakter khusus di-encode dengan benar.</li>
+                            <li>Buat SearchPage (StatefulWidget) dengan TextField di AppBar. Simpan <code>Future&lt;List&lt;Recipe&gt;&gt;?</code> di field; nilainya null sebelum user mencari.</li>
+                            <li>Pada onSubmitted, buat Future baru di dalam setState. Tampilkan pesan khusus jika hasil pencarian kosong.</li>
+                            <li>Gunakan kembali RecipeTile dan ErrorView.</li>
                         </ul>
-                        <!-- Placeholder 22: gambar 22.png -->
-                        <img src="images/laprak7appmob/gambar 22.png" class="report-image medium" alt="Penyesuaian kode lib/pages/home_page.dart untuk filter ChoiceChip">
-                        <!-- Placeholder 23: gambar 23.png -->
-                        <img src="images/laprak7appmob/gambar 23.png" class="report-image small" alt="Tampilan antarmuka filter cuisine ChoiceChip">
-                        <p>
-                            Penyesuaian pada lib/pages/home_page.dart ini menambahkan variabel state lokal String? _cuisine di dalam _HomePageState untuk menyimpan kategori masakan yang dipilih pengguna, dengan nilai awal null yang menampilkan seluruh data resep. Daftar kategori cuisine diekstrak dari dummyRecipes menggunakan .map((r) =&gt; r.cuisine).toSet() lalu ditampilkan dalam bentuk deretan ChoiceChip di dalam ListView horizontal berbungkus SizedBox(height: 56) di bagian atas Column. Ketika salah satu chip dipilih, fungsi setState() memperbarui nilai _cuisine dan menyaring daftar resep yang diteruskan ke dalam widget Expanded berisi _buildList maupun _buildGrid, sehingga penyaringan bekerja secara sinkron pada kedua mode tampilan tanpa menyebabkan overflow tata letak.
-                        </p>
 
-                        <p><strong>19. Latihan 2 (wajib) — Halaman Favorit yang lebih rapi</strong></p>
-                        <p>Ubah halaman Favorit sehingga:</p>
-                        <ul class="report-list dash-list">
-                            <li>memakai ListView.separated dengan Divider di antara item;</li>
-                            <li>setiap baris menampilkan thumbnail foto memakai RecipeImage;</li>
-                            <li>item dapat digeser ke kiri untuk menghapusnya dari favorit (Dismissible), disertai SnackBar berisi nama resep yang dihapus.</li>
-                        </ul>
-                        <p>
-                            Dismissible wajib diberi key yang unik dan stabil. Gunakan ValueKey(recipe.id), bukan index. Jika kalian sudah mengerjakan Latihan 2 Modul 6 (tombol hapus semua), pertahankan tombol tersebut.
-                        </p>
-                        <!-- Placeholder 24: gambar 24.png -->
-                        <img src="images/laprak7appmob/gambar 24.png" class="report-image medium" alt="Kode lib/pages/favorite_page.dart ListView.separated dan Dismissible">
-                        <p>
-                            Pembaruan pada file lib/pages/favorite_page.dart ini mengganti daftar statis menjadi ListView.separated dengan pemisah Divider di antara setiap baris resep favorit, serta menambahkan thumbnail foto berukuran 56x56 dp menggunakan widget RecipeImage di bagian leading pada ListTile. Setiap item dibungkus oleh widget Dismissible dengan ValueKey sebagai kunci unik yang stabil serta arah geser ke kiri, sehingga ketika pengguna menggeser item untuk menghapusnya dari FavoriteProvider, aplikasi langsung menampilkan notifikasi SnackBar berisi nama resep yang dihapus sambil tetap mempertahankan fitur tombol hapus semua pada AppBar.
-                        </p>
-
-                        <p><strong>20. Latihan 3 (bonus) — Foto yang mengecil saat di-scroll</strong></p>
-                        <p>
-                            Ubah halaman detail menjadi CustomScrollView dengan SliverAppBar (pinned: true, expandedHeight: 260) yang menampilkan foto resep sebagai background FlexibleSpaceBar. Bagian porsi dan judul "Bahan" diletakkan di SliverToBoxAdapter, dan daftar bahan memakai SliverList.builder.
-                        </p>
-                        <p>
-                            Untuk foto di SliverAppBar, gunakan package cached_network_image agar foto tersimpan di disk dan tidak diunduh ulang ketika aplikasi dibuka kembali:
-                        </p>
-                        <!-- Placeholder 25: gambar 25.png -->
-                        <img src="images/laprak7appmob/gambar 25.png" class="report-image medium" alt="Perintah terminal flutter pub add cached_network_image">
-                        <p>
-                            cached_network_image versi 4 membutuhkan Flutter 3.44 atau lebih baru. Periksa versi Flutter kalian dengan flutter --version.
-                        </p>
+                        <p>Tambah Method searchRecipes di <code>lib/services/recipe_service.dart</code>:</p>
                         <!-- Placeholder 26: gambar 26.png -->
-                        <img src="images/laprak7appmob/gambar 26.png" class="report-image medium" alt="Kode lib/pages/detail_page.dart CustomScrollView dan SliverAppBar">
+                        <img src="images/laprak8appmob/gambar 26.png" class="report-image wide" alt="Method searchRecipes di lib/services/recipe_service.dart">
+
+                        <p>Buat Halaman Baru <code>lib/pages/search_page.dart</code>:</p>
                         <!-- Placeholder 27: gambar 27.png -->
-                        <img src="images/laprak7appmob/gambar 27.png" class="report-image small" alt="Tampilan halaman detail dengan SliverAppBar menyusut">
+                        <img src="images/laprak8appmob/gambar 27.png" class="report-image wide" alt="Kode lib/pages/search_page.dart">
+
+                        <p>Tambah Ikon Kaca Pembesar di <code>home_page.dart</code>:</p>
+                        <!-- Placeholder 28: gambar 28.png -->
+                        <img src="images/laprak8appmob/gambar 28.png" class="report-image wide" alt="Import search_page.dart pada home_page.dart">
+
+                        <!-- Placeholder 29: gambar 29.png -->
+                        <img src="images/laprak8appmob/gambar 29.png" class="report-image wide" alt="IconButton Search pada AppBar home_page.dart">
+
+                        <p><strong>Output:</strong></p>
+                        <div class="row g-3 justify-content-center">
+                            <div class="col-md-6 text-center">
+                                <!-- Placeholder 30: gambar 30.png -->
+                                <img src="images/laprak8appmob/gambar 30.png" class="report-image small" alt="Output Latihan 1: Tampilan Awal Halaman Pencarian">
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <!-- Placeholder 31: gambar 31.png -->
+                                <img src="images/laprak8appmob/gambar 31.png" class="report-image small" alt="Output Latihan 1: Hasil Pencarian Resep Chicken">
+                            </div>
+                        </div>
                         <p>
-                            Pembaruan pada file lib/pages/detail_page.dart ini mengganti tata letak halaman detail menjadi CustomScrollView dengan SliverAppBar yang memuat foto resep di dalam FlexibleSpaceBar menggunakan CachedNetworkImage, sehingga foto dapat mengecil secara mulus saat layar digulir sekaligus tersimpan di cache disk agar tidak diunduh ulang. Bagian informasi kategori resep, kartu pengatur jumlah porsi, total kalori, dan judul Bahan diletakkan di dalam SliverToBoxAdapter, sedangkan daftar bahan-bahan resep dirender secara efisien menggunakan SliverList.builder di bawahnya.
+                            Pada Latihan 1 ini, fitur pencarian resep berhasil diimplementasikan dengan menambahkan method searchRecipes di RecipeService yang membangun URL endpoint GET /recipes/search menggunakan Uri replace agar spasi dan karakter khusus ter-encode dengan benar, serta membuat halaman SearchPage yang dapat dibuka dari ikon kaca pembesar di AppBar halaman utama. Halaman pencarian tersebut dilengkapi kolom masukan TextField di AppBar dan menyimpan variabel Future&lt;List&lt;Recipe&gt;&gt; bernilai awal null sebelum pengguna mengirimkan kata kunci melalui tombol Enter, sehingga saat pencarian dijalankan, FutureBuilder menampilkan indikator loading lalu menyusun daftar resep yang sesuai menggunakan widget RecipeTile, serta menangani hasil kosong maupun kendala jaringan dengan pesan khusus dan ErrorView.
+                        </p>
+
+                        <h5>22. Latihan 2 — Mengubah dan menghapus resep</h5>
+                        <p>Tambahkan PopupMenuButton di AppBar halaman detail:</p>
+                        <ul class="dash-list">
+                            <li>Ubah nama: tampilkan AlertDialog berisi TextField, lalu kirim PUT /recipes/{id} dengan body <code>{"name": "..."}</code>. Tampilkan nama dari respons server di SnackBar.</li>
+                            <li>Hapus: tampilkan dialog konfirmasi, lalu kirim DELETE /recipes/{id}. Jika respons berisi isDeleted: true, tampilkan SnackBar dan tutup halaman detail.</li>
+                        </ul>
+                        <p>Buat method updateRecipe dan deleteRecipe di RecipeService. Jangan lupa memeriksa mounted setelah setiap await.</p>
+
+                        <p>Tambahkan Method updateRecipe & deleteRecipe di <code>lib/services/recipe_service.dart</code>:</p>
+                        <!-- Placeholder 32: gambar 32.png -->
+                        <img src="images/laprak8appmob/gambar 32.png" class="report-image wide" alt="Method updateRecipe dan deleteRecipe di recipe_service.dart">
+
+                        <p>Integrasi PopupMenuButton di <code>lib/pages/detail_page.dart</code>:</p>
+                        <!-- Placeholder 33: gambar 33.png -->
+                        <img src="images/laprak8appmob/gambar 33.png" class="report-image wide" alt="Import recipe_service.dart pada detail_page.dart">
+
+                        <!-- Placeholder 34: gambar 34.png -->
+                        <img src="images/laprak8appmob/gambar 34.png" class="report-image wide" alt="Deklarasi late String _recipeName dan initState pada detail_page.dart">
+
+                        <!-- Placeholder 35: gambar 35.png -->
+                        <img src="images/laprak8appmob/gambar 35.png" class="report-image wide" alt="Method _showEditDialog pada detail_page.dart">
+
+                        <!-- Placeholder 36: gambar 36.png -->
+                        <img src="images/laprak8appmob/gambar 36.png" class="report-image wide" alt="Method _showDeleteDialog dan PopupMenuButton pada detail_page.dart">
+
+                        <p><strong>Output:</strong></p>
+                        <div class="row g-3 justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <!-- Placeholder 37: gambar 37.png -->
+                                <img src="images/laprak8appmob/gambar 37.png" class="report-image small" alt="Output Latihan 2: Menu Ubah Nama dan Hapus">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <!-- Placeholder 38: gambar 38.png -->
+                                <img src="images/laprak8appmob/gambar 38.png" class="report-image small" alt="Output Latihan 2: Dialog Ubah Nama Resep">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <!-- Placeholder 39: gambar 39.png -->
+                                <img src="images/laprak8appmob/gambar 39.png" class="report-image small" alt="Output Latihan 2: SnackBar Nama Diperbarui">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <!-- Placeholder 40: gambar 40.png -->
+                                <img src="images/laprak8appmob/gambar 40.png" class="report-image small" alt="Output Latihan 2: Dialog Konfirmasi Hapus Resep">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <!-- Placeholder 41: gambar 41.png -->
+                                <img src="images/laprak8appmob/gambar 41.png" class="report-image small" alt="Output Latihan 2: SnackBar Resep Berhasil Dihapus">
+                            </div>
+                        </div>
+                        <p>
+                            Pada Latihan 2 ini, fitur pembaruan dan penghapusan data resep berhasil diimplementasikan dengan menambahkan method updateRecipe dan deleteRecipe di dalam RecipeService, serta menyematkan PopupMenuButton pada bagian AppBar di DetailPage. Berdasarkan hasil pengujian, pemilihan opsi Ubah nama memunculkan AlertDialog berisi kolom masukan teks yang memperbarui judul resep pada halaman detail beserta notifikasi SnackBar setelah dikonfirmasi oleh server, sedangkan opsi Hapus menampilkan dialog konfirmasi yang menutup halaman detail disertai pesan SnackBar apabila respons server mengembalikan status isDeleted: true, dengan pemeriksaan mounted di setiap jeda asinkron untuk menjaga keamanan siklus hidup widget.
+                        </p>
+
+                        <h5>23. Latihan 3 (bonus) — Unit test tanpa internet</h5>
+                        <p>Buat file <code>test/recipe_service_test.dart</code> yang menguji:</p>
+                        <ul class="dash-list">
+                            <li>Recipe.fromJson membaca rating 5 (int) sebagai 5.0 dan memberi nilai bawaan untuk field yang tidak ada.</li>
+                            <li>fetchRecipes mengembalikan List&lt;Recipe&gt; dari respons palsu, dan melempar RecipeServiceException jika status 404.</li>
+                        </ul>
+                        <p>Gunakan MockClient dari package:http/testing.dart sebagai client RecipeService, sehingga pengujian tidak membutuhkan internet. Jalankan dengan:</p>
+                        <p><code>flutter test test/recipe_service_test.dart</code></p>
+                        <p>Buat folder baru bernama test, lalu di dalam folder tersebut buat sebuah file baru dengan nama recipe_service_test.dart.</p>
+
+                        <!-- Placeholder 42: gambar 42.png -->
+                        <img src="images/laprak8appmob/gambar 42.png" class="report-image wide" alt="Kode test/recipe_service_test.dart">
+
+                        <!-- Placeholder 43: gambar 43.png -->
+                        <img src="images/laprak8appmob/gambar 43.png" class="report-image medium" alt="Hasil Pengujian Unit Test flutter test All tests passed">
+
+                        <p>
+                            Pada Latihan 3 ini, pengujian unit otomatis tanpa ketergantungan koneksi internet berhasil diimplementasikan pada test/recipe_service_test.dart dengan menginjeksikan MockClient dari pustaka package:http/testing.dart ke dalam RecipeService. Skenario pengujian mencakup verifikasi metode Recipe.fromJson dalam mengonversi nilai rating bertipe bilangan bulat (5) menjadi pecahan (5.0) sekaligus memberikan nilai bawaan yang aman bagi atribut JSON yang tidak tersedia, serta pengujian metode fetchRecipes dalam mengurai daftar objek List&lt;Recipe&gt; dari respons tiruan berstatus HTTP 200 dan melempar RecipeServiceException saat server tiruan mengembalikan status galat 404, di mana seluruh skenario uji berhasil lulus ketika dijalankan melalui perintah flutter test.
                         </p>
                     </div>
 
                     <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
                     <div class="conclusion-text">
                         <p>
-                            Berdasarkan rangkaian praktikum Modul 7 yang telah dilaksanakan, seluruh fitur manajemen list, grid, gambar, dan asset berhasil diimplementasikan dengan baik pada aplikasi ResepKu. Penggunaan ListView.builder dan GridView.builder memungkinkan aplikasi merender daftar resep secara efisien dalam dua mode tampilan berbeda dengan status favorit yang tetap tersinkronisasi melalui FavoriteProvider. Selain itu, penerapan RecipeImage dengan loadingBuilder, errorBuilder, dan pembatasan dimensi cacheWidth terbukti menjaga stabilitas antarmuka tanpa memunculkan pesan error saat perangkat berada dalam kondisi offline sekaligus menghemat konsumsi memori secara signifikan.
+                            Berdasarkan seluruh rangkaian praktikum pada Modul 8, aplikasi ResepKu telah berhasil bertransformasi dari aplikasi berbasis data statis menjadi aplikasi dinamis yang terintegrasi penuh dengan layanan REST API eksternal melalui kelas RecipeService. Pemisahan tanggung jawab antara lapisan akses jaringan, pemetaan model data, serta tampilan antarmuka berbasis FutureBuilder terbukti menghasilkan arsitektur kode yang bersih, terstruktur, dan tangguh dalam menangani berbagai kondisi jaringan, mulai dari jeda pemuatan data, kegagalan koneksi, pembaruan data melalui RefreshIndicator, hingga keamanan siklus hidup widget menggunakan pemeriksaan mounted setelah setiap proses await.
                         </p>
                         <p>
-                            Penyempurnaan antarmuka melalui latihan mandiri juga berhasil meningkatkan pengalaman pengguna secara keseluruhan. Penambahan deretan ChoiceChip mempermudah penyaringan resep berdasarkan kategori masakan pada mode list maupun grid, sementara pembaruan halaman favorit menggunakan ListView.separated dan Dismissible memberikan interaksi penghapusan item yang intuitif disertai umpan balik SnackBar. Di sisi lain, penerapan CustomScrollView, SliverAppBar, dan cached_network_image pada halaman detail menghasilkan animasi penyusutan foto yang halus saat layar digulir serta mempercepat pemuatan gambar melalui penyimpanan cache lokal.
+                            Selain itu, implementasi fitur CRUD lengkap, yang mencakup pengambilan daftar resep, pencarian berdasarkan kata kunci, penambahan resep baru, pembaruan nama resep, serta penghapusan data, berhasil dijalankan dan diverifikasi melalui berbagai skenario pengujian antarmuka. Keandalan kode di balik layar juga telah divalidasi melalui pengujian unit otomatis menggunakan MockClient pada berkas test/recipe_service_test.dart, yang memastikan logika konversi data JSON dan penanganan status galat HTTP berjalan akurat tanpa bergantung pada ketersediaan jaringan internet.
                         </p>
                     </div>
 
@@ -592,4 +696,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

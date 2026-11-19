@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layouting & Styling Row, Column, Container, dan ListTile - Iqbal Miftahul Fikri</title>
+    <title>Input Widgets & Forms Menangkap Data, Dropdown, dan Validasi - Iqbal Miftahul Fikri</title>
     <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -95,48 +95,6 @@
             left: 0;
         }
 
-        .command-text {
-            color: #ffc107;
-            font-family: Consolas, "Courier New", monospace;
-            font-size: 16px;
-            background-color: #121212;
-            border: 1px solid #333;
-            border-radius: 6px;
-            padding: 12px 14px;
-            margin: 14px 0 20px;
-            overflow-x: auto;
-        }
-
-        .image-placeholder {
-            min-height: 230px;
-            background-color: #121212;
-            border: 2px dashed #555;
-            border-radius: 8px;
-            color: #bdbdbd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            text-align: center;
-            font-size: 16px;
-            margin: 18px 0 26px;
-        }
-
-        .image-placeholder.small {
-            min-height: 110px;
-            max-width: 420px;
-        }
-
-        .image-placeholder.medium {
-            min-height: 220px;
-            max-width: 640px;
-        }
-
-        .image-placeholder.wide {
-            min-height: 280px;
-            width: 100%;
-        }
-
         .report-image {
             display: block;
             max-width: 100%;
@@ -175,9 +133,8 @@
                 font-size: 20px;
             }
 
-            .image-placeholder {
-                min-height: 190px;
-                font-size: 14px;
+            .report-image {
+                margin: 16px auto 24px;
             }
         }
     </style>
@@ -208,8 +165,8 @@
     <header class="report-header text-center">
         <div class="container">
             <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Aplikasi Mobile</span>
-            <h1 class="text-white fw-bold">Layouting &amp; Styling Row, Column, Container, dan ListTile</h1>
-            <p class="text-white-50 mt-3">Dokumentasi Praktikum Layouting &amp; Styling pada Framework Flutter</p>
+            <h1 class="text-white fw-bold">Input Widgets & Forms Menangkap Data, Dropdown, dan Validasi</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum Input Widgets & Forms pada Framework Flutter</p>
         </div>
     </header>
 
@@ -225,100 +182,97 @@
                     <h3 class="text-warning mb-3">A. Pendahuluan</h3>
                     <div class="report-text">
                         <p>
-                            Pengembangan aplikasi mobile berbasis Flutter menawarkan kemudahan dalam membangun antarmuka pengguna yang modern dan responsif melalui konsep tata letak berbasis widget. Penyusunan elemen visual yang terstruktur sangat penting untuk memastikan informasi dapat tersaji secara jelas dan nyaman diakses oleh pengguna pada berbagai ukuran layar perangkat mobile.
+                            Pengembangan aplikasi seluler dengan Flutter sering kali membutuhkan interaksi pengguna melalui pengisian formulir. Dalam praktikum ini, fokus utama adalah pemahaman dan penerapan komponen Input Widgets & Forms. Beberapa komponen yang dibahas meliputi penggunaan widget Form bersama GlobalKey sebagai wadah utama untuk mengontrol dan memvalidasi banyak input sekaligus, serta TextFormField sebagai kolom teks utama yang mendukung validasi terintegrasi. Selain itu, TextEditingController juga diterapkan sebagai pengendali untuk membaca dan mengelola data teks yang diketik oleh pengguna.
                         </p>
 
                         <p>
-                            Praktikum ini berfokus pada penerapan dasar-dasar layouting dan styling menggunakan Flutter dengan studi kasus pembuatan antarmuka aplikasi Expense Tracker. Melalui praktikum ini, dilakukan eksplorasi penggunaan widget Row, Column, Container, dan ListTile, penyusunan layout yang dapat digulirkan dengan SingleChildScrollView, serta penyelesaian tugas modifikasi visual dan penambahan data transaksi.
+                            Praktikum ini merancang antarmuka formulir "Catat Transaksi Baru" untuk sebuah aplikasi Expense Tracker. Proses perancangan antarmuka melibatkan pembuatan input untuk judul transaksi, input nominal yang dikhususkan untuk kibor angka, serta pemilihan kategori menggunakan DropdownButtonFormField. Lalu, praktikum ini juga mengeksplorasi penambahan interaksi tingkat lanjut pada bagian tugas, yaitu input tanggal transaksi berformat DD/MM/YYYY yang memanfaatkan fungsi showDatePicker. Seluruh elemen input tersebut dilengkapi dengan sistem validasi untuk mencegah masuknya data kosong atau format angka yang tidak sesuai sebelum data diproses dan ditampilkan melalui pop-up SnackBar.
                         </p>
                     </div>
 
                     <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
-                    <p class="text-white">Tujuan dari praktikum ini adalah:</p>
+                    <p>Tujuan dari praktikum ini adalah:</p>
                     <ul class="report-list dash-list">
-                        <li>Memahami konsep dasar layouting dan styling pada Flutter menggunakan widget Row, Column, Container, dan ListTile.</li>
-                        <li>Menerapkan tata letak horizontal dengan Row dan tata letak vertikal dengan Column dalam menyusun antarmuka aplikasi.</li>
-                        <li>Mengatasi masalah overflow pada layar aplikasi menggunakan widget SingleChildScrollView.</li>
-                        <li>Mengimplementasikan kustomisasi warna teks nominal transaksi untuk membedakan kategori pemasukan dan pengeluaran.</li>
-                        <li>Menambahkan item data transaksi fiktif baru secara terstruktur ke dalam daftar riwayat transaksi.</li>
+                        <li>Menangkap dan mengelola data teks yang diinputkan oleh pengguna menggunakan TextEditingController.</li>
+                        <li>Menerapkan dan mengonfigurasi widget dropdown statis menggunakan DropdownButtonFormField untuk pemilihan kategori transaksi.</li>
+                        <li>Melakukan validasi input pada formulir untuk mencegah penyimpanan data yang kosong atau memiliki format yang salah, seperti format huruf pada kolom angka.</li>
+                        <li>Mengimplementasikan fungsi showDatePicker untuk memunculkan kalender pop-up yang berguna untuk memudahkan pengguna memilih input tanggal transaksi dengan format DD/MM/YYYY.</li>
+                        <li>Menggunakan widget Form beserta GlobalKey sebagai wadah utama untuk memvalidasi dan mengontrol seluruh komponen input secara bersamaan dalam satu waktu.</li>
                     </ul>
 
                     <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
 
-                    <!-- Langkah 1: Menyusun Tombol Aksi (Row) -->
                     <div class="detail-subsection">
-                        <h4>Menyusun Tombol Aksi (Row)</h4>
+                        <p><strong>1.</strong> Buat file baru dengan nama add_transaction_screen.dart</p>
+                        <img src="images/laprak3appmob/gambar 1.png" class="report-image small" alt="File add_transaction_screen.dart">
 
-                        <p><strong>1.</strong> Menyusun Tombol Aksi (Row).</p>
-                        <img src="images/laprak2_modul2_appmob/gambar1.png" alt="Screenshot kode ActionButtons extends StatelessWidget dengan Row dan _buildButton" class="report-image wide">
+                        <p><strong>2. Persiapan State & Controller.</strong></p>
+                        <img src="images/laprak3appmob/gambar 2.png" class="report-image medium" alt="Kode inisialisasi variabel dan state dasar">
                         <p>
-                            Kode ini berfungsi untuk menyusun tiga tombol aksi ("Masuk", "Keluar", dan "Transfer") secara mendatar atau horizontal menggunakan widget Row. Penggunaan mainAxisAlignment: MainAxisAlignment.spaceEvenly membuat ruang kosong di antara tombol-tombol tersebut terbagi secara otomatis dan seimbang, sedangkan tampilan visual masing-masing tombol dibentuk oleh fungsi pembantu _buildButton.
+                            Kode ini merupakan inisialisasi variabel dan state dasar pada class _AddTransactionScreenState, di mana _formKey digunakan sebagai kunci identifikasi unik untuk memvalidasi seluruh elemen form, dua objek TextEditingController disiapkan untuk mengambil teks yang diketikkan pada kolom judul dan nominal, serta atribut _selectedCategory diisi dengan nilai awal 'Makanan' untuk menyimpan pilihan kategori pada dropdown.
                         </p>
+
+                        <p><strong>3. Membuat Kolom Input (TextFormField).</strong></p>
+                        <img src="images/laprak3appmob/gambar 3.png" class="report-image wide" alt="Kode TextFormField judul dan nominal">
+                        <p>
+                            Kode ini menyusun dua bidang input menggunakan TextFormField di dalam widget Form yang terikat pada _formKey, di mana input pertama digunakan untuk menangkap judul transaksi dengan validasi teks wajib diisi, sementara input kedua dikhususkan untuk masukan nominal menggunakan jenis kibor angka (TextInputType.number) serta memiliki dua tingkat validasi untuk memastikan nilainya tidak kosong dan berformat angka yang valid.
+                        </p>
+
+                        <p><strong>4. Dropdown & Tombol Simpan.</strong></p>
+                        <img src="images/laprak3appmob/gambar 4.png" class="report-image wide" alt="Kode DropdownButtonFormField dan ElevatedButton">
+                        <p>
+                            Kode ini menambahkan menu pilihan kategori menggunakan widget DropdownButtonFormField yang memperbarui nilai variabel _selectedCategory ketika pengguna memilih salah satu opsi, serta menyediakan tombol ElevatedButton yang berfungsi untuk memicu validasi seluruh field formulir melalui _formKey.currentState!.validate() dan menampilkan SnackBar berisi pesan konfirmasi apabila seluruh data input sudah valid.
+                        </p>
+
+                        <p><strong>5.</strong> Jika telah selesai, maka akan tampil output seperti ini.</p>
+                        <img src="images/laprak3appmob/gambar 5.png" class="report-image medium" alt="Output form Catat Transaksi Baru dengan pesan error">
+                        <img src="images/laprak3appmob/gambar 6.png" class="report-image medium" alt="Output form Catat Transaksi Baru terisi dengan SnackBar">
                     </div>
 
-                    <!-- Langkah 2: Menyusun Riwayat (Column + ListTile) -->
                     <div class="detail-subsection">
-                        <h4>Menyusun Riwayat (Column + ListTile)</h4>
+                        <h4>Latihan/Tugas</h4>
+                        
+                        <h5>Input Tanggal.</h5>
+                        <p>Tambahkan satu input baru sebelum tombol Simpan untuk mengisi Tanggal Transaksi.</p>
+                        <ul class="report-list dash-list mb-4">
+                            <li>Bisa menggunakan TextFormField biasa (format teks DD/MM/YYYY).</li>
+                            <li>Tombol plus: gunakan fungsi showDatePicker.</li>
+                            <li>Berikan validasi wajib diisi!.</li>
+                        </ul>
 
-                        <p><strong>2.</strong> Menyusun Riwayat (Column + ListTile).</p>
-                        <img src="images/laprak2_modul2_appmob/gambar2.png" alt="Screenshot kode Column + ListTile untuk daftar transaksi" class="report-image wide">
-                        <p>
-                            Kode ini menggunakan widget Column untuk menyusun daftar transaksi secara vertikal dari atas ke bawah dengan posisi rata kiri. Di dalamnya, komponen Text dipakai sebagai judul kelompok, sedangkan setiap item riwayat dibuat menggunakan ListTile yang memuat ikon di sisi kiri, nama transaksi di tengah, dan jumlah nominal saldo di sisi paling bawah secara urutan dan rapi.
-                        </p>
-                    </div>
+                        <p><strong>6. Menambahkan Controller Baru.</strong></p>
+                        <img src="images/laprak3appmob/gambar 7.png" class="report-image medium" alt="Kode _dateController">
+                        <p>Di bagian awal state, dideklarasikan _dateController untuk menyimpan data teks tanggal.</p>
 
-                    <!-- Langkah 3: Integrasi Dashboard (Scrollable) -->
-                    <div class="detail-subsection">
-                        <h4>Integrasi Dashboard (Scrollable)</h4>
+                        <p><strong>7. Membuat Fungsi Pemilih Tanggal.</strong></p>
+                        <img src="images/laprak3appmob/gambar 8.png" class="report-image medium" alt="Kode _selectDate">
+                        <p>Tambahkan fungsi asinkron _selectDate yang memanggil showDatePicker, lalu memformat hasilnya ke dalam bentuk DD/MM/YYYY sebelum dimasukkan ke dalam controller.</p>
 
-                        <p><strong>3.</strong> Integrasi Dashboard (Scrollable).</p>
-                        <img src="images/laprak2_modul2_appmob/gambar3.png" alt="Screenshot kode Scaffold dengan SingleChildScrollView dan Padding integrasi dashboard" class="report-image wide">
-                        <p>
-                            Kode ini berfungsi untuk menggabungkan seluruh komponen UI dari Modul 1 dan Modul 3 ke dalam satu struktur halaman utama. Penggunaan SingleChildScrollView membantu agar layar dapat di-scroll secara vertikal sehingga mencegah masalah tampilan ketika saat komponen bertambah panjang, sedangkan widget Padding memberikan jarak tepi sebesar 16 piksel di sekeliling Column yang menampung seluruh komponen tersebut.
-                        </p>
-                    </div>
+                        <p><strong>8. Membersihkan Memori (Dispose).</strong></p>
+                        <img src="images/laprak3appmob/gambar 9.png" class="report-image medium" alt="Kode dispose">
+                        <p>Memastikan _dateController ikut dihapus saat halaman ditutup untuk mencegah kebocoran memori.</p>
 
-                    <!-- Langkah 4: Hasil Akhir -->
-                    <div class="detail-subsection">
-                        <h4>Hasil Akhir : Mockup Dashboard</h4>
+                        <p><strong>9. Menambahkan TextFormField Tanggal.</strong></p>
+                        <img src="images/laprak3appmob/gambar 10.png" class="report-image wide" alt="Kode TextFormField tanggal">
+                        <p>Sisipkan widget input baru sebelum tombol Simpan. Properti readOnly: true dipasang agar keyboard tidak muncul, dan onTap dihubungkan ke fungsi _selectDate untuk memunculkan kalender. Validasi wajib diisi juga diletakkan di sini.</p>
 
-                        <p><strong>4.</strong> Hasil Akhir : Mockup Dashboard.</p>
-                        <img src="images/laprak2_modul2_appmob/gambar4.png" alt="Screenshot output mockup dashboard Expense Tracker awal" class="report-image medium">
-                    </div>
+                        <p><strong>10. Memperbarui Pesan SnackBar (Modifikasi).</strong></p>
+                        <img src="images/laprak3appmob/gambar 11.png" class="report-image wide" alt="Kode pesan SnackBar baru">
+                        <p>Tambahkan variabel _dateController.text pada pesan notifikasi sukses agar tanggal yang diinput ikut ditampilkan.</p>
 
-                    <!-- Latihan / Tugas -->
-                    <div class="detail-subsection">
-                        <h4>Latihan / Tugas</h4>
-
-                        <p><strong>5.</strong> Tugas 1: Styling &rarr; Pada widget Daftar Transaksi (ListTile), ubah warna trailing text pengeluaran menjadi merah dan teks pemasukan menjadi hijau.</p>
-                        <img src="images/laprak2_modul2_appmob/gambar5.png" alt="Screenshot kode Tugas 1 — styling color pada TextStyle untuk trailing ListTile" class="report-image wide">
-
-                        <p>Output:</p>
-                        <img src="images/laprak2_modul2_appmob/gambar6.png" alt="Screenshot output Tugas 1 — tampilan transaksi dengan teks pengeluaran merah dan pemasukan hijau" class="report-image medium">
-
-                        <p>
-                            Kode ini berfungsi untuk membedakan tampilan visual nominal transaksi pada widget ListTile dengan menerapkan properti color pada TextStyle. Teks nominal untuk transaksi pengeluaran diatur menjadi warna merah, sedangkan teks nominal untuk transaksi pemasukan diatur menjadi warna hijau agar tipe transaksi dapat dikenali secara mudah oleh pengguna.
-                        </p>
-
-                        <p><strong>6.</strong> Tugas 2: Tambah Data &rarr; Tambahkan 2 transaksi fiktif baru ke dalam daftar "Transaksi Terakhir" di bawah kode yang sudah ada.</p>
-                        <img src="images/laprak2_modul2_appmob/gambar7.png" alt="Screenshot kode Tugas 2 — penambahan ListTile transaksi baru (Belanja Bulanan & Bonus Project)" class="report-image wide">
-
-                        <p>Output:</p>
-                        <img src="images/laprak2_modul2_appmob/gambar8.png" alt="Screenshot output Tugas 2 — daftar transaksi bertambah dengan Belanja Bulanan dan Bonus Project" class="report-image medium">
-
-                        <p>
-                            Kode ini menambahkan dua item transaksi fiktif baru pada widget Column daftar transaksi, yaitu pengeluaran "Belanja Bulanan" bertanda ikon belanja dengan nominal berwarna merah serta pemasukan "Bonus Project" bertanda ikon hadiah berwarna hijau dengan nominal berwarna hijau. Kedua elemen ini disusun rapi menggunakan ListTile yang menyertakan informasi tanggal transaksi, serta dipisahkan menggunakan widget Divider agar konsisten dengan struktur data transaksi sebelumnya.
-                        </p>
+                        <p><strong>11.</strong> Jika sudah selesai, maka akan tampil output seperti ini.</p>
+                        <img src="images/laprak3appmob/gambar 12.png" class="report-image medium" alt="Output form dengan input tanggal terisi">
+                        <img src="images/laprak3appmob/gambar 13.png" class="report-image medium" alt="Output form setelah disimpan dengan SnackBar muncul">
                     </div>
 
                     <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
                     <div class="conclusion-text">
                         <p>
-                            Berdasarkan praktikum yang telah dilaksanakan, pembuatan antarmuka aplikasi Expense Tracker berhasil dilaksanakan dengan memanfaatkan kombinasi widget layouting Flutter secara efektif. Penerapan Row memudahkan penyusunan tombol aksi secara horizontal, Column membantu menyusun riwayat transaksi secara vertikal, dan SingleChildScrollView memastikan seluruh konten tetap dapat diakses tanpa mengalami masalah overflow saat daftar transaksi bertambah panjang.
+                            Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa pembuatan formulir interaktif pada Flutter dapat dibangun secara terstruktur dengan memanfaatkan widget Form dan TextFormField. Penggunaan GlobalKey&lt;FormState&gt; terbukti sangat efektif untuk mengontrol dan memicu validasi semua field input secara serentak hanya dengan satu perintah dari tombol simpan. Sementara itu, proses ekstraksi data dari kolom input dapat dikelola dengan mudah tanpa perlu melacak setiap perubahan state secara manual berkat penyematan TextEditingController.
                         </p>
 
                         <p>
-                            Selain itu, penerapan styling pada widget ListTile terbukti memberikan perbedaan visual yang jelas antara jenis transaksi pemasukan dan pengeluaran melalui variasi warna teks nominal. Penambahan data transaksi baru juga mengasah fleksibilitas penggunaan kode yang telah dibangun, sehingga aplikasi memiliki antarmuka yang rapi, informatif, dan mudah dikembangkan lebih lanjut.
+                            Selain itu, praktik validasi formulir merupakan langkah untuk menjaga integritas data pada aplikasi, seperti memastikan kolom input tidak dibiarkan kosong dan membatasi input nominal agar murni berisi karakter angka yang bisa dibaca menggunakan fungsi int.tryParse. Modifikasi tambahan dengan fitur showDatePicker pada bagian Latihan/Tugas juga menunjukkan fleksibilitas Flutter dalam menangani berbagai tipe input yang intuitif bagi pengguna. Hasil dari praktikum ini adalah sebuah halaman pencatatan transaksi yang lengkap, aman dari kesalahan input format data, dan siap dikembangkan lebih lanjut ke tahap integrasi basis data.
                         </p>
 
                         <a href="https://github.com/BallFord/Praktikum-AppMob_Iqbal-Miftahul-Fikri_2411531004/tree/main"

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsitektur Navigasi Named Routes &amp; Bottom Navigation Bar dan Pembuatan Aplikasi Expense Tracker - Iqbal Miftahul Fikri</title>
+    <title>State Management pada Aplikasi ResepKu - Iqbal Miftahul Fikri</title>
     <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -106,9 +106,40 @@
             box-shadow: 0 6px 16px rgba(0,0,0,0.5);
         }
 
+        .report-image.small {
+            width: auto;
+            max-width: 420px;
+        }
+
         .report-image.medium {
             width: auto;
             max-width: 640px;
+        }
+
+        .report-image.wide {
+            width: 100%;
+        }
+
+        .table-custom {
+            --bs-table-color: #ffffff;
+            --bs-table-bg: #1f1f1f;
+            --bs-table-border-color: #444;
+            color: #ffffff !important;
+            border-color: #444;
+            margin-bottom: 24px;
+        }
+
+        .table-custom th {
+            background-color: #2b2b2b !important;
+            color: #ffc107 !important;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table-custom td {
+            background-color: #1f1f1f !important;
+            color: #ffffff !important;
+            vertical-align: middle;
         }
 
         @media (max-width: 576px) {
@@ -156,8 +187,8 @@
     <header class="report-header text-center">
         <div class="container">
             <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Aplikasi Mobile</span>
-            <h1 class="text-white fw-bold">Arsitektur Navigasi Named Routes &amp; Bottom Navigation Bar dan Pembuatan Aplikasi Expense Tracker</h1>
-            <p class="text-white-50 mt-3">Dokumentasi Praktikum Navigasi dan Project Expense Tracker pada Framework Flutter</p>
+            <h1 class="text-white fw-bold">State Management pada Aplikasi ResepKu</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum Pengelolaan State Ephemeral dan Global Menggunakan Provider pada Framework Flutter</p>
         </div>
     </header>
 
@@ -173,263 +204,328 @@
                     <h3 class="text-warning mb-3">A. Pendahuluan</h3>
                     <div class="report-text">
                         <p>
-                            Perkembangan teknologi informasi membuat penggunaan aplikasi semakin dibutuhkan dalam kehidupan sehari-hari, termasuk untuk mengelola keuangan pribadi. Pencatatan pemasukan dan pengeluaran secara manual terkadang menyulitkan pengguna ketika ingin mengetahui jumlah transaksi yang telah dilakukan. Oleh karena itu, diperlukan aplikasi yang dapat membantu pengguna mencatat transaksi, menyimpan data, dan melihat riwayat keuangan dengan lebih mudah. Pada Project Praktikum 5 ini, dikembangkan aplikasi Expense Tracker menggunakan Flutter sebagai framework pengembangan antarmuka aplikasi dan SQLite sebagai database lokal untuk menyimpan informasi pengguna serta transaksi keuangan.
+                            Pengembangan aplikasi mobile modern dengan Flutter membutuhkan pengelolaan state yang terstruktur untuk memastikan antarmuka pengguna dapat bereaksi secara dinamis terhadap perubahan data. Dalam Flutter, state terbagi menjadi dua kategori utama, yaitu ephemeral state (state lokal) dan app state (state global). Ephemeral state yang umumnya dikelola menggunakan method setState() sangat efektif untuk data sementara yang terisolasi di dalam satu widget. Namun, ketika data perlu dibagikan atau diperbarui secara lintas halaman, penggunaan state lokal menjadi sangat terbatas dan kurang efisien.
                         </p>
                         <p>
-                            Project ini merupakan penggabungan materi dari Modul Praktikum 1 sampai Modul Praktikum 5 ke dalam satu aplikasi yang saling terhubung. Aplikasi dilengkapi dengan halaman login, registrasi akun, dashboard, penambahan transaksi, riwayat transaksi, detail transaksi, dan profil pengguna. SQLite digunakan agar data dapat disimpan secara lokal pada perangkat, sedangkan Flutter digunakan untuk membangun tampilan dan mengatur interaksi antarlayar. Melalui project ini, materi praktikum diterapkan dalam bentuk aplikasi yang memiliki struktur lebih terorganisasi dan dapat diuji secara langsung.
+                            Untuk mengatasi keterbatasan tersebut, praktikum ini berfokus pada pengimplementasian app state menggunakan paket Provider dengan arsitektur ChangeNotifier pada aplikasi ResepKu. Melalui praktikum ini, dilakukan eksplorasi mendalam mengenai pengelolaan state global untuk mengelola daftar resep favorit serta konfigurasi preferensi tema aplikasi. Selain itu, praktikum ini menguji pentingnya pemahaman hierarki widget tree dan posisi peletakan provider agar data dapat diakses secara konsisten oleh seluruh rute halaman tanpa memicu error ProviderNotFoundException.
                         </p>
                     </div>
 
                     <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
                     <p>Tujuan dari praktikum ini adalah:</p>
                     <ul class="report-list dash-list">
-                        <li>Memahami penerapan framework Flutter dalam membangun aplikasi dengan antarmuka yang interaktif.</li>
-                        <li>Menerapkan penggunaan widget, form, validasi input, navigasi halaman, dan pengelolaan state pada aplikasi.</li>
-                        <li>Mengimplementasikan database lokal SQLite untuk menyimpan data pengguna dan transaksi keuangan.</li>
-                        <li>Menggabungkan materi Praktikum 1 sampai 5 menjadi aplikasi Expense Tracker yang memiliki fitur login, registrasi, dashboard, pencatatan transaksi, riwayat, dan profil pengguna.</li>
-                        <li>Menguji fungsionalitas aplikasi untuk memastikan proses registrasi, login, penyimpanan transaksi, dan pengambilan data berjalan sesuai kebutuhan.</li>
+                        <li>Memahami perbedaan mendasar antara ephemeral state (state lokal) dan app state (state global) serta penentuan situasi penggunaannya di Flutter.</li>
+                        <li>Mengimplementasikan pengelolaan data terpusat menggunakan Provider dan ChangeNotifier untuk fitur daftar resep favorit pada aplikasi ResepKu.</li>
+                        <li>Menganalisis pengaruh posisi peletakan ChangeNotifierProvider dalam widget tree terhadap akses BuildContext saat navigasi rute halaman.</li>
+                        <li>Membangun fitur pengubah tema aplikasi secara global menggunakan ThemeProvider yang terintegrasi langsung dengan MaterialApp.</li>
+                        <li>Mengembangkan interaksi antarmuka yang dinamis, mencakup pembaruan ikon favorit, pembaruan badge angka secara real-time, hingga fitur hapus semua favorit yang dilengkapi dialog konfirmasi.</li>
                     </ul>
 
                     <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
 
+                    <!-- BAGIAN A -->
                     <div class="detail-subsection">
-                        <h4>Arsitektur Navigasi</h4>
+                        <h4>Bagian A — Menyiapkan ResepKu dan State Lokal</h4>
 
-                        <p><strong>1. Mendaftarkan Named Routes.</strong></p>
-                        <p>Buka file main.dart. Hapus parameter home pada MaterialApp, lalu ganti dengan initialRoute dan routes.</p>
-                        <img src="images/laprak5appmob/gambar 1.png" class="report-image medium" alt="konfigurasi Named Routes">
+                        <p><strong>1. Langkah A.1 — Membuat project</strong></p>
+                        <p>Buka terminal di folder kerja, lalu jalankan:</p>
+                        <img src="images/laprak6appmob/gambar 1.png" class="report-image small" alt="flutter create resepku">
+                        <img src="images/laprak6appmob/gambar 2.png" class="report-image small" alt="cd resepku">
+                        <p>Buka folder resepku di VS Code. Di dalam folder lib/, buat lima folder: models, data, providers, pages, dan widgets. Di akhir modul, struktur folder lib/ akan menjadi seperti berikut:</p>
+                        <img src="images/laprak6appmob/gambar 3.png" class="report-image small" alt="struktur folder lib">
+
+                        <p><strong>2. Langkah A.2 — Membuat model Recipe</strong></p>
+                        <p>Buka file lib/models/recipe.dart, lalu isi dengan kode seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 4.png" class="report-image medium" alt="kode lib/models/recipe.dart">
                         <p>
-                            Kode ini berfungsi untuk mengatur arsitektur navigasi terpusat berbasis Named Routes pada aplikasi Flutter dengan mengganti deklarasi tunggal home menggunakan initialRoute dan tabel routes. Properti initialRoute: '/' menentukan halaman awal yang langsung dimuat saat aplikasi dibuka, yaitu MainScreen, sementara peta routes mendaftarkan alamat rute unik seperti '/add' yang terhubung ke AddTransactionScreen agar proses perpindahan layar dapat dipanggil dengan rapi dan konsisten menggunakan Navigator.pushNamed.
+                            Kode ini merupakan definisi class model Recipe pada file lib/models/recipe.dart yang berfungsi sebagai blueprint data resep makanan, mencakup berbagai properti seperti ID, nama resep, tingkat kesulitan, kalori, hingga daftar bahan. Class ini menggunakan constructor konstan bernilai wajib untuk menjamin kelengkapan data saat objek dibuat, serta dilengkapi getter totalTimeMinutes yang secara otomatis menghitung total waktu memasak dengan menjumlahkan prepTimeMinutes dan cookTimeMinutes.
                         </p>
 
-                        <p><strong>2. Membuat Penampung Tab (MainScreen).</strong></p>
-                        <p>Buat file main_screen.dart. Jadikan halaman ini sebagai StatefulWidget karena tab yang aktif akan selalu berubah nilainya.</p>
-                        <img src="images/laprak5appmob/gambar 2.png" class="report-image medium" alt="state MainScreen">
+                        <p><strong>3. Langkah A.3 — Menambahkan data dummy</strong></p>
+                        <p>Buka file lib/data/dummy_recipes.dart, lalu isi dengan kode seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 5.png" class="report-image medium" alt="kode lib/data/dummy_recipes.dart">
                         <p>
-                            Kode ini bertugas mengelola status penentuan halaman aktif pada menu navigasi bawah menggunakan variabel _selectedIndex dan daftar widget _pages yang merepresentasikan setiap tampilan layar. Ketika pengguna mengetuk salah satu item menu navigasi, fungsi _onItemTapped akan dijalankan untuk memperbarui nilai _selectedIndex di dalam perintah setState, sehingga antarmuka Flutter secara otomatis memperbarui tampilan utama sesuai dengan halaman yang dipilih.
+                            Kode ini mendefinisikan variabel konstan dummyRecipes berupa daftar (list) data tiruan yang menyimpan enam objek Recipe lengkap dengan detail atribut seperti nama resep, asal kuliner, tingkat kesulitan, waktu pembuatan, kalori, rating, hingga daftar bahannya. Data dummy ini difungsikan sebagai penyedia data awal untuk ditampilkan pada antarmuka aplikasi ResepKu sebelum nantinya diintegrasikan dengan API pada modul lanjutan.
                         </p>
 
-                        <p><strong>3. Merangkai BottomNavigationBar.</strong></p>
-                        <p>Lengkapi method build di MainScreen dengan Scaffold dan BottomNavigationBar untuk menghubungkan halaman Beranda, Riwayat, dan Profil.</p>
-                        <img src="images/laprak5appmob/gambar 3.png" class="report-image medium" alt="BottomNavigationBar">
+                        <p><strong>4. Langkah A.4 — Halaman Home dan RecipeTile</strong></p>
+                        <p>Buka file lib/widgets/identity_footer.dart, lalu isi dengan kode seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 6.png" class="report-image medium" alt="kode lib/widgets/identity_footer.dart">
                         <p>
-                            Kode ini bertugas membangun struktur tampilan utama aplikasi menggunakan Scaffold, di mana komponen body menampilkan halaman dari daftar _pages sesuai dengan indeks tab yang sedang dipilih. Properti bottomNavigationBar membentuk navigasi di bagian bawah dengan tiga item, yang mengaitkan fungsi _onItemTapped saat tombol diketuk untuk mengubah posisi currentIndex serta memberi sorotan warna amber pada ikon yang aktif.
+                            Kode ini mendefinisikan widget IdentityFooter yang berfungsi sebagai pembungkus untuk menampilkan baris footer berisi NIM dan nama mahasiswa di bagian paling bawah layar. Widget ini menggunakan kombinasi Column dan Expanded untuk menampung konten utama aplikasi, serta memanfaatkan MediaQuery.removePadding dan SafeArea agar informasi identitas tersebut dapat tampil secara konsisten di setiap halaman aplikasi tanpa terpotong oleh sistem antarmuka perangkat.
                         </p>
 
-                        <p><strong>4. Jika sudah selesai, maka akan tampil output seperti ini.</strong></p>
-                        <img src="images/laprak5appmob/gambar 38.png" class="report-image medium" alt="output dashboard dengan BottomNavigationBar">
-
-                        <h5>Latihan/Tugas</h5>
-                        <ul class="report-list dash-list">
-                            <li>Buat halaman riwayat transaksi.</li>
-                            <li>Buat halaman profil yang berisi avatar, nama, email, dan tombol logout.</li>
-                            <li>Buat halaman login yang berisi text field email dan password serta tombol login. Setelah login, tampilkan halaman utama dan informasi email pengguna.</li>
-                        </ul>
-
-                        <p><strong>5. Halaman Riwayat Transaksi (history_screen.dart).</strong></p>
-                        <p>Halaman ini menggunakan ListView untuk menampilkan daftar transaksi statis.</p>
-                        <img src="images/laprak5appmob/gambar 4.png" class="report-image medium" alt="kode halaman riwayat transaksi">
+                        <p>File lib/main.dart (versi awal).</p>
+                        <img src="images/laprak6appmob/gambar 7.png" class="report-image medium" alt="kode lib/main.dart versi awal">
                         <p>
-                            Kode ini membangun tampilan layar HistoryScreen berjenis StatelessWidget yang digunakan untuk menyajikan daftar riwayat transaksi secara berulang menggunakan widget ListView.builder. Antarmuka ini dilengkapi dengan AppBar berwarna amber berjudul "Riwayat Transaksi" serta menampilkan lima baris daftar, di mana setiap item memuat ikon koin amber, judul transaksi dinamis berdasarkan nomor indeks, tanggal transaksi, dan nominal pengeluaran bernilai negatif dengan cetak tebal berwarna merah.
+                            Kode ini berfungsi sebagai entry point aplikasi ResepKu yang menjalankan widget ResepKuApp dengan konfigurasi MaterialApp. Kode ini mengatur tema warna utama aplikasi menggunakan deepOrange, menyembunyikan banner debug, serta menetapkan HomePage sebagai halaman awal yang pertama kali dibuka. Selain itu, parameter builder dimanfaatkan untuk membungkus seluruh navigasi aplikasi dengan IdentityFooter, sehingga baris identitas berisi NIM dan nama mahasiswa selalu tampil secara konsisten di bagian bawah layar pada setiap halaman.
                         </p>
 
-                        <p><strong>6. Halaman Profil (profile_screen.dart).</strong></p>
-                        <img src="images/laprak5appmob/gambar 5.png" class="report-image medium" alt="kode halaman profil pengguna">
+                        <p>File lib/pages/home_page.dart (versi awal).</p>
+                        <img src="images/laprak6appmob/gambar 8.png" class="report-image medium" alt="kode lib/pages/home_page.dart versi awal">
                         <p>
-                            Kode ini membuat tampilan layar profil pengguna berjenis StatelessWidget yang menampilkan avatar lingkaran, nama pengguna "Iqbal Miftahul Fikri", serta alamat email yang diterima dari proses login. Antarmuka ini disusun secara vertikal di tengah layar menggunakan widget Column di dalam Scaffold berbalut AppBar, serta dilengkapi tombol Logout yang memanfaatkan perintah Navigator.pushNamedAndRemoveUntil untuk mengembalikan pengguna ke halaman login sekaligus menghapus seluruh tumpukan riwayat navigasi sebelumnya.
+                            Kode ini mendefinisikan widget HomePage berbasis StatelessWidget yang berfungsi sebagai antarmuka halaman utama aplikasi ResepKu. Halaman ini dibangun menggunakan Scaffold dengan AppBar bertuliskan "ResepKu", serta bagian body memuat ListView yang melakukan iterasi terhadap seluruh data resep di dummyRecipes untuk merendernya secara berurutan menggunakan widget RecipeTile.
                         </p>
 
-                        <p><strong>7. Halaman Login (login_screen.dart).</strong></p>
-                        <img src="images/laprak5appmob/gambar 6.png" class="report-image medium" alt="kode halaman login">
+                        <p>File lib/widgets/recipe_tile.dart (versi awal).</p>
+                        <img src="images/laprak6appmob/gambar 9.png" class="report-image medium" alt="kode lib/widgets/recipe_tile.dart versi awal">
                         <p>
-                            Kode ini mengimplementasikan layar login berjenis StatefulWidget yang bertugas menangkap input pengguna melalui dua bidang TextField menggunakan TextEditingController. Antarmuka ini disusun rapi di dalam Scaffold dengan ikon dompet dan judul "Login Aplikasi", serta menyediakan tombol "LOGIN" yang saat ditekan akan mengambil teks email pengguna dan mengarahkannya ke halaman utama menggunakan Navigator.pushReplacement untuk mengirim data email sekaligus menggantikan halaman login dari tumpukan navigasi.
+                            Kode ini mendefinisikan widget RecipeTile berbasis StatelessWidget yang berfungsi untuk menampilkan satu item resep di dalam daftar menggunakan ListTile. Widget ini menampilkan inisial nama resep pada CircleAvatar sebagai ikon, nama resep sebagai judul, serta subjudul berisi jenis kuliner, total waktu memasak, dan rating resep. Selain itu, event onTap dikonfigurasi untuk berpindah ke halaman DetailPage menggunakan Navigator.push dengan membawa data objek recipe yang dipilih saat item tersebut ditekan oleh pengguna.
                         </p>
 
-                        <p><strong>8. Jika telah selesai, maka akan muncul output seperti ini.</strong></p>
-                        <img src="images/laprak5appmob/gambar 39.png" class="report-image medium" alt="output halaman login aplikasi">
-                        <img src="images/laprak5appmob/gambar 40.png" class="report-image medium" alt="output halaman profil pengguna">
-                        <img src="images/laprak5appmob/gambar 41.png" class="report-image medium" alt="output dashboard keuangan">
-                        <img src="images/laprak5appmob/gambar 42.png" class="report-image medium" alt="output halaman riwayat transaksi">
+                        <p><strong>5. Langkah A.5 — Halaman Detail dengan setState()</strong></p>
+                        <p>Buka file lib/pages/detail_page.dart (versi awal), lalu isi dengan kode seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 10.png" class="report-image medium" alt="kode lib/pages/detail_page.dart versi awal">
+                        <p>
+                            Kode ini mendefinisikan halaman detail resep berbasis StatefulWidget yang menggunakan state lokal untuk mengelola perubahan jumlah porsi resep secara interaktif. Nilai awal porsi diambil dari objek resep pada initState(), dan ketika tombol penambah atau pengurang porsi ditekan, variabel _servings diperbarui sehingga tampilan total kalori ikut terhitung secara otomatis. Selain itu, halaman ini menampilkan rincian informasi resep seperti jenis kuliner, tingkat kesulitan, total durasi memasak, serta daftar bahan-bahannya menggunakan ListView.
+                        </p>
+
+                        <h5>Checkpoint 1</h5>
+                        <img src="images/laprak6appmob/gambar 11.png" class="report-image small" alt="Checkpoint 1 tampilan antarmuka HomePage ResepKu">
+                        <img src="images/laprak6appmob/gambar 12.png" class="report-image small" alt="Checkpoint 1 tampilan DetailPage 6 porsi 1800 kkal">
+                        <img src="images/laprak6appmob/gambar 13.png" class="report-image small" alt="Checkpoint 1 tampilan DetailPage 1 porsi 300 kkal">
+                        <p>
+                            Tampilan antarmuka Checkpoint 1 Bagian A memperlihatkan halaman utama ResepKu yang berhasil menampilkan daftar resep makanan serta halaman detail yang menerapkan state lokal setState() untuk mengelola fitur jumlah porsi dan perhitungan total kalori secara interaktif. Perubahan porsi pada halaman detail secara otomatis memperbarui tampilan total kalori (seperti 4 porsi bernilai 1200 kkal dan 1 porsi bernilai 300 kkal) dengan tombol pengurang porsi (-) yang otomatis menjadi nonaktif saat porsi mencapai angka minimal 1. Selain itu, seluruh halaman layar secara konsisten menampilkan footer identitas berisi NIM (2411531004) dan nama (Iqbal Miftahul Fikri) di bagian paling bawah.
+                        </p>
                     </div>
 
+                    <!-- BAGIAN B -->
                     <div class="detail-subsection">
-                        <h4>Project Praktikum 5</h4>
+                        <h4>Bagian B — Eksperimen: Favorit dengan State Lokal</h4>
+
+                        <p><strong>6. Langkah B.1 — Mengganti RecipeTile</strong></p>
+                        <p>Ganti seluruh isi recipe_tile.dart dengan versi eksperimen berikut.</p>
+                        <img src="images/laprak6appmob/gambar 14.png" class="report-image medium" alt="kode recipe_tile.dart versi eksperimen StatefulWidget">
                         <p>
-                            Pada praktikum ini dibuat aplikasi sederhana yang menggabungkan materi dari Modul Praktikum 1 sampai 5.
+                            Kode ini mengubah widget RecipeTile menjadi StatefulWidget untuk menyimpan status favorit secara lokal pada masing-masing item menggunakan variabel _isFavorite. Saat ikon hati ditekan, method setState() dipanggil untuk memperbarui nilai _isFavorite sehingga bentuk dan warna ikon berubah secara langsung hanya pada tile tersebut. Eksperimen ini dirancang untuk membuktikan keterbatasan state lokal, di mana data favorit yang terisolasi di dalam tiap-tiap tile tidak dapat dibaca atau dibagikan ke widget lain seperti badge angka di HomePage maupun tampilan ikon favorit di DetailPage.
                         </p>
 
-                        <p><strong>9. Persiapan Project Flutter.</strong></p>
-                        <p>
-                            Tahap pertama adalah menyiapkan project Flutter sebagai dasar pengembangan aplikasi. Project dibuat dan dijalankan menggunakan Visual Studio Code atau Android Studio dengan perangkat Android sebagai target pengujian. Struktur file disusun agar setiap halaman memiliki file tersendiri, misalnya main.dart, login_screen.dart, register_screen.dart, dashboard_screen.dart, add_transaction_screen.dart, history_screen.dart, profile_screen.dart, transaction_detail_screen.dart, dan database_helper.dart.
-                        </p>
-                        <img src="images/laprak5appmob/gambar 7.png" class="report-image medium" alt="struktur file project Flutter">
+                        <p><strong>7. Langkah B.2 — Mengamati hasilnya</strong></p>
+                        <p>Lakukan hot reload. Tap ikon hati pada dua resep.</p>
+                        <img src="images/laprak6appmob/gambar 15.png" class="report-image small" alt="hasil eksperimen tap ikon hati pada HomePage layar 1">
+                        <img src="images/laprak6appmob/gambar 16.png" class="report-image small" alt="hasil eksperimen tap ikon hati pada HomePage layar 2">
 
-                        <p><strong>10. Menambahkan Dependensi.</strong></p>
-                        <p>
-                            Tahap berikutnya adalah menambahkan dependensi yang diperlukan untuk mengembangkan aplikasi. Dependensi yang digunakan meliputi sqflite untuk mengakses database SQLite, path untuk menyusun lokasi file database, dan bcrypt untuk melakukan pemeriksaan hash password pengguna.
-                        </p>
-                        <img src="images/laprak5appmob/gambar 8.png" class="report-image medium" alt="dependensi Flutter">
+                        <ul class="report-list dash-list">
+                            <li>
+                                <strong>Apakah ikon hati berubah? Mengapa?</strong><br>
+                                Ya, ikon hati berubah bentuk dan warna saat ditekan. Hal ini terjadi karena RecipeTile dibuat menggunakan StatefulWidget, dan pemanggilan setState() pada tombol me-rebuild widget RecipeTile secara lokal sehingga variabel isFavorite diperbarui nilainya.
+                            </li>
+                            <li>
+                                <strong>Coba tampilkan jumlah resep favorit di judul AppBar HomePage. Apakah hal itu dapat dilakukan? Di class mana data _isFavorite berada, dan apakah HomePage dapat membacanya?</strong><br>
+                                Tidak dapat dilakukan secara langsung. Variabel _isFavorite berada di dalam class _RecipeTileState yang bersifat private dan terisolasi sebagai child widget. Oleh karena itu, HomePage tidak memiliki akses untuk membaca atau menjumlahkan nilai _isFavorite dari tiap-tiap tile.
+                            </li>
+                            <li>
+                                <strong>Buka halaman detail dari resep yang sudah difavoritkan. Bagaimana halaman detail dapat mengetahui bahwa resep tersebut favorit?</strong><br>
+                                Halaman detail (DetailPage) tidak dapat mengetahui status favorit tersebut. Hal ini terjadi karena status _isFavorite tersimpan secara lokal di dalam _RecipeTileState, sedangkan saat berpindah ke DetailPage, data yang dikirimkan hanyalah objek Recipe tanpa membawa informasi state lokal dari RecipeTile.
+                            </li>
+                        </ul>
+                    </div>
 
-                        <p><strong>11. Membuat Database Lokal SQLite.</strong></p>
-                        <p>
-                            Buat file database_helper.dart untuk mengelola database lokal aplikasi. File ini berfungsi membuka database, membuat tabel, menyimpan data pengguna, mengambil data transaksi, memperbarui transaksi, menghapus transaksi, dan menghitung total pengeluaran. Database yang digunakan bernama catatan_keuangan.db, dengan dua tabel utama, yaitu users dan transactions.
-                        </p>
-                        <p>Kode berikut merupakan bagian utama untuk membuka database dan membuat tabel:</p>
-                        <img src="images/laprak5appmob/gambar 9.png" class="report-image medium" alt="pembuatan database dan tabel">
-                        <p>
-                            Tabel users digunakan untuk menyimpan identitas pengguna, seperti nama, email, dan hash password. Sementara itu, tabel transactions digunakan untuk menyimpan data transaksi berupa judul, nominal, kategori, tanggal, dan ID pengguna yang melakukan transaksi. Kolom user_id menghubungkan transaksi dengan akun pemiliknya sehingga setiap pengguna dapat memiliki data transaksi masing-masing. Pengaturan PRAGMA foreign_keys = ON digunakan untuk mengaktifkan pemeriksaan relasi antartabel.
-                        </p>
+                    <!-- BAGIAN C -->
+                    <div class="detail-subsection">
+                        <h4>Bagian C — Fitur Favorit dengan Provider</h4>
 
-                        <p><strong>12. Menambahkan Fungsi Pengelolaan Database.</strong></p>
+                        <p><strong>8. Langkah C.1 — Memasang provider dan membuat FavoriteProvider</strong></p>
+                        <p>Ketik ini pada terminal, lalu run</p>
+                        <img src="images/laprak6appmob/gambar 17.png" class="report-image small" alt="terminal flutter pub add provider">
                         <p>
-                            Setelah tabel dibuat, langkah berikutnya adalah menambahkan fungsi untuk berinteraksi dengan database. Fungsi tersebut diletakkan di dalam kelas DatabaseHelper sehingga halaman aplikasi tidak perlu menulis perintah SQL secara berulang. Contoh fungsi untuk menambahkan pengguna (database_helper.dart):
+                            Perintah ini menambahkan package provider ke pubspec.yaml sekaligus mengunduhnya. Selanjutnya buat class untuk state global:
                         </p>
-                        <img src="images/laprak5appmob/gambar 10.png" class="report-image medium" alt="fungsi menambahkan pengguna">
+                        <p>Buka file lib/providers/favorite_provider.dart, lalu isi dengan kode seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 18.png" class="report-image medium" alt="kode lib/providers/favorite_provider.dart">
                         <p>
-                            Fungsi untuk mengambil pengguna berdasarkan email:
-                        </p>
-                        <img src="images/laprak5appmob/gambar 11.png" class="report-image medium" alt="fungsi mengambil pengguna berdasarkan email">
-                        <p>Fungsi untuk menambahkan transaksi:</p>
-                        <img src="images/laprak5appmob/gambar 12.png" class="report-image medium" alt="fungsi menambahkan transaksi">
-
-                        <p><strong>13. Menginisialisasi Database pada main.dart.</strong></p>
-                        <p>
-                            Tahap berikutnya adalah menghubungkan database dengan aplikasi melalui file main.dart. Flutter perlu diinisialisasi sebelum database dibuka dan aplikasi dijalankan menggunakan runApp().
-                        </p>
-                        <img src="images/laprak5appmob/gambar 13.png" class="report-image medium" alt="inisialisasi database dan routes">
-                        <p>
-                            Fungsi WidgetsFlutterBinding.ensureInitialized() memastikan Flutter siap sebelum proses inisialisasi database dilakukan. Lalu, DatabaseHelper.instance.database digunakan untuk membuka database dan membuat tabel apabila database belum tersedia. Properti initialRoute menentukan bahwa aplikasi pertama kali menampilkan halaman login, sedangkan routes digunakan untuk mengarahkan navigasi menuju halaman tertentu.
+                            Kode ini mendefinisikan class FavoriteProvider yang meng-extend ChangeNotifier untuk mengelola state global daftar resep favorit di seluruh aplikasi. Class ini menyimpan daftar favorit secara privat agar datanya terlindungi, menyediakan fungsi isFavorite untuk mengecek status resep, toggle untuk menambah atau menghapus favorit, serta clear untuk mengosongkan seluruh daftar. Setiap kali data favorit berubah, pemanggilan notifyListeners() akan memberi tahu dan memperbarui seluruh widget yang mendengarkan provider ini secara otomatis, seperti badge angka di AppBar, ikon pada halaman detail, maupun daftar di halaman favorit.
                         </p>
 
-                        <p><strong>14. Membuat Halaman Registrasi Akun.</strong></p>
+                        <p><strong>9. Langkah C.2 — Memasang provider di atas MaterialApp</strong></p>
+                        <p>Buka file lib/main.dart, lalu isi dengan kode seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 19.png" class="report-image medium" alt="kode lib/main.dart dengan MultiProvider FavoriteProvider">
                         <p>
-                            Halaman registrasi dibuat melalui file register_screen.dart. Halaman ini digunakan oleh pengguna baru untuk memasukkan nama, email, dan password sebelum dapat masuk ke aplikasi. Data yang diisi kemudian divalidasi dan disimpan ke tabel users melalui fungsi insertUser(). Contoh bagian inti proses registrasi:
-                        </p>
-                        <img src="images/laprak5appmob/gambar 14.png" class="report-image medium" alt="fungsi registrasi dan penyimpanan hash password">
-                        <p>
-                            Fungsi tersebut memperlihatkan proses inti penyimpanan akun, yaitu membersihkan input nama dan email, mengubah email menjadi huruf kecil, membuat hash password, lalu menyimpan data pengguna ke database. Password tidak disimpan sebagai teks biasa, melainkan sebagai hash yang nantinya digunakan untuk memeriksa password ketika login. Di kode lengkapnya, fungsi ini dipanggil dari tombol registrasi setelah semua input dinyatakan valid. Jika email sudah digunakan, proses penyimpanan perlu ditangani agar aplikasi dapat memberikan pesan yang sesuai.
+                            Kode ini memperbarui entry point aplikasi dengan memasang FavoriteProvider di dalam MultiProvider pada tingkat paling atas di atas MaterialApp agar state global favorit dapat diakses oleh seluruh halaman aplikasi. Dengan penempatan provider tersebut, perubahan data favorit dapat didengarkan oleh widget mana pun di dalam hierarki aplikasi, dengan tetap mempertahankan konfigurasi utama seperti tema warna deepOrange, HomePage sebagai halaman awal, dan pembungkus IdentityFooter untuk menampilkan identitas mahasiswa di bagian bawah setiap layar.
                         </p>
 
-                        <p><strong>15. Membuat Halaman Login.</strong></p>
+                        <p><strong>10. Langkah C.3 — RecipeTile membaca data dari provider</strong></p>
+                        <p>Buka file lib/widgets/recipe_tile.dart, lalu isi dengan kode seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 20.png" class="report-image medium" alt="kode lib/widgets/recipe_tile.dart dengan FavoriteProvider">
                         <p>
-                            Halaman login dibuat melalui file login_screen.dart. Halaman ini berfungsi memeriksa email dan password yang dimasukkan pengguna. Data akun dicari berdasarkan email menggunakan getUserByEmail(), kemudian password diperiksa menggunakan BCrypt.checkpw(). Jika akun ditemukan dan password sesuai, pengguna diarahkan ke halaman utama dengan membawa data email dan ID pengguna. Berikut bagian utama fungsi login berdasarkan implementasi yang telah digunakan:
-                        </p>
-                        <img src="images/laprak5appmob/gambar 15.png" class="report-image medium" alt="fungsi login dan validasi akun">
-                        <p>
-                            Fungsi login() melakukan validasi input sebelum mengakses database. Jika email tidak ditemukan, aplikasi menampilkan pesan bahwa akun belum terdaftar. Jika email ditemukan, password yang dimasukkan dibandingkan dengan hash yang tersimpan. Apabila pemeriksaan berhasil, pengguna diarahkan ke MainScreen dengan membawa ID pengguna dan email. Data tersebut diperlukan agar halaman berikutnya dapat menampilkan informasi pengguna yang sesuai dan mengakses transaksi milik akun yang sedang login.
+                            Kode ini mengembalikan RecipeTile menjadi StatelessWidget yang terintegrasi dengan FavoriteProvider untuk membaca state global favorit. Di dalam method build(), pemanggilan context.watch&lt;FavoriteProvider&gt;() digunakan agar widget otomatis memperbarui tampilan ikon hati saat status favorit berubah, sedangkan context.read&lt;FavoriteProvider&gt;() digunakan di dalam callback onPressed untuk memicu method toggle() tanpa membebani proses pendengaran data. Selain menampilkan rincian resep seperti nama, kuliner, durasi, dan rating, widget ini juga tetap menangani navigasi pengguna menuju DetailPage saat item ditekan.
                         </p>
 
-                        <p><strong>16. Membuat Halaman Utama dan Navigasi.</strong></p>
+                        <p><strong>11. Langkah C.4 — Tombol favorit di halaman detail</strong></p>
+                        <p>Di detail_page.dart, tambahkan dua import berikut di bagian atas.</p>
+                        <img src="images/laprak6appmob/gambar 21.png" class="report-image small" alt="import favorite_provider pada detail_page.dart">
+                        <p>Di dalam method build(), tambahkan baris berikut tepat setelah baris final totalCalories = ...</p>
+                        <img src="images/laprak6appmob/gambar 22.png" class="report-image small" alt="isFavorite di build detail_page.dart">
+                        <p>Kemudian tambahkan parameter actions pada AppBar, tepat di bawah title.</p>
+                        <img src="images/laprak6appmob/gambar 23.png" class="report-image small" alt="actions AppBar pada detail_page.dart">
+                        <p>Hasil akhir detail_page.dart.</p>
+                        <img src="images/laprak6appmob/gambar 24.png" class="report-image medium" alt="kode akhir lib/pages/detail_page.dart">
                         <p>
-                            Setelah login berhasil, pengguna diarahkan ke halaman utama yang dibuat pada file main_screen.dart. Halaman ini menggunakan BottomNavigationBar untuk menghubungkan tiga bagian aplikasi, yaitu Beranda, Riwayat, dan Profil. ID pengguna dan email diteruskan ke halaman yang memerlukan informasi akun.
-                        </p>
-                        <img src="images/laprak5appmob/gambar 16.png" class="report-image medium" alt="struktur MainScreen dan navigasi utama">
-                        <p>
-                            Kode ini menunjukkan struktur utama navigasi aplikasi. Variabel _selectedIndex digunakan untuk menentukan halaman yang sedang ditampilkan, sedangkan fungsi _onItemTapped() mengubah halaman ketika pengguna memilih menu di bagian bawah layar. Data userId diteruskan ke halaman dashboard dan riwayat agar kedua halaman dapat mengambil transaksi milik pengguna yang sedang login. Data email juga diteruskan ke halaman profil. Pada kode final atau yang sudah jadi, nilai Nama Pengguna perlu diganti dengan nama pengguna yang diambil dari database agar setiap akun menampilkan nama yang benar.
-                        </p>
-
-                        <p><strong>17. Membuat Dashboard Keuangan.</strong></p>
-                        <p>
-                            Dashboard dibuat melalui file dashboard_screen.dart. Halaman ini menjadi tampilan utama setelah pengguna login. Dashboard menampilkan sapaan pengguna, kartu saldo, daftar transaksi terakhir, dan tombol tambah transaksi. Tombol tambah transaksi menggunakan navigasi bernama /add untuk membuka formulir pencatatan transaksi.
-                        </p>
-                        <p>Berikut struktur utama dashboard:</p>
-                        <img src="images/laprak5appmob/gambar 17.png" class="report-image medium" alt="struktur dashboard keuangan">
-                        <p>
-                            Dashboard digunakan sebagai pusat informasi keuangan pengguna. Bagian sapaan menampilkan nama pengguna, kartu saldo menampilkan informasi saldo, sedangkan bagian transaksi terakhir digunakan untuk melihat transaksi yang baru dilakukan. Tombol dengan ikon tambah memudahkan pengguna membuka halaman pencatatan transaksi. Kode ini menyederhanakan bagian daftar transaksi sebagai contoh struktur. Di akhir, bagian tersebut harus diganti dengan _buildTransactionList() agar sesuai dengan tampilan dan perilaku aplikasi yang benar-benar dijalankan.
+                            Kode ini memperbarui halaman detail resep dengan menggabungkan dua jenis state management sekaligus, yaitu state lokal dan state global. State lokal _servings digunakan untuk mengelola jumlah porsi dan kalkulasi total kalori secara dinamis saat tombol pengubah porsi ditekan, sedangkan state global diakses melalui FavoriteProvider menggunakan context.watch untuk memantau status ikon favorit pada AppBar secara real time serta context.read untuk memicu method toggle() saat ikon hati ditekan.
                         </p>
 
-                        <p><strong>18. Membuat Formulir Tambah Transaksi.</strong></p>
+                        <p><strong>12. Langkah C.5 — Halaman Favorit</strong></p>
+                        <p>Buka file lib/pages/favorite_page.dart, lalu isi dengan kode seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 25.png" class="report-image medium" alt="kode lib/pages/favorite_page.dart">
                         <p>
-                            Formulir penambahan transaksi dibuat melalui file add_transaction_screen.dart. Halaman ini menyediakan input judul transaksi, nominal, kategori, dan tanggal.
-                        </p>
-                        <img src="images/laprak5appmob/gambar 18.png" class="report-image medium" alt="kode formulir tambah transaksi bagian pertama">
-                        <img src="images/laprak5appmob/gambar 19.png" class="report-image medium" alt="kode formulir tambah transaksi bagian kedua">
-                        <img src="images/laprak5appmob/gambar 20.png" class="report-image medium" alt="kode formulir tambah transaksi bagian ketiga">
-                        <img src="images/laprak5appmob/gambar 21.png" class="report-image medium" alt="kode formulir tambah transaksi bagian keempat">
-                        <p>
-                            Kode ini menunjukkan struktur formulir dan validasi data transaksi. Judul tidak boleh kosong, nominal harus berupa angka bulat positif, kategori dipilih melalui dropdown, dan tanggal dipilih menggunakan showDatePicker(). Namun, pada contoh di atas, tombol simpan baru menampilkan notifikasi dan menutup halaman. Agar transaksi benar-benar tersimpan, kode final harus memanggil DatabaseHelper.instance.insertTransaction() sebelum menampilkan pesan berhasil.
+                            Kode ini mendefinisikan halaman Favorit Saya berbasis StatelessWidget yang menggunakan widget Consumer&lt;FavoriteProvider&gt; untuk mendengarkan perubahan daftar resep favorit secara real time. Jika daftar favorit masih kosong, halaman akan menampilkan pesan petunjuk di tengah layar, sedangkan jika terdapat resep favorit, data akan dirender dalam ListView menggunakan ListTile yang dilengkapi tombol hapus untuk memanggil method favorite.toggle(recipe) yang berguna untuk mengeluarkan resep dari daftar favorit.
                         </p>
 
-                        <p><strong>Proses Penyimpanan Transaksi ke SQLite.</strong></p>
+                        <p><strong>13. Langkah C.6 — Badge jumlah favorit di AppBar</strong></p>
+                        <p>Buka file lib/widgets/favorite_badge_button.dart, lalu isi dengan kode seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 26.png" class="report-image medium" alt="kode lib/widgets/favorite_badge_button.dart">
                         <p>
-                            Bagian penting pada project ini adalah menghubungkan tombol simpan dengan database. Contoh ini memperlihatkan inti proses penyimpanan transaksi.
+                            Kode ini mendefinisikan widget FavoriteBadgeButton berbasis StatelessWidget yang menampilkan tombol ikon favorit lengkap dengan badge di atasnya. Widget ini memanfaatkan context.watch&lt;FavoriteProvider&gt;() untuk memantau jumlah resep favorit secara real time, sehingga label lencana otomatis tampil memperbarui angkanya hanya jika jumlah favorit lebih dari nol. Saat tombol ditekan, callback onPressed akan mengarahkan pengguna berpindah ke halaman FavoritePage menggunakan Navigator.push.
                         </p>
-                        <img src="images/laprak5appmob/gambar 22.png" class="report-image medium" alt="kode penyimpanan transaksi ke SQLite">
+                        <p>Pasang widget tersebut di AppBar HomePage. Isi akhir home_page.dart seperti ini.</p>
+                        <img src="images/laprak6appmob/gambar 27.png" class="report-image medium" alt="kode akhir lib/pages/home_page.dart">
+
+                        <p><strong>14. Langkah C.7 — Menguji aplikasi</strong></p>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-bordered table-custom">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5%;">No</th>
+                                        <th style="width: 45%;">Skenario</th>
+                                        <th style="width: 40%;">Hasil yang diharapkan</th>
+                                        <th style="width: 10%;">Sesuai?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">1</td>
+                                        <td>Tap ikon hati pada Margherita dan Alfredo di Home</td>
+                                        <td>Ikon berwarna merah, badge menunjukkan angka 2</td>
+                                        <td class="text-center text-warning fw-bold"><i class="fas fa-check"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">2</td>
+                                        <td>Buka detail Margherita</td>
+                                        <td>Ikon hati di AppBar terisi</td>
+                                        <td class="text-center text-warning fw-bold"><i class="fas fa-check"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">3</td>
+                                        <td>Di halaman detail, tap ikon hati, lalu kembali ke Home</td>
+                                        <td>Ikon Margherita kosong, badge menunjukkan angka 1</td>
+                                        <td class="text-center text-warning fw-bold"><i class="fas fa-check"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">4</td>
+                                        <td>Tap badge di AppBar</td>
+                                        <td>Halaman Favorit hanya berisi Alfredo</td>
+                                        <td class="text-center text-warning fw-bold"><i class="fas fa-check"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">5</td>
+                                        <td>Hapus Alfredo dari halaman Favorit, lalu kembali</td>
+                                        <td>Muncul pesan "Belum ada resep favorit", badge hilang</td>
+                                        <td class="text-center text-warning fw-bold"><i class="fas fa-check"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">6</td>
+                                        <td>Ubah porsi menjadi 2, kembali ke Home, lalu buka lagi resep yang sama</td>
+                                        <td>Porsi kembali ke nilai awal, karena state lokal ikut dibuang ketika halaman ditutup</td>
+                                        <td class="text-center text-warning fw-bold"><i class="fas fa-check"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h5>Checkpoint 2</h5>
+                        <img src="images/laprak6appmob/gambar 28.png" class="report-image small" alt="Checkpoint 2 skenario 1 tap hati Margherita dan Alfredo di Home badge 2">
+                        <img src="images/laprak6appmob/gambar 29.png" class="report-image small" alt="Checkpoint 2 skenario 2 detail Margherita hati terisi">
+                        <img src="images/laprak6appmob/gambar 30.png" class="report-image small" alt="Checkpoint 2 skenario 3 detail Margherita hati kosong">
+                        <img src="images/laprak6appmob/gambar 31.png" class="report-image small" alt="Checkpoint 2 skenario 3 Home Margherita kosong badge 1">
+                        <img src="images/laprak6appmob/gambar 32.png" class="report-image small" alt="Checkpoint 2 skenario 4 halaman Favorit hanya berisi Alfredo">
+                        <img src="images/laprak6appmob/gambar 33.png" class="report-image small" alt="Checkpoint 2 skenario 5 halaman Favorit kosong">
+                        <img src="images/laprak6appmob/gambar 34.png" class="report-image small" alt="Checkpoint 2 skenario 5 Home badge favorit hilang">
+                        <img src="images/laprak6appmob/gambar 35.png" class="report-image small" alt="Checkpoint 2 skenario 6 porsi diubah menjadi 2">
+                        <img src="images/laprak6appmob/gambar 36.png" class="report-image small" alt="Checkpoint 2 skenario 6 porsi kembali reset ke nilai 4 saat dibuka ulang">
+                    </div>
+
+                    <!-- PERTANYAAN ANALISIS -->
+                    <div class="detail-subsection">
+                        <h4>Pertanyaan Analisis</h4>
+
+                        <p><strong>15. Tuliskan jawaban tiga pertanyaan pada Langkah B.2, lengkap dengan alasannya.</strong></p>
                         <p>
-                            Kode ini memasukkan data transaksi ke tabel transactions. Kolom user_id digunakan untuk menghubungkan transaksi dengan akun yang sedang login. Dengan demikian, data transaksi tidak hanya ditampilkan melalui notifikasi, tetapi juga disimpan dalam database lokal. Pada kode final, kode penyimpanan perlu ditempatkan dalam fungsi async pada tombol simpan, setelah validasi form berhasil dilakukan.
+                            Ikon hati pada RecipeTile dapat berubah bentuk dan warna menjadi merah saat ditekan karena menggunakan StatefulWidget yang memanggil setState() secara lokal pada widget tersebut. Namun, jumlah favorit tidak dapat ditampilkan di AppBar HomePage karena variabel _isFavorite berada di dalam class _RecipeTileState yang terisolasi dan tidak dapat dibaca oleh HomePage. Keterbatasan state lokal ini juga menyebabkan DetailPage tidak dapat mengetahui status favorit suatu resep, karena navigasi hanya mengirimkan objek Recipe tanpa membawa data _isFavorite dari RecipeTile.
                         </p>
 
-                        <p><strong>19. Membuat Halaman Riwayat Transaksi.</strong></p>
+                        <p><strong>16. Mengapa jumlah porsi tetap menggunakan setState() dan tidak dimasukkan ke Provider? Hubungkan jawaban kalian dengan hasil skenario 6 pada Langkah C.7.</strong></p>
                         <p>
-                            Halaman riwayat dibuat melalui file history_screen.dart. Halaman ini digunakan untuk menampilkan daftar transaksi yang sudah dilakukan pengguna. Data transaksi diambil berdasarkan ID pengguna agar setiap akun hanya melihat transaksi miliknya sendiri. Contoh inti pengambilan data transaksi:
-                        </p>
-                        <img src="images/laprak5appmob/gambar 23.png" class="report-image medium" alt="kode halaman riwayat transaksi dari SQLite">
-                        <p>
-                            Kode tersebut merupakan contoh implementasi riwayat yang membaca data dari SQLite menggunakan getTransactions(). FutureBuilder digunakan untuk menangani proses pemuatan data, menampilkan indikator ketika data sedang diambil, dan menampilkan pesan jika belum ada transaksi. Apabila transaksi tersedia, data ditampilkan melalui ListView.builder(). Dengan pendekatan ini, halaman riwayat dapat menampilkan data yang benar-benar tersimpan, bukan sekadar data contoh yang ditulis secara langsung di dalam kode.
+                            Jumlah porsi tetap menggunakan setState() karena data tersebut bersifat ephemeral state (state lokal) yang hanya dibutuhkan secara sementara oleh DetailPage dan tidak perlu diakses oleh widget atau halaman lain. Hal ini sejalan dengan hasil eksperimen pada skenario 6 Langkah C.7, di mana ketika porsi diubah lalu pengguna kembali ke HomePage, widget DetailPage beserta state lokal _servings akan otomatis dibuang dari memori sehingga porsi kembali ke nilai awal saat resep dibuka lagi. Perilaku reset porsi ini sudah sesuai dengan kebutuhan aplikasi, sehingga tidak perlu dimasukkan ke dalam Provider yang diperuntukkan bagi app state global yang harus bertahan di banyak halaman.
                         </p>
 
-                        <p><strong>20. Membuat Halaman Detail Transaksi.</strong></p>
+                        <p><strong>17. Pindahkan ChangeNotifierProvider dari main() ke dalam HomePage (membungkus Scaffold). Apa yang terjadi ketika halaman Favorit dibuka? Jelaskan penyebabnya berdasarkan posisi provider di widget tree. Setelah itu, kembalikan kodenya seperti semula.</strong></p>
+                        <p>main.dart (provider dipindahkan ke HomePage):</p>
+                        <img src="images/laprak6appmob/gambar 37.png" class="report-image medium" alt="kode main.dart pemindahan provider ke HomePage">
+                        <p>home_page.dart (Scaffold dibungkus ChangeNotifierProvider):</p>
+                        <img src="images/laprak6appmob/gambar 38.png" class="report-image medium" alt="kode home_page.dart pembungkusan ChangeNotifierProvider">
+                        <p>Output:</p>
+                        <img src="images/laprak6appmob/gambar 39.png" class="report-image small" alt="output error ProviderNotFoundException layar merah">
                         <p>
-                            Halaman detail transaksi dibuat melalui file transaction_detail_screen.dart. Halaman ini digunakan untuk menampilkan informasi satu transaksi secara lebih lengkap, seperti judul, nominal, kategori, tanggal, dan status. Data transaksi dikirim melalui parameter constructor sehingga halaman detail dapat menampilkan informasi sesuai transaksi yang dipilih pengguna.
+                            Ketika ChangeNotifierProvider dipindahkan dari main() ke dalam HomePage untuk membungkus Scaffold, aplikasi mengalami error ProviderNotFoundException saat halaman Favorit Saya dibuka. Hal ini terjadi karena proses navigasi Navigator.push menempatkan FavoritePage sebagai route baru pada tingkatan widget tree yang berdiri sendiri dan tidak berada di bawah subtree HomePage. Karena FavoriteProvider hanya dideklarasikan secara lokal di dalam HomePage, maka FavoritePage tidak dapat mengakses provider tersebut dari BuildContext-nya.
                         </p>
-                        <img src="images/laprak5appmob/gambar 24.png" class="report-image medium" alt="kode halaman detail transaksi">
+                    </div>
+
+                    <!-- LATIHAN 1 -->
+                    <div class="detail-subsection">
+                        <h4>Latihan 1 — Tema Gelap dan Terang</h4>
+
+                        <p>Tambahkan halaman Pengaturan yang berisi SwitchListTile "Mode gelap". Ketika switch diaktifkan, seluruh aplikasi berubah ke tema gelap.</p>
+
+                        <p><strong>18. Buat lib/providers/theme_provider.dart berisi class ThemeProvider yang meng-extend ChangeNotifier, dengan field ThemeMode, getter, dan satu method untuk mengubahnya. Jangan lupa memanggil notifyListeners().</strong></p>
+                        <img src="images/laprak6appmob/gambar 40.png" class="report-image medium" alt="kode lib/providers/theme_provider.dart">
                         <p>
-                            Pada kode ini, TransactionDetailScreen menggunakan StatelessWidget karena halaman hanya menerima data yang dibutuhkan dan tidak mengelola perubahan state internal. Constructor dengan parameter required memastikan data yang dibutuhkan tersedia ketika halaman dibuka. Fungsi _buildDetailRow() digunakan untuk membuat baris informasi agar tampilan kategori, tanggal, dan status lebih teratur. Halaman ini dapat dibuka dari daftar transaksi melalui navigasi ketika pengguna memilih salah satu transaksi.
+                            Kode ini mendefinisikan class ThemeProvider yang meng-extend ChangeNotifier untuk mengelola state global tema (mode terang dan gelap) di seluruh aplikasi. Class ini menyimpan status tema dalam variabel privat _themeMode yang secara default berstatus ThemeMode.light, serta menyediakan getter themeMode dan isDarkMode untuk membaca status tema saat itu. Ketika method toggleTheme() dipanggil melalui pengubahan tombol switch, nilai _themeMode akan diperbarui dan pemanggilan notifyListeners() akan memberi tahu seluruh widget yang mendengarkan provider ini agar tampilan antarmuka aplikasi langsung merender ulang layarnya ke tema terang atau gelap secara real time.
                         </p>
 
-                        <p><strong>21. Membuat Halaman Profil Pengguna.</strong></p>
+                        <p><strong>19. Daftarkan ThemeProvider di dalam MultiProvider pada main.dart</strong></p>
+                        <img src="images/laprak6appmob/gambar 41.png" class="report-image small" alt="kode main.dart pendaftaran ThemeProvider di MultiProvider">
+
+                        <p><strong>20. Di MaterialApp, tambahkan darkTheme dan themeMode yang dibaca dari ThemeProvider. Kerangkanya sebagai berikut.</strong></p>
+                        <img src="images/laprak6appmob/gambar 42.png" class="report-image medium" alt="kode main.dart MaterialApp darkTheme dan themeMode">
+
+                        <p><strong>21. Buat lib/pages/settings_page.dart yang berisi SwitchListTile, lalu tambahkan tombol ikon pengaturan di AppBar HomePage.</strong></p>
+                        <img src="images/laprak6appmob/gambar 43.png" class="report-image medium" alt="kode lib/pages/settings_page.dart">
                         <p>
-                            Halaman profil dibuat melalui file profile_screen.dart. Halaman ini digunakan untuk menampilkan informasi akun pengguna, terutama nama dan email. Data tersebut diteruskan dari halaman utama menggunakan parameter userName dan userEmail.
-                        </p>
-                        <p>Contoh struktur sederhana halaman profil:</p>
-                        <img src="images/laprak5appmob/gambar 25.png" class="report-image medium" alt="kode halaman profil pengguna">
-                        <p>
-                            Halaman profil menampilkan identitas akun yang sedang digunakan. Nama dan email diterima dari parameter constructor sehingga halaman tidak perlu mengambil input dari halaman login secara langsung. Pendekatan ini memudahkan pengiriman data antar halaman dan membuat struktur aplikasi lebih terorganisasi.
+                            Kode ini mendefinisikan halaman SettingsPage berbasis StatelessWidget yang menggunakan widget SwitchListTile untuk memberikan kontrol pengubahan tema gelap aplikasi kepada pengguna. Halaman ini memanfaatkan context.watch&lt;ThemeProvider&gt;() untuk memantau nilai isDarkMode secara real time sehingga posisi sakelar selalu sinkron dengan status tema saat ini, serta menggunakan context.read&lt;ThemeProvider&gt;().toggleTheme(value) di dalam callback onChanged untuk memicu pembaruan mode gelap atau terang ke seluruh aplikasi saat tombol digeser.
                         </p>
 
-                        <p><strong>22. Menghubungkan Data Pengguna dengan Dashboard dan Profil.</strong></p>
-                        <p>
-                            Pada tahap ini, data pengguna yang tersimpan di database diteruskan ke halaman utama. Hal ini penting karena setiap pengguna dapat memiliki nama, email, dan transaksi yang berbeda. Saat login berhasil, aplikasi mengirimkan ID pengguna ke MainScreen, sedangkan nama dan email perlu diambil atau diteruskan dari data akun yang tersimpan.
-                        </p>
-                        <p>Contoh pengiriman data saat login:</p>
-                        <img src="images/laprak5appmob/gambar 26.png" class="report-image medium" alt="kode pengiriman data pengguna setelah login">
-                        <p>
-                            Kode ini mengarahkan pengguna menuju halaman utama setelah proses login berhasil. emailInput digunakan untuk mengirimkan email akun, sedangkan userId digunakan untuk membedakan transaksi milik setiap pengguna. Pada kode final, nama pengguna sebaiknya diambil dari kolom name pada tabel users, bukan menggunakan nama yang ditulis langsung di dalam kode. Dengan demikian, akun baru akan menampilkan nama yang sesuai dengan data ketika registrasi.
-                        </p>
+                        <p>Perbarui kode pada home_page.dart.</p>
+                        <img src="images/laprak6appmob/gambar 44.png" class="report-image medium" alt="kode lib/pages/home_page.dart penambahan ikon pengaturan">
 
-                        <p><strong>23. Pengujian Aplikasi.</strong></p>
-                        <p>
-                            Setelah seluruh halaman dan fungsi utama dihubungkan, lakukan pengujian untuk memastikan aplikasi berjalan dengan baik. Pengujian dilakukan pada perangkat Android melalui lingkungan pengembangan Flutter. Pemeriksaan meliputi proses registrasi, login, navigasi halaman, penambahan transaksi, pengambilan riwayat, dan penampilan profil pengguna.
-                        </p>
-                        <img src="images/laprak5appmob/gambar 27.png" class="report-image medium" alt="hasil flutter analyze">
-                        <p>
-                            Pengujian dilakukan dengan membuat akun baru, melakukan login menggunakan akun tersebut, membuka dashboard, dan mencoba fitur yang tersedia. Pengujian dua akun juga digunakan untuk memeriksa apakah data pengguna dapat dibedakan. Selain itu, proses penyimpanan transaksi perlu diperiksa dengan memastikan data benar-benar muncul pada riwayat setelah disimpan. Pengujian ini membantu mengetahui apakah setiap halaman sudah terhubung dengan database dan berfungsi sesuai tujuan pengembangan aplikasi.
-                        </p>
+                        <p>Output:</p>
+                        <img src="images/laprak6appmob/gambar 45.png" class="report-image small" alt="output halaman Pengaturan switch mode gelap aktif">
+                        <img src="images/laprak6appmob/gambar 46.png" class="report-image small" alt="output HomePage dengan tema gelap">
+                    </div>
 
-                        <p><strong>24. Jika semua kode telah selesai diimplementasikan, maka aplikasi akan berjalan seperti ini.</strong></p>
-                        <img src="images/laprak5appmob/gambar 28.png" class="report-image medium" alt="hasil halaman login aplikasi">
-                        <img src="images/laprak5appmob/gambar 29.png" class="report-image medium" alt="hasil halaman registrasi akun">
-                        <img src="images/laprak5appmob/gambar 30.png" class="report-image medium" alt="hasil dashboard keuangan">
-                        <img src="images/laprak5appmob/gambar 31.png" class="report-image medium" alt="hasil halaman detail transaksi">
-                        <img src="images/laprak5appmob/gambar 32.png" class="report-image medium" alt="hasil halaman riwayat transaksi">
-                        <img src="images/laprak5appmob/gambar 33.png" class="report-image medium" alt="hasil formulir tambah transaksi">
-                        <img src="images/laprak5appmob/gambar 34.png" class="report-image medium" alt="hasil halaman profil pengguna">
-                        <img src="images/laprak5appmob/gambar 35.png" class="report-image medium" alt="validasi formulir tambah transaksi">
-                        <img src="images/laprak5appmob/gambar 36.png" class="report-image medium" alt="validasi halaman login">
-                        <img src="images/laprak5appmob/gambar 37.png" class="report-image medium" alt="validasi halaman registrasi">
+                    <!-- LATIHAN 2 -->
+                    <div class="detail-subsection">
+                        <h4>Latihan 2 — Menghapus Semua Favorit</h4>
+
+                        <p><strong>22. Di AppBar halaman Favorit, tambahkan tombol "Hapus semua" yang memanggil clear() dari FavoriteProvider setelah pengguna mengonfirmasi melalui AlertDialog. Tombol harus nonaktif ketika daftar favorit kosong.</strong></p>
+                        <img src="images/laprak6appmob/gambar 47.png" class="report-image medium" alt="kode lib/pages/favorite_page.dart tombol hapus semua dan dialog">
+
+                        <p>Output:</p>
+                        <img src="images/laprak6appmob/gambar 48.png" class="report-image small" alt="output halaman Favorit Saya tema gelap 3 item">
+                        <img src="images/laprak6appmob/gambar 49.png" class="report-image small" alt="output dialog konfirmasi Hapus Semua Favorit">
+                        <img src="images/laprak6appmob/gambar 50.png" class="report-image small" alt="output halaman Favorit Saya kosong tombol nonaktif">
                     </div>
 
                     <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
                     <div class="conclusion-text">
                         <p>
-                            Berdasarkan pengerjaan Project Praktikum 5, dapat disimpulkan bahwa materi dari Modul Praktikum 1 sampai 5 dapat digabungkan menjadi sebuah aplikasi pencatatan keuangan berbasis Flutter. Aplikasi Expense Tracker dirancang dengan beberapa halaman utama, yaitu registrasi akun, login, dashboard, penambahan transaksi, riwayat transaksi, detail transaksi, dan profil pengguna. Penggunaan widget, form, validasi input, navigasi, serta pengelolaan state membantu membangun aplikasi yang lebih terstruktur dan mudah digunakan. Sementara itu, penggunaan SQLite menyediakan penyimpanan lokal untuk data akun dan transaksi.
+                            Berdasarkan praktikum dan analisis yang telah dilakukan, dapat disimpulkan bahwa pemilihan metode state management yang tepat sangat berpengaruh terhadap performa dan arsitektur aplikasi. Penggunaan setState() terbukti ideal untuk ephemeral state yang relevansinya terbatas pada satu layar saja, seperti jumlah porsi pada halaman detail yang otomatis ter-reset saat halaman ditutup. Sebaliknya, penggunaan paket Provider sangat tepat untuk mengelola app state seperti data resep favorit dan mode tema aplikasi, sehingga perubahan data di satu komponen dapat langsung me-render ulang UI di komponen lain secara real time.
                         </p>
                         <p>
-                            Melalui project ini, pemahaman mengenai pengembangan aplikasi Flutter dapat diterapkan secara langsung, mulai dari penyusunan antarmuka hingga pengelolaan data menggunakan database lokal. Fungsi autentikasi membantu membedakan akun pengguna, sedangkan struktur tabel dan relasi database memungkinkan transaksi dikaitkan dengan pemiliknya. Pengujian melalui perangkat Android dan pemeriksaan kode menggunakan Flutter Analyzer juga membantu memastikan kesiapan aplikasi. Dengan demikian, project ini menjadi penerapan materi praktikum dalam bentuk aplikasi yang menggabungkan antarmuka, navigasi, validasi, dan penyimpanan data lokal dalam satu sistem.
+                            Praktikum ini juga membuktikan betapa krusialnya pemahaman hierarki widget tree dalam Flutter. Penempatan ChangeNotifierProvider di tingkat paling atas (membungkus MaterialApp) merupakan syarat utama agar state global dapat diakses oleh seluruh rute layar baru yang dipanggil melalui Navigator.push. Dengan penerapan arsitektur provider yang benar, aplikasi ResepKu berhasil berjalan dengan modular, interaktif, responsif, dan bebas dari kendala akses context.
                         </p>
                     </div>
 
-                    <a href="https://github.com/BallFord/Praktikum-AppMob_Iqbal-Miftahul-Fikri_2411531004/tree/main"
+                    <a href="https://github.com/BallFord/2411531004_KelasA_AppMob_ResepKu"
                        target="_blank"
                        rel="noopener noreferrer"
                        class="btn btn-outline-warning fw-bold mt-3">
@@ -445,15 +541,9 @@
         <div class="container">
             <p class="mb-3">@ Iqbal Miftahul Fikri - Portofolio</p>
             <div>
-                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none">
-                    <i class="fab fa-whatsapp fa-lg text-success"></i>
-                </a>
-                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none">
-                    <i class="fab fa-instagram fa-lg text-danger"></i>
-                </a>
-                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none">
-                    <i class="fas fa-envelope fa-lg text-warning"></i>
-                </a>
+                <a href="https://wa.me/6281371832190" target="_blank" class="text-white me-3 text-decoration-none"><i class="fab fa-whatsapp fa-lg text-success"></i></a>
+                <a href="https://instagram.com/qbalfkr" target="_blank" class="text-white me-3 text-decoration-none"><i class="fab fa-instagram fa-lg text-danger"></i></a>
+                <a href="mailto:iqbalmiftahulfikri@gmail.com" class="text-white text-decoration-none"><i class="fas fa-envelope fa-lg text-warning"></i></a>
             </div>
         </div>
     </footer>
@@ -461,3 +551,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

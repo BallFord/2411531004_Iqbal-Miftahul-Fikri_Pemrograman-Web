@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Widgets & Forms Menangkap Data, Dropdown, dan Validasi - Iqbal Miftahul Fikri</title>
+    <title>Navigasi & Passing Data Navigator, Konsep Stack, dan Constructor - Iqbal Miftahul Fikri</title>
     <link rel="icon" href="images/LogoBallFord.png" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -165,8 +165,8 @@
     <header class="report-header text-center">
         <div class="container">
             <span class="badge bg-primary mb-3 px-3 py-2 fs-6">Aplikasi Mobile</span>
-            <h1 class="text-white fw-bold">Input Widgets & Forms Menangkap Data, Dropdown, dan Validasi</h1>
-            <p class="text-white-50 mt-3">Dokumentasi Praktikum Input Widgets & Forms pada Framework Flutter</p>
+            <h1 class="text-white fw-bold">Navigasi & Passing Data Navigator, Konsep Stack, dan Constructor</h1>
+            <p class="text-white-50 mt-3">Dokumentasi Praktikum Navigasi dan Aliran Data pada Framework Flutter</p>
         </div>
     </header>
 
@@ -182,97 +182,94 @@
                     <h3 class="text-warning mb-3">A. Pendahuluan</h3>
                     <div class="report-text">
                         <p>
-                            Pengembangan aplikasi seluler dengan Flutter sering kali membutuhkan interaksi pengguna melalui pengisian formulir. Dalam praktikum ini, fokus utama adalah pemahaman dan penerapan komponen Input Widgets & Forms. Beberapa komponen yang dibahas meliputi penggunaan widget Form bersama GlobalKey sebagai wadah utama untuk mengontrol dan memvalidasi banyak input sekaligus, serta TextFormField sebagai kolom teks utama yang mendukung validasi terintegrasi. Selain itu, TextEditingController juga diterapkan sebagai pengendali untuk membaca dan mengelola data teks yang diketik oleh pengguna.
+                            Pengembangan aplikasi mobile modern bertolak dari kemampuan antarmuka dalam menyajikan informasi secara terstruktur melalui beberapa layar terpisah. Dalam framework Flutter, pengelolaan alur perpindahan antarlayar dan pertukaran data antarkomponen menjadi fondasi utama untuk membangun pengalaman pengguna yang interaktif. Pada aplikasi Expense Tracker, alur navigasi dari halaman utama menuju halaman formulir pencatatan maupun halaman rincian transaksi memerlukan mekanisme pengisian data yang terstruktur dan aman.
                         </p>
 
                         <p>
-                            Praktikum ini merancang antarmuka formulir "Catat Transaksi Baru" untuk sebuah aplikasi Expense Tracker. Proses perancangan antarmuka melibatkan pembuatan input untuk judul transaksi, input nominal yang dikhususkan untuk kibor angka, serta pemilihan kategori menggunakan DropdownButtonFormField. Lalu, praktikum ini juga mengeksplorasi penambahan interaksi tingkat lanjut pada bagian tugas, yaitu input tanggal transaksi berformat DD/MM/YYYY yang memanfaatkan fungsi showDatePicker. Seluruh elemen input tersebut dilengkapi dengan sistem validasi untuk mencegah masuknya data kosong atau format angka yang tidak sesuai sebelum data diproses dan ditampilkan melalui pop-up SnackBar.
+                            Praktikum ini berfokus pada penerapan konsep tumpukan (stack) melalui widget Navigator bawaan Flutter, di mana instruksi Navigator.push digunakan untuk menumpuk rute layar baru dan Navigator.pop untuk menghapus layar teratas guna kembali ke halaman sebelumnya. Selain itu, praktikum ini melatih pengimplementasian passing data antar-widget memanfaatkan variabel final dan constructor berklausa required, serta penambahan komponen interaktif berupa date picker berbasis showDatePicker dan validasi formulir input transaksi.
                         </p>
                     </div>
 
                     <h3 class="text-warning mb-3 mt-4">B. Tujuan</h3>
                     <p>Tujuan dari praktikum ini adalah:</p>
                     <ul class="report-list dash-list">
-                        <li>Menangkap dan mengelola data teks yang diinputkan oleh pengguna menggunakan TextEditingController.</li>
-                        <li>Menerapkan dan mengonfigurasi widget dropdown statis menggunakan DropdownButtonFormField untuk pemilihan kategori transaksi.</li>
-                        <li>Melakukan validasi input pada formulir untuk mencegah penyimpanan data yang kosong atau memiliki format yang salah, seperti format huruf pada kolom angka.</li>
-                        <li>Mengimplementasikan fungsi showDatePicker untuk memunculkan kalender pop-up yang berguna untuk memudahkan pengguna memilih input tanggal transaksi dengan format DD/MM/YYYY.</li>
-                        <li>Menggunakan widget Form beserta GlobalKey sebagai wadah utama untuk memvalidasi dan mengontrol seluruh komponen input secara bersamaan dalam satu waktu.</li>
+                        <li>Memahami dan mengimplementasikan konsep tumpukan (stack) pada sistem navigasi antarmuka Flutter menggunakan kelas Navigator.</li>
+                        <li>Menerapkan perintah Navigator.push untuk berpindah ke layar baru dan Navigator.pop untuk menutup halaman formulir setelah aksi penyimpanan selesai.</li>
+                        <li>Mengimplementasikan pengiriman data antar-layar memanfaatkan variabel final dan constructor dengan penanda required.</li>
+                        <li>Mengintegrasikan komponen calendar picker menggunakan fungsi asynchronous showDatePicker pada kolom penginputan tanggal transaksi.</li>
+                        <li>Menerapkan fungsi validasi data input pada formulir transaksi menggunakan GlobalKey&lt;FormState&gt; dan menampilkan notifikasi umpan balik menggunakan SnackBar.</li>
                     </ul>
 
                     <h3 class="text-warning mb-4 mt-4">C. Langkah-Langkah</h3>
 
                     <div class="detail-subsection">
-                        <p><strong>1.</strong> Buat file baru dengan nama add_transaction_screen.dart</p>
-                        <img src="images/laprak3appmob/gambar 1.png" class="report-image small" alt="File add_transaction_screen.dart">
-
-                        <p><strong>2. Persiapan State & Controller.</strong></p>
-                        <img src="images/laprak3appmob/gambar 2.png" class="report-image medium" alt="Kode inisialisasi variabel dan state dasar">
+                        <p><strong>1. Membuat Halaman Detail Transaksi.</strong></p>
+                        <p>Buat file baru dengan nama detail_transaction_screen.dart. Lalu buat kode seperti ini.</p>
+                        <img src="images/laprak4appmob/gambar 1.png" class="report-image medium" alt="Kode class DetailTransactionScreen">
                         <p>
-                            Kode ini merupakan inisialisasi variabel dan state dasar pada class _AddTransactionScreenState, di mana _formKey digunakan sebagai kunci identifikasi unik untuk memvalidasi seluruh elemen form, dua objek TextEditingController disiapkan untuk mengambil teks yang diketikkan pada kolom judul dan nominal, serta atribut _selectedCategory diisi dengan nilai awal 'Makanan' untuk menyimpan pilihan kategori pada dropdown.
+                            Kode ini mendefinisikan sebuah widget Stateless bernama DetailTransactionScreen yang berfungsi untuk menampilkan halaman detail transaksi dengan wajib menerima kiriman data judul dan nominal dari layar sebelumnya melalui constructor, lalu menampilkan kedua informasi teks tersebut secara vertikal tepat di tengah layar menggunakan kombinasi widget Scaffold, Center, dan Column.
                         </p>
 
-                        <p><strong>3. Membuat Kolom Input (TextFormField).</strong></p>
-                        <img src="images/laprak3appmob/gambar 3.png" class="report-image wide" alt="Kode TextFormField judul dan nominal">
+                        <p><strong>2. Pindah ke Detail & Mengirim Data (Push).</strong></p>
+                        <p>Buka kembali Dashboard. Pada widget ListTile daftar transaksi, tambahkan fungsi onTap.</p>
+                        <img src="images/laprak4appmob/gambar 2.png" class="report-image medium" alt="Kode onTap dengan Navigator.push">
                         <p>
-                            Kode ini menyusun dua bidang input menggunakan TextFormField di dalam widget Form yang terikat pada _formKey, di mana input pertama digunakan untuk menangkap judul transaksi dengan validasi teks wajib diisi, sementara input kedua dikhususkan untuk masukan nominal menggunakan jenis kibor angka (TextInputType.number) serta memiliki dua tingkat validasi untuk memastikan nilainya tidak kosong dan berformat angka yang valid.
+                            Kode ini membuat sebuah komponen baris daftar transaksi (ListTile) dengan ikon makanan, judul "Makan Siang", dan nominal harga, di mana ketika pengguna menekan baris tersebut, fungsi Navigator.push akan dijalankan untuk membuka halaman DetailTransactionScreen sekaligus menyertakan data judul dan nominal transaksi ke halaman tujuan.
                         </p>
 
-                        <p><strong>4. Dropdown & Tombol Simpan.</strong></p>
-                        <img src="images/laprak3appmob/gambar 4.png" class="report-image wide" alt="Kode DropdownButtonFormField dan ElevatedButton">
+                        <p><strong>3. Menutup Layar / Kembali Otomatis (Pop).</strong></p>
+                        <p>Kembali ke file add_transaction_screen.dart. Kita ingin formulir otomatis tertutup dan kembali ke Dashboard setelah klik Simpan.</p>
+                        <img src="images/laprak4appmob/gambar 3.png" class="report-image medium" alt="Kode validasi dan Navigator.pop">
                         <p>
-                            Kode ini menambahkan menu pilihan kategori menggunakan widget DropdownButtonFormField yang memperbarui nilai variabel _selectedCategory ketika pengguna memilih salah satu opsi, serta menyediakan tombol ElevatedButton yang berfungsi untuk memicu validasi seluruh field formulir melalui _formKey.currentState!.validate() dan menampilkan SnackBar berisi pesan konfirmasi apabila seluruh data input sudah valid.
+                            Kode ini membuat tombol aksi bernama "Simpan Transaksi" yang ketika ditekan akan memvalidasi seluruh isian formulir terlebih dahulu, jika data sudah valid, aplikasi akan menampilkan notifikasi pemberitahuan melayang bertuliskan "Menyimpan Transaksi..." kemudian menutup layar formulir tersebut untuk kembali ke halaman utama menggunakan perintah Navigator.pop(context).
                         </p>
 
-                        <p><strong>5.</strong> Jika telah selesai, maka akan tampil output seperti ini.</p>
-                        <img src="images/laprak3appmob/gambar 5.png" class="report-image medium" alt="Output form Catat Transaksi Baru dengan pesan error">
-                        <img src="images/laprak3appmob/gambar 6.png" class="report-image medium" alt="Output form Catat Transaksi Baru terisi dengan SnackBar">
+                        <p><strong>4. Hasil Akhir: Mockup Halaman Detail</strong></p>
+                        <p>Sekarang daftar transaksi di Dashboard bisa di-klik dan akan membuka detail yang berisi data lengkap.<br>Jika sudah selesai maka akan tampil output seperti ini:</p>
+                        <img src="images/laprak4appmob/gambar 4.png" class="report-image small" alt="Output halaman Detail Transaksi">
+                        <img src="images/laprak4appmob/gambar 5.png" class="report-image small" alt="Output form Catat Transaksi Baru">
                     </div>
 
                     <div class="detail-subsection">
                         <h4>Latihan/Tugas</h4>
                         
-                        <h5>Input Tanggal.</h5>
+                        <h5>Input Tanggal</h5>
                         <p>Tambahkan satu input baru sebelum tombol Simpan untuk mengisi Tanggal Transaksi.</p>
                         <ul class="report-list dash-list mb-4">
                             <li>Bisa menggunakan TextFormField biasa (format teks DD/MM/YYYY).</li>
                             <li>Tombol plus: gunakan fungsi showDatePicker.</li>
-                            <li>Berikan validasi wajib diisi!.</li>
+                            <li>Berikan validasi wajib diisi!</li>
                         </ul>
 
-                        <p><strong>6. Menambahkan Controller Baru.</strong></p>
-                        <img src="images/laprak3appmob/gambar 7.png" class="report-image medium" alt="Kode _dateController">
-                        <p>Di bagian awal state, dideklarasikan _dateController untuk menyimpan data teks tanggal.</p>
+                        <p><strong>5. Menambahkan Controller Tanggal.</strong></p>
+                        <p>Tambahkan sebuah TextEditingController baru khusus untuk menampung teks tanggal.</p>
+                        <img src="images/laprak4appmob/gambar 6.png" class="report-image medium" alt="Kode controller tanggal">
+                        <p>Controller ini berfungsi sebagai penampung dan pengelola data teks tanggal yang akan ditampilkan pada kolom input setelah pengguna memilih tanggal di kalender.</p>
 
-                        <p><strong>7. Membuat Fungsi Pemilih Tanggal.</strong></p>
-                        <img src="images/laprak3appmob/gambar 8.png" class="report-image medium" alt="Kode _selectDate">
-                        <p>Tambahkan fungsi asinkron _selectDate yang memanggil showDatePicker, lalu memformat hasilnya ke dalam bentuk DD/MM/YYYY sebelum dimasukkan ke dalam controller.</p>
+                        <p><strong>6. Membuat Fungsi Pemilih Tanggal (showDatePicker).</strong></p>
+                        <p>Buat fungsi untuk memunculkan modal kalender bawaan Flutter.</p>
+                        <img src="images/laprak4appmob/gambar 7.png" class="report-image medium" alt="Kode showDatePicker">
+                        <p>Fungsi showDatePicker akan menampilkan popup kalender. Jika pengguna memilih tanggal, tanggal tersebut akan diubah formatnya menjadi DD/MM/YYYY dan nilainya dimasukkan ke dalam _dateController.</p>
 
-                        <p><strong>8. Membersihkan Memori (Dispose).</strong></p>
-                        <img src="images/laprak3appmob/gambar 9.png" class="report-image medium" alt="Kode dispose">
-                        <p>Memastikan _dateController ikut dihapus saat halaman ditutup untuk mencegah kebocoran memori.</p>
+                        <p><strong>7. Menambahkan TextFormField Tanggal dan Validasi.</strong></p>
+                        <p>Tambahkan komponen kolom input tanggal tepat di atas tombol Simpan.</p>
+                        <img src="images/laprak4appmob/gambar 8.png" class="report-image medium" alt="Kode TextFormField tanggal">
+                        <p>Penambahan komponen TextFormField ini dikonfigurasi dengan properti readOnly: true agar pengguna tidak dapat mengetikkan tanggal secara manual, melainkan diwajibkan memilihnya langsung dari tampilan modal kalender. Event onTap pada kolom input serta tombol suffixIcon dihubungkan ke fungsi _selectDate sehingga popup kalender akan otomatis muncul saat kolom atau ikon kalender diklik. Selain itu, bagian validator bertugas melakukan pengecekan data dan akan menampilkan pesan peringatan "Tanggal wajib diisi!" apabila tombol simpan ditekan ketika kolom tanggal masih dalam kondisi kosong.</p>
 
-                        <p><strong>9. Menambahkan TextFormField Tanggal.</strong></p>
-                        <img src="images/laprak3appmob/gambar 10.png" class="report-image wide" alt="Kode TextFormField tanggal">
-                        <p>Sisipkan widget input baru sebelum tombol Simpan. Properti readOnly: true dipasang agar keyboard tidak muncul, dan onTap dihubungkan ke fungsi _selectDate untuk memunculkan kalender. Validasi wajib diisi juga diletakkan di sini.</p>
-
-                        <p><strong>10. Memperbarui Pesan SnackBar (Modifikasi).</strong></p>
-                        <img src="images/laprak3appmob/gambar 11.png" class="report-image wide" alt="Kode pesan SnackBar baru">
-                        <p>Tambahkan variabel _dateController.text pada pesan notifikasi sukses agar tanggal yang diinput ikut ditampilkan.</p>
-
-                        <p><strong>11.</strong> Jika sudah selesai, maka akan tampil output seperti ini.</p>
-                        <img src="images/laprak3appmob/gambar 12.png" class="report-image medium" alt="Output form dengan input tanggal terisi">
-                        <img src="images/laprak3appmob/gambar 13.png" class="report-image medium" alt="Output form setelah disimpan dengan SnackBar muncul">
+                        <p><strong>8. Hasil Akhir.</strong></p>
+                        <p>Jika sudah selesai, maka akan tampil output seperti ini:</p>
+                        <img src="images/laprak4appmob/gambar 9.png" class="report-image small" alt="Output form dengan popup date picker">
+                        <img src="images/laprak4appmob/gambar 10.png" class="report-image small" alt="Output modal kalender">
                     </div>
 
                     <h3 class="text-warning mb-3 mt-4">D. Kesimpulan</h3>
                     <div class="conclusion-text">
                         <p>
-                            Berdasarkan praktikum yang telah dilakukan, dapat disimpulkan bahwa pembuatan formulir interaktif pada Flutter dapat dibangun secara terstruktur dengan memanfaatkan widget Form dan TextFormField. Penggunaan GlobalKey&lt;FormState&gt; terbukti sangat efektif untuk mengontrol dan memicu validasi semua field input secara serentak hanya dengan satu perintah dari tombol simpan. Sementara itu, proses ekstraksi data dari kolom input dapat dikelola dengan mudah tanpa perlu melacak setiap perubahan state secara manual berkat penyematan TextEditingController.
+                            Berdasarkan hasil praktikum yang telah dilaksanakan, dapat disimpulkan bahwa pengelolaan navigasi antarmuka pada Flutter bekerja berbasis struktur data tumpukan yang dikelola secara efisien oleh widget Navigator. Metode Navigator.push terbukti efektif untuk membuka halaman baru seperti formulir transaksi atau detail transaksi, sedangkan Navigator.pop memungkinkan aplikasi menutup layar teratas dan mengembalikan kontrol ke halaman sebelumnya tanpa merusak state aplikasi. Pengiriman data antar-layar menggunakan variabel final yang dipassing melalui constructor tipe named parameter berklausa required mampu menjamin ketersediaan data secara aman dan konsisten dari halaman Dashboard ke halaman Detail Transaksi.
                         </p>
 
                         <p>
-                            Selain itu, praktik validasi formulir merupakan langkah untuk menjaga integritas data pada aplikasi, seperti memastikan kolom input tidak dibiarkan kosong dan membatasi input nominal agar murni berisi karakter angka yang bisa dibaca menggunakan fungsi int.tryParse. Modifikasi tambahan dengan fitur showDatePicker pada bagian Latihan/Tugas juga menunjukkan fleksibilitas Flutter dalam menangani berbagai tipe input yang intuitif bagi pengguna. Hasil dari praktikum ini adalah sebuah halaman pencatatan transaksi yang lengkap, aman dari kesalahan input format data, dan siap dikembangkan lebih lanjut ke tahap integrasi basis data.
+                            Selain sistem navigasi, pengimplementasian formulir interaktif pada aplikasi Expense Tracker berhasil ditingkatkan fungsinya dengan penambahan fitur pemilih tanggal menggunakan showDatePicker dan penguncian input manual melalui readOnly: true. Mekanisme validasi formulir melalui _formKey.currentState!.validate() memastikan bahwa seluruh data transaksi yang wajib diisi, termasuk judul, nominal, dan tanggal, telah tervalidasi sebelum proses penyimpanan dieksekusi. Kombinasi antara struktur navigasi yang tepat, pertukaran data yang aman, serta validasi formulir menghasilkan arsitektur aplikasi mobile yang solid, rapi, dan responsif.
                         </p>
 
                         <a href="https://github.com/BallFord/Praktikum-AppMob_Iqbal-Miftahul-Fikri_2411531004/tree/main"
